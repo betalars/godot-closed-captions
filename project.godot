@@ -12,4 +12,8 @@ config_version=5
 
 config/name="subtitles"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://addons/subtitles/icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/subtitles/plugin.cfg")
