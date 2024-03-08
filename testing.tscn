@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://ddku87idw8hq8"]
+
+[ext_resource type="AudioStream" uid="uid://wb2vmhn87lx3" path="res://04 Staatstrojaner.wav" id="1_m18wv"]
+[ext_resource type="Script" path="res://addons/subtitles/subtitled_autio_stream_player.gd" id="1_r8hnm"]
+[ext_resource type="Script" path="res://addons/subtitles/static_subtitle_stream.gd" id="2_1v3ts"]
+[ext_resource type="Script" path="res://addons/subtitles/subtitle.gd" id="4_fmx2y"]
+
+[sub_resource type="GDScript" id="GDScript_1o86e"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+    $AudioStreamPlayer/SubtitledAudioStreamPlayer.play()
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+    pass
+"
+
+[sub_resource type="Resource" id="Resource_l61w1"]
+script = ExtResource("4_fmx2y")
+text = "Meep!"
+speaker_color = 0
+duration = 0.0
+position = 4
+
+[sub_resource type="Resource" id="Resource_c6jcl"]
+script = ExtResource("2_1v3ts")
+subtitle = SubResource("Resource_l61w1")
+stream = ExtResource("1_m18wv")
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_1o86e")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="SubtitledAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_m18wv")
+script = ExtResource("1_r8hnm")
+subtitled_stream = SubResource("Resource_c6jcl")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
