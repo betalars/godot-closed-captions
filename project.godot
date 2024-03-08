@@ -12,8 +12,8 @@ config_version=5
 
 config/name="captions"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://addons/subtitles/icon.svg"
+config/icon="res://addons/closed_captions/icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/subtitles/plugin.cfg")
+enabled=PackedStringArray("res://addons/closed_captions/plugin.cfg")

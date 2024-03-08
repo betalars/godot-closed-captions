@@ -2,7 +2,7 @@
 extends AudioStreamPlayer
 class_name CaptionedAudioStreamPlayer
 
-@export var captioned_stream:StaticCaptionStream:
+@export var captioned_stream:CaptionedAudioStream:
     set(sub_stream):
         if not sub_stream == null:
             stream = sub_stream.stream

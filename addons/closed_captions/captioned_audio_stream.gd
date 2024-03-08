@@ -1,6 +1,6 @@
 @tool
 extends Resource
-class_name CaptionStream
+class_name CaptionedAudioStream
 
 var current_caption:Caption:
     set(new_caption):

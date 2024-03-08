@@ -1,6 +1,6 @@
 @tool
-extends CaptionStream
-class_name StaticCaptionStream
+extends CaptionedAudioStream
+class_name SingleCaptionAudioStream
 
 @export var caption: Caption:
     set(sub):
