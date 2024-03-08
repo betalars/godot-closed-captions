@@ -20,12 +20,7 @@ func _get_configuration_warnings() -> PackedStringArray:
     return warnings
 
 func play(from_position: float = 0.0):
-    print("playing")
     super.play(from_position)
 
-func set_playing(playing:bool):
-    print("yeet")
-
 func _on_resource_changed():
-    print("called")
     stream = captioned_stream.stream
