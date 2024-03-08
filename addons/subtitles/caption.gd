@@ -1,6 +1,6 @@
 @tool
 extends Resource
-class_name Subtitle
+class_name Caption
 
 enum Positions {
     BEHIND,
@@ -19,7 +19,7 @@ enum Colors {
     GREEN
 }
 
-## The Text of the Subtitle.
+## The Text of the Caption.
 @export var text:String = "":
     set(new_text):
         if new_text == null: text = ""
@@ -28,7 +28,7 @@ enum Colors {
 @export var speaker_color:Colors = Colors.WHITE:
     set(new_color):
         speaker_color = new_color
-## Duration of the Subtitle. Choose 0 for continuous. Subtitles longer than 10 seconds are not reccomended.
+## Duration of the Caption. Choose 0 for continuous. Captions longer than 10 seconds are not reccomended.
 @export_range(0,10) var duration:float:
     set(new_duration):
         duration = new_duration
