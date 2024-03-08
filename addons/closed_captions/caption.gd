@@ -19,6 +19,13 @@ enum Colors {
     GREEN
 }
 
+enum Formatting{
+    VOICE,
+    OUT_OF_VISION,
+    QUOTE_OR_ROBOT,
+    SOUND,
+}
+
 ## The Text of the Caption.
 @export var text:String = "":
     set(new_text):
@@ -36,6 +43,10 @@ enum Colors {
 @export var position:Positions = Positions.CENTER:
     set(new_position):
         position = new_position
+## Choose extra formatting.
+@export var format:Formatting = Formatting.VOICE:
+    set(frmt):
+        format = frmt
 
 func is_valid():
     return ( text != "" and text.split(" ").size() < 15 )
