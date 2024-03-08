@@ -50,3 +50,6 @@ enum Formatting{
 
 func is_valid():
     return ( text != "" and text.split(" ").size() < 15 )
+
+func has_neutral_positioning() -> bool:
+    return position == Positions.CENTER

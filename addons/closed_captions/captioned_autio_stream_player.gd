@@ -14,8 +14,11 @@ class_name CaptionedAudioStreamPlayer
 func _get_configuration_warnings() -> PackedStringArray:
     var warnings:PackedStringArray = []
     if captioned_stream == null: return warnings
+    # Add any classes derived from CaptionedAudioStream here if this warning pops up ironiousely.
+    if not (captioned_stream is SingleCaptionAudioStream): warnings.append("CaptionedAudioStream is an abstract class not designed to be used on it's onw.")
     if captioned_stream.stream != stream: warnings.append("Stream mismatch. Set Stream in \"Captioned Stream\", not in AudioPlayer.")
     elif stream == null: warnings.append("Audio Stream is not yet configured.")
+    if captioned_stream.has_neutral_positioning(): warnings.append("All Captions are use center position. This may be unintentional.")
     if not captioned_stream.are_captions_valid(): warnings.append("Some Captions are not valid. They may be empty or too long.")
     return warnings
 

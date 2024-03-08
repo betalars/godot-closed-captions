@@ -14,3 +14,5 @@ var current_caption:Caption:
 func are_captions_valid() -> bool:
     return current_caption.is_valid()
     
+func has_neutral_positioning() -> bool:
+    return current_caption.has_neutral_positioning()
