@@ -1,3 +1,13 @@
-[gd_scene format=3 uid="uid://bvoalto1u56ic"]
+[gd_scene load_steps=4 format=3 uid="uid://bvoalto1u56ic"]
+
+[ext_resource type="Script" path="res://addons/closed_captions/captioned_autio_stream_player.gd" id="1_582kv"]
+[ext_resource type="Script" path="res://addons/closed_captions/captioned_audio_stream.gd" id="2_owbxp"]
+
+[sub_resource type="Resource" id="Resource_r0el2"]
+script = ExtResource("2_owbxp")
 
 [node name="Node2D" type="Node2D"]
+
+[node name="CaptionedAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("1_582kv")
+captioned_stream = SubResource("Resource_r0el2")
