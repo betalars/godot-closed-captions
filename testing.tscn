@@ -1,9 +1,22 @@
-[gd_scene load_steps=20 format=3 uid="uid://bvoalto1u56ic"]
+[gd_scene load_steps=23 format=3 uid="uid://bvoalto1u56ic"]
 
 [ext_resource type="Script" path="res://addons/closed_captions/captioned_autio_stream_player.gd" id="1_582kv"]
 [ext_resource type="AudioStream" uid="uid://ch6dxwlabitpf" path="res://demo/Phasmophobia_No_Evidence.wav" id="1_f0dlp"]
 [ext_resource type="Script" path="res://addons/closed_captions/caption.gd" id="2_o8vlo"]
 [ext_resource type="Script" path="res://addons/closed_captions/multi_caption_audio_stream.gd" id="3_ojrc2"]
+
+[sub_resource type="GDScript" id="GDScript_kvl3x"]
+script/source = "extends Node2D
+
+
+func _ready():
+	$CaptionedAudioStreamPlayer.play()
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
 
 [sub_resource type="Resource" id="Resource_v6ia2"]
 script = ExtResource("2_o8vlo")
@@ -29,8 +42,7 @@ duration = 2.0
 
 [sub_resource type="Resource" id="Resource_5fdjd"]
 script = ExtResource("2_o8vlo")
-text = "Boy, do I love light switches.
-I love turning on lights"
+text = "Boy, do I love light switches."
 position = 3
 speaker_name = "Kyle"
 speaker_color = 1
@@ -41,7 +53,7 @@ duration = 0.0
 
 [sub_resource type="Resource" id="Resource_lndpt"]
 script = ExtResource("2_o8vlo")
-text = "love turning them on and off so much fun "
+text = "Love turning them on and off so much fun."
 position = 3
 speaker_name = "Kyle"
 speaker_color = 1
@@ -50,10 +62,20 @@ extra_formatting = ""
 delay = 2.0
 duration = 0.0
 
+[sub_resource type="Resource" id="Resource_1g0h8"]
+script = ExtResource("2_o8vlo")
+text = "I love turning on lights"
+position = 3
+speaker_name = "Kyle"
+speaker_color = 1
+speaker_format = 0
+extra_formatting = ""
+delay = 4.0
+duration = 0.0
+
 [sub_resource type="Resource" id="Resource_4bnx5"]
 script = ExtResource("2_o8vlo")
-text = "next to my large collection
-of throwable objects"
+text = "next to my large collection of throwable objects"
 position = 3
 speaker_name = "Kyle"
 speaker_color = 1
@@ -64,7 +86,7 @@ duration = 0.0
 
 [sub_resource type="Resource" id="Resource_npr8r"]
 script = ExtResource("2_o8vlo")
-text = "and also notebooks it would sure suck"
+text = "and also empty notebooks it would sure suck"
 position = 3
 speaker_name = "Kyle"
 speaker_color = 1
@@ -86,7 +108,7 @@ duration = 0.0
 
 [sub_resource type="Resource" id="Resource_p1y83"]
 script = ExtResource("2_o8vlo")
-text = "to ruin all my fun"
+text = "to ruin all my fun."
 position = 3
 speaker_name = "Kyle"
 speaker_color = 1
@@ -97,7 +119,7 @@ duration = 0.0
 
 [sub_resource type="Resource" id="Resource_pc5ud"]
 script = ExtResource("2_o8vlo")
-text = "Carol Thomas Carol Thomas Carol Thomas"
+text = "Carol Thomas, Carol Thomas, Carol Thomas"
 position = 3
 speaker_name = "Kyle"
 speaker_color = 1
@@ -136,7 +158,7 @@ speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
-delay = 18.5
+delay = 20.3
 duration = 0.0
 
 [sub_resource type="Resource" id="Resource_qyomo"]
@@ -166,13 +188,30 @@ script = ExtResource("3_ojrc2")
 caption = SubResource("Resource_v6ia2")
 current_caption_id = 14
 append_current_caption = false
-syncronise_current_caption = false
-captions = Array[ExtResource("2_o8vlo")]([SubResource("Resource_wa64w"), SubResource("Resource_5fdjd"), SubResource("Resource_lndpt"), SubResource("Resource_4bnx5"), SubResource("Resource_npr8r"), SubResource("Resource_mo8ok"), SubResource("Resource_mo8ok"), SubResource("Resource_p1y83"), SubResource("Resource_pc5ud"), SubResource("Resource_e75l0"), SubResource("Resource_8cm81"), SubResource("Resource_1bclt"), SubResource("Resource_qyomo"), SubResource("Resource_mepef"), SubResource("Resource_v6ia2")])
+captions = Array[ExtResource("2_o8vlo")]([SubResource("Resource_wa64w"), SubResource("Resource_5fdjd"), SubResource("Resource_lndpt"), SubResource("Resource_1g0h8"), SubResource("Resource_4bnx5"), SubResource("Resource_npr8r"), SubResource("Resource_mo8ok"), SubResource("Resource_p1y83"), SubResource("Resource_pc5ud"), SubResource("Resource_e75l0"), SubResource("Resource_8cm81"), SubResource("Resource_1bclt"), SubResource("Resource_qyomo"), SubResource("Resource_mepef"), SubResource("Resource_v6ia2")])
 audio_stream = ExtResource("1_f0dlp")
 
+[sub_resource type="GDScript" id="GDScript_f5scj"]
+script/source = "extends RichTextLabel
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	var txt = \"\"
+	for caption in CaptionServer.captions:
+		txt = \"%s%s\\n\" % [txt, caption.get_formatted_string()]
+	text = txt
+"
+
 [node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_kvl3x")
 
 [node name="CaptionedAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_f0dlp")
 script = ExtResource("1_582kv")
 captioned_stream = SubResource("Resource_hniww")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_right = 1140.0
+offset_bottom = 179.0
+bbcode_enabled = true
+script = SubResource("GDScript_f5scj")
