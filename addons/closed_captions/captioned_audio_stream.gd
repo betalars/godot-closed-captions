@@ -5,9 +5,9 @@ class_name CaptionedAudioStream
 var current_caption:Caption:
 	set(new_caption):
 		current_caption = new_caption
-@export var stream: AudioStream:
+@export var audio_stream: AudioStream:
 	set(new_stream):
-		stream = new_stream
+		audio_stream = new_stream
 		print("Emitted")
 		emit_changed()
 
