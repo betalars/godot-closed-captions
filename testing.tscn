@@ -1,26 +1,178 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvoalto1u56ic"]
+[gd_scene load_steps=20 format=3 uid="uid://bvoalto1u56ic"]
 
 [ext_resource type="Script" path="res://addons/closed_captions/captioned_autio_stream_player.gd" id="1_582kv"]
+[ext_resource type="AudioStream" uid="uid://ch6dxwlabitpf" path="res://demo/Phasmophobia_No_Evidence.wav" id="1_f0dlp"]
 [ext_resource type="Script" path="res://addons/closed_captions/caption.gd" id="2_o8vlo"]
-[ext_resource type="Script" path="res://addons/closed_captions/single_caption_audio_stream.gd" id="3_agn12"]
+[ext_resource type="Script" path="res://addons/closed_captions/multi_caption_audio_stream.gd" id="3_ojrc2"]
 
-[sub_resource type="Resource" id="Resource_0fd0p"]
+[sub_resource type="Resource" id="Resource_v6ia2"]
 script = ExtResource("2_o8vlo")
-text = ""
-speaker_name = ""
-speaker_color = 0
-position = 4
-format = 0
-extra_formatting = ""
-delay = 0.0
+text = "Let's go trough the cheklist."
+position = 3
+speaker_name = "Jefferey"
+speaker_color = 2
+speaker_format = 1
+extra_formatting = "over the radio"
+delay = 26.5
 duration = 0.0
 
-[sub_resource type="Resource" id="Resource_hq8lk"]
-script = ExtResource("3_agn12")
-caption = SubResource("Resource_0fd0p")
+[sub_resource type="Resource" id="Resource_wa64w"]
+script = ExtResource("2_o8vlo")
+text = "clicking"
+position = 2
+speaker_name = ""
+speaker_color = 0
+speaker_format = 0
+extra_formatting = ""
+delay = 0.0
+duration = 2.0
+
+[sub_resource type="Resource" id="Resource_5fdjd"]
+script = ExtResource("2_o8vlo")
+text = "Boy, do I love light switches.
+I love turning on lights"
+position = 3
+speaker_name = "Kyle"
+speaker_color = 1
+speaker_format = 0
+extra_formatting = ""
+delay = 0.5
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_lndpt"]
+script = ExtResource("2_o8vlo")
+text = "love turning them on and off so much fun "
+position = 3
+speaker_name = "Kyle"
+speaker_color = 1
+speaker_format = 0
+extra_formatting = ""
+delay = 2.0
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_4bnx5"]
+script = ExtResource("2_o8vlo")
+text = "next to my large collection
+of throwable objects"
+position = 3
+speaker_name = "Kyle"
+speaker_color = 1
+speaker_format = 0
+extra_formatting = ""
+delay = 5.5
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_npr8r"]
+script = ExtResource("2_o8vlo")
+text = "and also notebooks it would sure suck"
+position = 3
+speaker_name = "Kyle"
+speaker_color = 1
+speaker_format = 0
+extra_formatting = ""
+delay = 8.4
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_mo8ok"]
+script = ExtResource("2_o8vlo")
+text = "if someone named Carol Thomas showed up"
+position = 3
+speaker_name = "Kyle"
+speaker_color = 1
+speaker_format = 0
+extra_formatting = ""
+delay = 11.8
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_p1y83"]
+script = ExtResource("2_o8vlo")
+text = "to ruin all my fun"
+position = 3
+speaker_name = "Kyle"
+speaker_color = 1
+speaker_format = 0
+extra_formatting = ""
+delay = 14.0
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_pc5ud"]
+script = ExtResource("2_o8vlo")
+text = "Carol Thomas Carol Thomas Carol Thomas"
+position = 3
+speaker_name = "Kyle"
+speaker_color = 1
+speaker_format = 0
+extra_formatting = ""
+delay = 15.0
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_e75l0"]
+script = ExtResource("2_o8vlo")
+text = "clicking stops"
+position = 2
+speaker_name = ""
+speaker_color = 0
+speaker_format = 0
+extra_formatting = ""
+delay = 17.2
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_8cm81"]
+script = ExtResource("2_o8vlo")
+text = "Hey, I've been here for half an hour"
+position = 3
+speaker_name = "Kyle"
+speaker_color = 1
+speaker_format = 0
+extra_formatting = "into radio"
+delay = 18.5
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_1bclt"]
+script = ExtResource("2_o8vlo")
+text = "can we please just call this a shade and go home?"
+position = 3
+speaker_name = "Kyle"
+speaker_color = 1
+speaker_format = 0
+extra_formatting = ""
+delay = 18.5
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_qyomo"]
+script = ExtResource("2_o8vlo")
+text = "We need at least one piece of evidence."
+position = 3
+speaker_name = "Jefferey"
+speaker_color = 2
+speaker_format = 1
+extra_formatting = "over the radio"
+delay = 21.87
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_mepef"]
+script = ExtResource("2_o8vlo")
+text = "Do we, tho? I feel like this evidence is pretty conclusive."
+position = 3
+speaker_name = "Kyle"
+speaker_color = 1
+speaker_format = 0
+extra_formatting = ""
+delay = 23.8
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_hniww"]
+script = ExtResource("3_ojrc2")
+caption = SubResource("Resource_v6ia2")
+current_caption_id = 14
+append_current_caption = false
+syncronise_current_caption = false
+captions = Array[ExtResource("2_o8vlo")]([SubResource("Resource_wa64w"), SubResource("Resource_5fdjd"), SubResource("Resource_lndpt"), SubResource("Resource_4bnx5"), SubResource("Resource_npr8r"), SubResource("Resource_mo8ok"), SubResource("Resource_mo8ok"), SubResource("Resource_p1y83"), SubResource("Resource_pc5ud"), SubResource("Resource_e75l0"), SubResource("Resource_8cm81"), SubResource("Resource_1bclt"), SubResource("Resource_qyomo"), SubResource("Resource_mepef"), SubResource("Resource_v6ia2")])
+audio_stream = ExtResource("1_f0dlp")
 
 [node name="Node2D" type="Node2D"]
 
 [node name="CaptionedAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_f0dlp")
 script = ExtResource("1_582kv")
-captioned_stream = SubResource("Resource_hq8lk")
+captioned_stream = SubResource("Resource_hniww")
