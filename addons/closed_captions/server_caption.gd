@@ -20,10 +20,10 @@ var left_pos_string:PackedByteArray = [
 	"<",
 	"^",
 	"v",
-	"",
-	"",
-	"",
-	"",
+	" ",
+	" ",
+	" ",
+	" ",
 	"v",
 	"<"
 ]
@@ -59,7 +59,7 @@ func _init(caption: Caption):
 	if caption.speaker_name == "":
 		_text = "[%s]" % caption.text
 	else: 
-		match caption.format:
+		match caption.speaker_format:
 			caption.Formatting.NEUTRAL:
 				_text = caption.text
 			caption.Formatting.OUT_OF_VISION:
