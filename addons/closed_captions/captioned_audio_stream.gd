@@ -8,7 +8,6 @@ var current_caption:Caption:
 @export var audio_stream: AudioStream:
 	set(new_stream):
 		audio_stream = new_stream
-		print("Emitted")
 		emit_changed()
 
 func get_caption_warnings() -> int:
