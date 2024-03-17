@@ -4,7 +4,6 @@ class_name Caption
 
 enum Positions {
 	BEHIND,
-	OFF_SCEEN,
 	OFF_SCREN_LEFT,
 	LEFT,
 	CENTER,
