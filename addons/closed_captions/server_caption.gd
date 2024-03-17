@@ -68,14 +68,13 @@ func _init(caption: Caption):
 		_text = "[%s]" % caption.text
 	else: 
 		match caption.format:
-			caption.Formatting.VOICE:
+			caption.Formatting.NEUTRAL:
 				_text = caption.text
 			caption.Formatting.OUT_OF_VISION:
 				_text = "'%s'" % caption.text
 			caption.Formatting.QUOTE_OR_ROBOT:
 				_text = "\"%s\"" % caption.text
-		if caption.extra_formatting != null:
-			_text = "[%s]" % caption.text
+		
 
 func get_formatted_string(prefix:String = "", color: Colors = _speaker_color, position: Positions = _position, off_screen: bool = _is_off_screen) -> String:
 	var left = left_pos_string[position]

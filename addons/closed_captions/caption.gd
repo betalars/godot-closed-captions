@@ -25,9 +25,20 @@ enum Colors {
 	GREEN
 }
 
+enum ConfigurationWarnings {
+	EMPTY,
+	TOO_LONG,
+	MISSING_SPEAKER,
+	SET_POSITION
+}
+
+
 enum Formatting{
-	VOICE,
+	## For Characters on screen or within the same scene
+	NEUTRAL,
+	## Use this for outside-the-scene characters on the telephhone for instance.
 	OUT_OF_VISION,
+	## Use this for robotic voices, artificial voices (including TV or Radio hosts) or quotes.
 	QUOTE_OR_ROBOT,
 }
 
@@ -36,6 +47,10 @@ enum Formatting{
 	set(new_text):
 		if new_text == null: text = ""
 		else: text = new_text
+## Position of the Sound source relative to the Screen. Leave on center with 3D or 2D Player.
+@export var position:Positions = Positions.CENTER:
+	set(new_position):
+		position = new_position
 @export_group("Speaker (leave empty for Sounds)")
 ## Name of the Speaker. Leave empty for Sound Effects. Will be displayed when the speaker speaks first.
 @export var speaker_name:String = "":
@@ -45,14 +60,10 @@ enum Formatting{
 @export var speaker_color:Colors = Colors.AUTOMATIC:
 	set(new_color):
 		speaker_color = new_color
-## Position of the Speaker relative to the Screen.
-@export var position:Positions = Positions.CENTER:
-	set(new_position):
-		position = new_position
 ## Choose extra formatting.
-@export var format:Formatting = Formatting.VOICE:
+@export var speaker_format:Formatting = Formatting.NEUTRAL:
 	set(frmt):
-		format = frmt
+		speaker_format = frmt
 ## Use this for extra description, such as "over the radio"
 @export var extra_formatting: String = "":
 	set(extra):
