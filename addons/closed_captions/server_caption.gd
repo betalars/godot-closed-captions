@@ -41,14 +41,6 @@ var right_pos_string:PackedByteArray = [
 	">"
 ]
 
-enum Colors {
-	AUTOMATIC,
-	WHITE,
-	YELLOW,
-	CYAN,
-	GREEN
-}
-
 var color_strings:PackedStringArray = [
 	"white",
 	"white",
@@ -58,7 +50,7 @@ var color_strings:PackedStringArray = [
 ]
 
 var _text:String = ""
-var _speaker_color:Colors = Colors.AUTOMATIC
+var _speaker_color:Caption.Colors = Caption.Colors.AUTOMATIC
 var _position:Positions = Positions.CENTER
 var _is_off_screen:bool = false
 var _extra_formatting: String = ""
@@ -76,7 +68,7 @@ func _init(caption: Caption):
 				_text = "\"%s\"" % caption.text
 		
 
-func get_formatted_string(prefix:String = "", color: Colors = _speaker_color, position: Positions = _position, off_screen: bool = _is_off_screen) -> String:
+func get_formatted_string(prefix:String = "", color: Caption.Colors = _speaker_color, position: Positions = _position, off_screen: bool = _is_off_screen) -> String:
 	var left = left_pos_string[position]
 	var right = right_pos_string[position]
 	
