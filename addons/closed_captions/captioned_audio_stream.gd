@@ -11,8 +11,8 @@ var current_caption:Caption:
 		print("Emitted")
 		emit_changed()
 
-func are_captions_valid() -> bool:
-	return current_caption.is_valid()
+func get_caption_warnings() -> int:
+	return current_caption.get_warnings()
 	
 func has_neutral_positioning() -> bool:
 	return current_caption.has_neutral_positioning()

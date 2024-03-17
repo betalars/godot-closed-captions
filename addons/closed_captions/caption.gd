@@ -77,9 +77,11 @@ enum Formatting{
 	set(new_duration):
 		duration = new_duration
 
-
-func is_valid():
-	return ( text != "" and text.split(" ").size() < 15 )
-
-func has_neutral_positioning() -> bool:
-	return position == Positions.CENTER
+## Checks if caption is empty or too long.
+func get_warnings() -> int:
+	var is_empty:int = int(text != "")
+	var is_long:int = int(text.split(" ").size() < 15) << ConfigurationWarnings.TOO_LONG
+	var is_missing: int = int(speaker_name == "" and (speaker_color != Colors.AUTOMATIC or speaker_format != Formatting.NEUTRAL or extra_formatting != "")) << ConfigurationWarnings.MISSING_SPEAKER
+	var is_positioned: int = int(position != Positions.CENTER) << ConfigurationWarnings.SET_POSITION
+	
+	return is_empty & is_long  & is_missing & is_positioned
