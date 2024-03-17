@@ -75,7 +75,14 @@ enum Formatting{
 ## Duration of the Caption. Choose 0 for continuous. Captions longer than 10 seconds are not reccomended.
 @export_range(0,10) var duration:float:
 	set(new_duration):
-		duration = new_duration
+		if new_duration >= 0:
+			duration = new_duration
+		else:
+			push_warning("Cannot set duration of Caption to negative value. Use 0 for automatic duration.")
+		_duration = duration
+
+## Hidden duration field for storing automatically generated durations (they do not effect the manually configured duration)
+var _duration:float = duration
 
 ## Checks if caption is empty or too long.
 func get_warnings() -> int:
