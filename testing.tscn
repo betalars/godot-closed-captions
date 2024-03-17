@@ -11,7 +11,7 @@ speaker_name = ""
 speaker_color = 0
 position = 4
 format = 0
-extra_formatting = null
+extra_formatting = ""
 delay = 0.0
 duration = 0.0
 
