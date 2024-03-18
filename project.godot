@@ -14,6 +14,10 @@ config/name="captions"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://addons/closed_captions/icon.svg"
 
+[autoload]
+
+CaptionServer="*res://addons/closed_captions/caption_server.gd"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/closed_captions/plugin.cfg")
