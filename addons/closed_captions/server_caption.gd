@@ -66,7 +66,8 @@ func _init(caption: Caption):
 				_text = "'%s'" % caption.text
 			caption.Formatting.QUOTE_OR_ROBOT:
 				_text = "\"%s\"" % caption.text
-		
+	_speaker_color = caption.speaker_color
+	_extra_formatting = caption.extra_formatting
 
 func get_compact_formatted_string(prefix:String = "", color: Caption.Colors = _speaker_color, position: Positions = _position, off_screen: bool = _is_off_screen) -> String:
 	var left:String = left_pos_string[position]
