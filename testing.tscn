@@ -198,7 +198,7 @@ script/source = "extends RichTextLabel
 func _process(delta):
 	var txt = \"\"
 	for caption in CaptionServer.captions:
-		txt = \"%s%s\\n\" % [txt, caption.get_formatted_string()]
+		txt = \"%s%s\\n\" % [txt, caption.get_wide_formatted_string_arr()[1]]
 	text = txt
 "
 
@@ -214,4 +214,5 @@ captioned_stream = SubResource("Resource_hniww")
 offset_right = 1140.0
 offset_bottom = 179.0
 bbcode_enabled = true
+text = "[color=red] testing [/color]"
 script = SubResource("GDScript_f5scj")
