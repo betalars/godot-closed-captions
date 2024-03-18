@@ -15,7 +15,7 @@ enum Positions {
 	BEHIND
 }
 
-var left_pos_string:PackedByteArray = [
+var left_pos_string:PackedStringArray = [
 	"^",
 	"<",
 	"^",
@@ -28,7 +28,7 @@ var left_pos_string:PackedByteArray = [
 	"<"
 ]
 
-var right_pos_string:PackedByteArray = [
+var right_pos_string:PackedStringArray = [
 	"^",
 	" ",
 	" ",
@@ -68,11 +68,11 @@ func _init(caption: Caption):
 				_text = "\"%s\"" % caption.text
 		
 
-func get_formatted_string(prefix:String = "", color: Caption.Colors = _speaker_color, position: Positions = _position, off_screen: bool = _is_off_screen) -> String:
-	var left = left_pos_string[position]
-	var right = right_pos_string[position]
+func get_compact_formatted_string(prefix:String = "", color: Caption.Colors = _speaker_color, position: Positions = _position, off_screen: bool = _is_off_screen) -> String:
+	var left:String = left_pos_string[position]
+	var right:String = right_pos_string[position]
 	
 	if off_screen or position == Positions.BEHIND:
 		left += left
 		right += right
-	return ("%s [color=%s][%s %s]: %s [/color]%s" % [left, color_strings[color], prefix, _extra_formatting, _text, right]).rstrip("[ ]: ").replace("[ ", "[").replace(" ]", "]")
+	return ("%s [color=%s][%s %s]: %s [/color]%s" % [left, color_strings[color], prefix, _extra_formatting, _text, right]).replace("[ ]: ", "").replace("[ ", "[").replace(" ]", "]")
