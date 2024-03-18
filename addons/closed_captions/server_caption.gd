@@ -77,3 +77,24 @@ func get_compact_formatted_string(prefix:String = "", color: Caption.Colors = _s
 		left += left
 		right += right
 	return ("%s [color=%s][%s %s]: %s [/color]%s" % [left, color_strings[color], prefix, _extra_formatting, _text, right]).replace("[ ]: ", "").replace("[ ", "[").replace(" ]", "]")
+
+func get_wide_formatted_string_arr(prefix:String = "", color: Caption.Colors = _speaker_color, position: Positions = _position, off_screen: bool = _is_off_screen) -> PackedStringArray:
+	var left_indicator:String = left_pos_string[position]
+	var right_indicator:String = right_pos_string[position]
+	var alignment:String
+	
+	if position in [Positions.LEFT, Positions.TOP_LEFT, Positions.BOTTOM_LEFT]:
+		alignment = "left"
+	elif position in [Positions.RIGHT, Positions.TOP_RIGHT, Positions.BOTTOM_RIGHT]:
+		alignment = "right"
+	else:
+		alignment = "center"
+	
+	if position == Positions.LEFT or position == Positions.RIGHT and not off_screen:
+		left_indicator = " "
+		right_indicator = " "
+	
+	if position == Positions.BEHIND:
+		left_indicator += left_indicator
+		right_indicator += right_indicator
+	return [left_indicator, ("[%s] [color=%s] [%s %s]: %s [/color] [/%s]" % [alignment, color_strings[color], prefix, _extra_formatting, _text, alignment]).replace("[ ]: ", "").replace("[ ", "[").replace(" ]", "]"), right_indicator]
