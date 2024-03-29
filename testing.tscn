@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://bvoalto1u56ic"]
+[gd_scene load_steps=24 format=3 uid="uid://bvoalto1u56ic"]
 
 [ext_resource type="Script" path="res://addons/closed_captions/captioned_autio_stream_player.gd" id="1_582kv"]
 [ext_resource type="AudioStream" uid="uid://ch6dxwlabitpf" path="res://demo/Phasmophobia_No_Evidence.wav" id="1_f0dlp"]
 [ext_resource type="Script" path="res://addons/closed_captions/caption.gd" id="2_o8vlo"]
 [ext_resource type="Script" path="res://addons/closed_captions/multi_caption_audio_stream.gd" id="3_ojrc2"]
+[ext_resource type="Script" path="res://addons/closed_captions/fullscreen_caption_display.gd" id="5_y6mi8"]
 
 [sub_resource type="GDScript" id="GDScript_kvl3x"]
 script/source = "extends Node2D
@@ -210,9 +211,28 @@ stream = ExtResource("1_f0dlp")
 script = ExtResource("1_582kv")
 captioned_stream = SubResource("Resource_hniww")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_right = 1140.0
-offset_bottom = 179.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Container" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 25
+script = ExtResource("5_y6mi8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Container"]
+layout_mode = 2
+alignment = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Container/VBoxContainer"]
+layout_mode = 2
 bbcode_enabled = true
 text = "[color=red] testing [/color]"
+fit_content = true
 script = SubResource("GDScript_f5scj")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
