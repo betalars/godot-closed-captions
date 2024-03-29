@@ -1,6 +1,6 @@
 ## Caption for internal use in caption server.
 extends Resource
-class_name ServerCaption
+class_name CaptionLabel
 
 enum Positions {
 	TOP,
