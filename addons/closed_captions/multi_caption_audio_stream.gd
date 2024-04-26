@@ -36,7 +36,7 @@ func get_caption_warnings() -> int:
 
 ## Sorts Caption by appearance
 func sort_captions():
-	captions.sort_custom(func sort(a:Caption, b:Caption) -> bool: return a.delay < b.delay)
+	captions.sort_custom(func(a:Caption, b:Caption) -> bool: return a.delay < b.delay)
 
 ## Automatically calculate duration of captions depending on delay of next caption and the length of the audio stream.
 ## Will not assign duration longer than 5 seconds.
