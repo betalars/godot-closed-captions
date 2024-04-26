@@ -1,5 +1,5 @@
 ## Caption for internal use in caption server.
-extends Resource
+extends RichTextLabel
 class_name CaptionLabel
 
 enum Positions {
@@ -49,38 +49,57 @@ var color_strings:PackedStringArray = [
 	"green",
 ]
 
-var _text:String = ""
-var _speaker_color:Caption.Colors = Caption.Colors.AUTOMATIC
-var _position:Positions = Positions.CENTER
-var _is_off_screen:bool = false
-var _extra_formatting: String = ""
+@export var caption: Caption
+@export var is_compact: bool = false
+@export var include_name: bool = false
+var caption_text:String = ""
+var speaker_color:Caption.Colors = Caption.Colors.AUTOMATIC
+var caption_position:Positions = Positions.CENTER
+var is_off_screen:bool = false
+var extra_formatting: String = ""
+var prefix: String = ""
 
-func _init(caption: Caption):
+func _init(from_caption: Caption, include_name: bool = false, compact:bool = is_compact):
+	self.caption = from_caption
+	self.include_name = include_name
+
+func _ready():
+	rebuild()
+
+func rebuild():
 	if caption.speaker_name == "":
-		_text = "[%s]" % caption.text
+		caption_text = "[%s]" % caption.text
 	else: 
 		match caption.speaker_format:
 			caption.Formatting.NEUTRAL:
-				_text = caption.text
+				caption_text = caption.text
 			caption.Formatting.OUT_OF_VISION:
-				_text = "'%s'" % caption.text
+				caption_text = "'%s'" % caption.text
 			caption.Formatting.QUOTE_OR_ROBOT:
-				_text = "\"%s\"" % caption.text
-	_speaker_color = caption.speaker_color
-	_extra_formatting = caption.extra_formatting
-
-func get_compact_formatted_string(prefix:String = "", color: Caption.Colors = _speaker_color, position: Positions = _position, off_screen: bool = _is_off_screen) -> String:
-	var left:String = left_pos_string[position]
-	var right:String = right_pos_string[position]
+				caption_text = "\"%s\"" % caption.text
+	speaker_color = caption.speaker_color
+	extra_formatting = caption.extra_formatting
+	bbcode_enabled = true
+	fit_content = true
+	if include_name: prefix = caption.speaker_name
 	
-	if off_screen or position == Positions.BEHIND:
+	if is_compact:
+		_set_compact_text()
+	else:
+		_set_wide_text()
+
+func _set_compact_text():
+	var left:String = left_pos_string[caption_position]
+	var right:String = right_pos_string[caption_position]
+	
+	if is_off_screen or caption_position == Positions.BEHIND:
 		left += left
 		right += right
-	return ("%s [color=%s][%s %s]: %s [/color]%s" % [left, color_strings[color], prefix, _extra_formatting, _text, right]).replace("[ ]: ", "").replace("[ ", "[").replace(" ]", "]")
+	text = ("%s [color=%s][%s %s]: %s [/color]%s" % [left, color_strings[speaker_color], prefix, extra_formatting, caption_text, right]).replace("[ ]: ", "").replace("[ ", "[").replace(" ]", "]")
 
-func get_wide_formatted_string_arr(prefix:String = "", color: Caption.Colors = _speaker_color, position: Positions = _position, off_screen: bool = _is_off_screen) -> PackedStringArray:
-	var left_indicator:String = left_pos_string[position]
-	var right_indicator:String = right_pos_string[position]
+func _set_wide_text() -> PackedStringArray:
+	var left_indicator:String = left_pos_string[caption_position]
+	var right_indicator:String = right_pos_string[caption_position]
 	var alignment:String
 	
 	if position in [Positions.LEFT, Positions.TOP_LEFT, Positions.BOTTOM_LEFT]:
@@ -90,11 +109,11 @@ func get_wide_formatted_string_arr(prefix:String = "", color: Caption.Colors = _
 	else:
 		alignment = "center"
 	
-	if position == Positions.LEFT or position == Positions.RIGHT and not off_screen:
+	if caption_position == Positions.LEFT or caption_position == Positions.RIGHT and not is_off_screen:
 		left_indicator = " "
 		right_indicator = " "
 	
-	if position == Positions.BEHIND:
+	if caption_position == Positions.BEHIND:
 		left_indicator += left_indicator
 		right_indicator += right_indicator
-	return [left_indicator, ("[%s] [color=%s] [%s %s]: %s [/color] [/%s]" % [alignment, color_strings[color], prefix, _extra_formatting, _text, alignment]).replace("[ ]: ", "").replace("[ ", "[").replace(" ]", "]"), right_indicator]
+	return [left_indicator, ("[%s] [color=%s] [%s %s]: %s [/color] [/%s]" % [alignment, color_strings[speaker_color], prefix, extra_formatting, caption_text, alignment]).replace("[ ]: ", "").replace("[ ", "[").replace(" ]", "]"), right_indicator]
