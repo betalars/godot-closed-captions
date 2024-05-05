@@ -46,27 +46,33 @@ enum Formatting{
 	set(new_text):
 		if new_text == null: text = ""
 		else: text = new_text
+		changed.emit()
 ## Position of the Sound source relative to the Screen. Leave on center with 3D or 2D Player.
 @export var position:Positions = Positions.CENTER:
 	set(new_position):
 		position = new_position
+		changed.emit()
 @export_group("Speaker (leave empty for Sounds)")
 ## Name of the Speaker. Leave empty for Sound Effects. Will be displayed when the speaker speaks first.
 @export var speaker_name:String = "":
 	set(name):
 		speaker_name = name
+		changed.emit()
 ## The Speaker Color. Speakers should have consistent colors.
 @export var speaker_color:Colors = Colors.AUTOMATIC:
 	set(new_color):
 		speaker_color = new_color
+		changed.emit()
 ## Choose extra formatting.
 @export var speaker_format:Formatting = Formatting.NEUTRAL:
 	set(frmt):
 		speaker_format = frmt
+		changed.emit()
 ## Use this for extra description, such as "over the radio"
 @export var extra_formatting: String = "":
 	set(extra):
 		extra_formatting = extra
+		changed.emit()
 @export_group("Timing")
 ## Delay between sound starting and caption popping up.
 @export var delay:float = 0:

@@ -1,3 +1,4 @@
+@tool
 ## Caption for internal use in caption server.
 extends RichTextLabel
 class_name CaptionLabel
@@ -50,6 +51,17 @@ var color_strings:PackedStringArray = [
 	"green",
 ]
 
+@export var caption: Caption:
+	set(new_caption):
+		if caption != null:
+			caption.changed.disconnect(rebuild)
+		caption = new_caption
+		caption.changed.connect(rebuild)
+@export var is_compact: bool = false:
+	set(compact):
+		is_compact = compact
+		rebuild()
+@export var include_name: bool = true
 var _caption_text:String = ""
 var _speaker_color:Caption.Colors = Caption.Colors.AUTOMATIC
 var _caption_position:Positions = Positions.CENTER
