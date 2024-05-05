@@ -3,6 +3,7 @@
 extends RichTextLabel
 class_name CaptionLabel
 
+## Defining extra positions mostly dedicated for captioning sound sources specific to games.
 enum Positions {
 	TOP,
 	LEFT,
@@ -14,10 +15,12 @@ enum Positions {
 	BOTTOM_RIGHT,
 	BOTTOM,
 	BEHIND,
+	## used, because override_position can't be null.
 	UNSET
 }
 
-var left_pos_string:PackedStringArray = [
+## Array of strings to use as indicators for each possible position.
+var _left_pos_string:PackedStringArray = [
 	"^", # Top
 	"<", # Left
 	"^", # Top Left
@@ -30,7 +33,8 @@ var left_pos_string:PackedStringArray = [
 	"<"  # Behind
 ]
 
-var right_pos_string:PackedStringArray = [
+## Array of strings to use as indicators for each possible position.
+var _right_pos_string:PackedStringArray = [
 	"^", # Top
 	" ", # Left
 	" ", # Top Left
@@ -43,6 +47,7 @@ var right_pos_string:PackedStringArray = [
 	">"  # Behind
 ]
 
+## Array of Strings to get the correct Color using bbcode.
 var color_strings:PackedStringArray = [
 	"white",
 	"white",
@@ -51,24 +56,27 @@ var color_strings:PackedStringArray = [
 	"green",
 ]
 
+## The caption being displayed by this label.
 @export var caption: Caption:
 	set(new_caption):
 		if caption != null:
 			caption.changed.disconnect(rebuild)
 		caption = new_caption
 		caption.changed.connect(rebuild)
+## Use this to decide if a label is supposed to span the whole screen or be tucked to a small box.
 @export var is_compact: bool = false:
 	set(compact):
 		is_compact = compact
 		rebuild()
+## This is being set to true, if a caption of the same speaker is showing up repeatedly without conflicting colors.
 @export var include_name: bool = true
 var _caption_text:String = ""
 var _speaker_color:Caption.Colors = Caption.Colors.AUTOMATIC
 var _caption_position:Positions = Positions.CENTER
 var override_position:Positions = Positions.UNSET
 var _is_off_screen:bool = false
-var extra_formatting: String = ""
-var prefix: String = ""
+var _extra_formatting: String = ""
+var _prefix: String = ""
 
 func _init(from_caption: Caption = Caption.new(), include_name: bool = false, compact:bool = is_compact, override_position:Positions = Positions.UNSET):
 	self.caption = from_caption
@@ -90,18 +98,19 @@ func rebuild():
 			caption.Formatting.QUOTE_OR_ROBOT:
 				_caption_text = "\"%s\"" % caption.text
 	_speaker_color = caption.speaker_color
-	extra_formatting = caption.extra_formatting
+	_extra_formatting = caption.extra_formatting
 	# as this technically casts to a different type and requires some logic, it cannot be doen with a set method.
 	set_pos(caption.position)
 	bbcode_enabled = true
 	fit_content = true
-	if include_name: prefix = caption.speaker_name
+	if include_name: _prefix = caption.speaker_name
 	
 	if is_compact:
 		_set_compact_text()
 	else:
 		_set_wide_text()
 
+## Converting the Position based off the enum declared in caption to the bigger Position standard declared in this class. Will use position in override_position instead, if it was set.
 func set_pos(pos = Caption.Positions):
 	if override_position != null:
 		_caption_position = override_position
@@ -125,19 +134,20 @@ func set_pos(pos = Caption.Positions):
 			_caption_position = Positions.RIGHT
 			_is_off_screen = true
 
+## Generating a bbcode string and putting it as the label text for the compact rendering option.
 func _set_compact_text():
-	
-	var left:String = left_pos_string[_caption_position]
-	var right:String = right_pos_string[_caption_position]
+	var left:String = _left_pos_string[_caption_position]
+	var right:String = _right_pos_string[_caption_position]
 	
 	if _is_off_screen or _caption_position == Positions.BEHIND:
 		left += left
 		right += right
-	text = ("[center] %s [color=%s][%s %s]: %s [/color]%s [center]" % [left, color_strings[_speaker_color], prefix, extra_formatting, _caption_text, right]).replace("[ ]: ", "").replace("[ ", "[").replace(" ]", "]")
+	text = ("[center] %s [color=%s][%s %s]: %s [/color]%s [center]" % [left, color_strings[_speaker_color], _prefix, _extra_formatting, _caption_text, right]).replace("[ ]: ", "").replace("[ ", "[").replace(" ]", "]")
 
+## Generating a bbcode string and putting it as the label text for the wide rendering option.
 func _set_wide_text():
-	var left:String = left_pos_string[_caption_position]
-	var right:String = right_pos_string[_caption_position]
+	var left:String = _left_pos_string[_caption_position]
+	var right:String = _right_pos_string[_caption_position]
 	var alignment:String
 	
 	if _caption_position in [Positions.LEFT, Positions.TOP_LEFT, Positions.BOTTOM_LEFT]:
@@ -154,4 +164,4 @@ func _set_wide_text():
 	if _caption_position == Positions.BEHIND:
 		left += left
 		right += right
-	text = ("[%s] %s [color=%s] [%s %s]: %s [/color] %s [/%s]" % [alignment, left, color_strings[_speaker_color], prefix, extra_formatting, _caption_text, right, alignment]).replace("[ ]: ", "").replace("[ ", "[").replace(" ]", "]")
+	text = ("[%s] %s [color=%s] [%s %s]: %s [/color] %s [/%s]" % [alignment, left, color_strings[_speaker_color], _prefix, _extra_formatting, _caption_text, right, alignment]).replace("[ ]: ", "").replace("[ ", "[").replace(" ]", "]")
