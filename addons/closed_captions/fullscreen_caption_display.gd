@@ -49,12 +49,16 @@ func _ready():
 func _exit_tree():
 	CaptionServer.signoff_display(self)
 
-func display_caption(caption: Caption, previous: Caption = null):
-	pass
+func display_caption(caption: Caption):
+	displaying.append(caption)
+	# Using a deferred call to return without delay
+	pull_caption.call_deferred(caption.duration)
 
-func pull_caption(caption: Caption):
+func pull_caption(caption: Caption, delay:float = 0):
 	if displaying.has(caption):
-		displaying.erase(caption)
+		if delay > 0:
+			await get_tree().create_timer(delay).timeout
+			displaying.erase(caption)
 
 func is_receiving_bus(bus: StringName):
 	return (source_bus & 2 ** AudioServer.get_bus_index(bus)) > 0
