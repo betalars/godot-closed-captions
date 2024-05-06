@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bvoalto1u56ic"]
+[gd_scene load_steps=28 format=3 uid="uid://bvoalto1u56ic"]
 
 [ext_resource type="Script" path="res://addons/closed_captions/captioned_autio_stream_player.gd" id="1_582kv"]
 [ext_resource type="AudioStream" uid="uid://ch6dxwlabitpf" path="res://demo/Phasmophobia_No_Evidence.wav" id="1_f0dlp"]
@@ -193,6 +193,28 @@ append_current_caption = false
 captions = Array[ExtResource("2_o8vlo")]([SubResource("Resource_wa64w"), SubResource("Resource_5fdjd"), SubResource("Resource_lndpt"), SubResource("Resource_1g0h8"), SubResource("Resource_4bnx5"), SubResource("Resource_npr8r"), SubResource("Resource_mo8ok"), SubResource("Resource_p1y83"), SubResource("Resource_pc5ud"), SubResource("Resource_e75l0"), SubResource("Resource_8cm81"), SubResource("Resource_1bclt"), SubResource("Resource_qyomo"), SubResource("Resource_mepef"), SubResource("Resource_v6ia2")])
 audio_stream = ExtResource("1_f0dlp")
 
+[sub_resource type="Resource" id="Resource_aqjes"]
+script = ExtResource("2_o8vlo")
+text = "Hallo Günther"
+position = 3
+speaker_name = "Peter"
+speaker_color = 0
+speaker_format = 0
+extra_formatting = ""
+delay = 0.0
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_djbae"]
+script = ExtResource("2_o8vlo")
+text = "meep"
+position = 3
+speaker_name = ""
+speaker_color = 0
+speaker_format = 0
+extra_formatting = ""
+delay = 0.0
+duration = 0.0
+
 [sub_resource type="GDScript" id="GDScript_f5scj"]
 script/source = "extends RichTextLabel
 
@@ -225,7 +247,7 @@ captioned_stream = SubResource("Resource_hniww")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Container" type="MarginContainer" parent="CanvasLayer"]
+[node name="CaptionDisplay" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -235,26 +257,31 @@ theme_override_constants/margin_left = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 25
 script = ExtResource("5_y6mi8")
+displaying = Array[ExtResource("2_o8vlo")]([SubResource("Resource_aqjes"), SubResource("Resource_djbae")])
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Container"]
-layout_mode = 2
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AudioStreamPlayer2D"]
+offset_left = 50.0
+offset_right = 1102.0
+offset_bottom = 623.0
 alignment = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Container/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="AudioStreamPlayer2D/VBoxContainer"]
+visible = false
 layout_mode = 2
 bbcode_enabled = true
 text = "[color=red] testing [/color]"
 fit_content = true
 script = SubResource("GDScript_f5scj")
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer/Container/VBoxContainer"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="AudioStreamPlayer2D/VBoxContainer"]
+visible = false
 layout_mode = 2
 bbcode_enabled = true
-text = "  [color=cyan]wasddd [/color] "
+text = "[center]   [color=cyan]wasddd [/color]  [center]"
 fit_content = true
 script = ExtResource("6_hjjn5")
 caption = SubResource("Resource_ilb7m")
 is_compact = true
 include_name = false
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
