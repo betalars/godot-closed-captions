@@ -10,7 +10,7 @@ var speakers: Array[Array] = [["", 0],["", 0],["", 0],["", 0]]
 	set(display):
 		for caption in display:
 			if not displaying.has(caption):
-				_display.add_child(CaptionLabel.new(caption, !_is_speaker_name_recemt(caption), false))
+				_display.add_child(CaptionLabel.new(caption, !_is_speaker_name_recent(caption), false))
 		for caption in displaying:
 			if not display.has(caption):
 				_remove_caption(caption)
@@ -63,7 +63,7 @@ func pull_caption(caption: Caption, delay:float = 0):
 func is_receiving_bus(bus: StringName):
 	return (source_bus & 2 ** AudioServer.get_bus_index(bus)) > 0
 
-func _is_speaker_name_recemt(caption:Caption) -> bool:
+func _is_speaker_name_recent(caption:Caption) -> bool:
 	var ret:bool = false
 	if speakers[caption.speaker_color][0] == caption.speaker_name:
 		ret = Time.get_unix_time_from_system() - speakers[caption.speaker_color][1] < 60
