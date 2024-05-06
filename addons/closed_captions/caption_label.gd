@@ -62,7 +62,8 @@ var color_strings:PackedStringArray = [
 		if caption != null:
 			caption.changed.disconnect(rebuild)
 		caption = new_caption
-		caption.changed.connect(rebuild)
+		if caption != null:
+			caption.changed.connect(rebuild)
 ## Use this to decide if a label is supposed to span the whole screen or be tucked to a small box.
 @export var is_compact: bool = false:
 	set(compact):
@@ -87,6 +88,9 @@ func _ready():
 	rebuild()
 
 func rebuild():
+	if caption == null:
+		text = "[ ... ]"
+		return
 	if caption.speaker_name == "":
 		_caption_text = "[%s]" % caption.text
 	else: 
