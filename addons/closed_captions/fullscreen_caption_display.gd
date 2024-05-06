@@ -49,20 +49,24 @@ func _ready():
 func _exit_tree():
 	CaptionServer.signoff_display(self)
 
+## Displays a caption for its duration.
 func display_caption(caption: Caption):
 	displaying.append(caption)
 	# Using a deferred call to return without delay
 	pull_caption.call_deferred(caption.duration)
 
+## Pulls a caption from the display, awaiting an optional display.
 func pull_caption(caption: Caption, delay:float = 0):
 	if displaying.has(caption):
 		if delay > 0:
 			await get_tree().create_timer(delay).timeout
 			displaying.erase(caption)
 
+## Checks if it is receiving Captions from a Bus by the bus name.
 func is_receiving_bus(bus: StringName):
 	return (source_bus & 2 ** AudioServer.get_bus_index(bus)) > 0
 
+## Checks if the speaker of a caption has spoken recently and, if another speaker has used the same color since. Used to determine, if speaker name must be displayed or not.
 func _is_speaker_name_recent(caption:Caption) -> bool:
 	var ret:bool = false
 	if speakers[caption.speaker_color][0] == caption.speaker_name:
@@ -71,22 +75,26 @@ func _is_speaker_name_recent(caption:Caption) -> bool:
 	speakers[caption.speaker_color][1] = Time.get_unix_time_from_system()
 	return ret
 
+## Removes the Label belonging to a caption from children of _display.
 func _remove_caption(caption:Caption) -> void:
 	for child:CaptionLabel in _display.get_children():
 		if child.caption == caption:
 			_display.remove_child(child)
 
+## Finds the label for a given caption amongst the children of _display.
 func _find_caption_label(caption:Caption) -> CaptionLabel:
 	for child:CaptionLabel in _display.get_children():
 		if child.caption == caption:
 			return child
 	return null
 
+## Finds the index for a given caption amongst the children of _display.
 func _find_caption_label_id(caption:Caption) -> int:
 	var cap: CaptionLabel = _find_caption_label(caption)
 	if cap == null: return -1
 	return _display.get_children().find(cap)
 
+## Rearranges children of _display to have the same order as displaying
 func _order_captions() -> void:
 	for i in range(displaying.size()):
 		_display.move_child(_find_caption_label(displaying[i]), i)
