@@ -8,8 +8,15 @@ var speakers: Dictionary = {}
 
 @export var displaying: Array[Caption] = []:
 	set(display):
+		for caption in display:
+			if not displaying.has(caption):
+				_display.add_child(CaptionLabel.new(caption, _caption_needs_name(caption), false))
+		for caption in displaying:
+			if not display.has(caption):
+				_remove_caption(caption)
 		displaying = display
-		print("gothere")
+		_order_captions()
+var _displayed_captions: Array[CaptionLabel] = []
 @export_flags_2d_physics var source_bus: int = 2
 @export_range(0, 100) var priority: float = 10
 
@@ -42,10 +49,6 @@ func _ready():
 func _exit_tree():
 	CaptionServer.signoff_display(self)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func display_caption(caption: Caption, previous: Caption = null):
 	pass
 
@@ -55,3 +58,27 @@ func pull_caption(caption: Caption):
 
 func is_receiving_bus(bus: StringName):
 	return (source_bus & 2 ** AudioServer.get_bus_index(bus)) > 0
+
+func _caption_needs_name(caption:Caption) -> bool:
+	## TODO: Implement Logic for determining if the speaker name has to be displayed.
+	return true
+
+func _remove_caption(caption:Caption) -> void:
+	for child:CaptionLabel in _display.get_children():
+		if child.caption == caption:
+			_display.remove_child(child)
+
+func _find_caption_label(caption:Caption) -> CaptionLabel:
+	for child:CaptionLabel in _display.get_children():
+		if child.caption == caption:
+			return child
+	return null
+
+func _find_caption_label_id(caption:Caption) -> int:
+	var cap: CaptionLabel = _find_caption_label(caption)
+	if cap == null: return -1
+	return _display.get_children().find(cap)
+
+func _order_captions() -> void:
+	for i in range(displaying.size()):
+		_display.move_child(_find_caption_label(displaying[i]), i)
