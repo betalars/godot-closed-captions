@@ -29,11 +29,10 @@ func _get_configuration_warnings() -> PackedStringArray:
 	# get_viewport_rect in editor mode returns the editor viewport, therefore we need this workaround:
 	var screen_size = Rect2(Vector2(), Vector2(ProjectSettings.get_setting("display/window/size/viewport_width"), ProjectSettings.get_setting("display/window/size/viewport_height")))
 	if not get_rect().is_equal_approx(screen_size):
-		warnings.append("This node is intended to be used covering the entire screen. Use Compact Captions Container instead.")
+		warnings.append("This node is intended to be used covering the entire screen. Use Compact Captions Container for small captions.")
 	if get_child_count() != 0: warnings.append("Do not attatch children to Captions Container.")
 	return warnings
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	add_child(_display, false, Node.INTERNAL_MODE_BACK)
 	_display.alignment = BoxContainer.ALIGNMENT_END
