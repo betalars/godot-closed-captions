@@ -4,13 +4,13 @@ class_name CaptionDisplay
 
 var _display: VBoxContainer = VBoxContainer.new()
 
-var speakers: Dictionary = {}
+var speakers: Array[Array] = [["", 0],["", 0],["", 0],["", 0]]
 
 @export var displaying: Array[Caption] = []:
 	set(display):
 		for caption in display:
 			if not displaying.has(caption):
-				_display.add_child(CaptionLabel.new(caption, _caption_needs_name(caption), false))
+				_display.add_child(CaptionLabel.new(caption, !_is_speaker_name_recemt(caption), false))
 		for caption in displaying:
 			if not display.has(caption):
 				_remove_caption(caption)
@@ -59,9 +59,13 @@ func pull_caption(caption: Caption):
 func is_receiving_bus(bus: StringName):
 	return (source_bus & 2 ** AudioServer.get_bus_index(bus)) > 0
 
-func _caption_needs_name(caption:Caption) -> bool:
-	## TODO: Implement Logic for determining if the speaker name has to be displayed.
-	return true
+func _is_speaker_name_recemt(caption:Caption) -> bool:
+	var ret:bool = false
+	if speakers[caption.speaker_color][0] == caption.speaker_name:
+		ret = Time.get_unix_time_from_system() - speakers[caption.speaker_color][1] < 60
+	speakers[caption.speaker_color][0] = caption.speaker_name
+	speakers[caption.speaker_color][1] = Time.get_unix_time_from_system()
+	return ret
 
 func _remove_caption(caption:Caption) -> void:
 	for child:CaptionLabel in _display.get_children():
