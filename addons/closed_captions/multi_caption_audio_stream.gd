@@ -39,11 +39,11 @@ func sort_captions():
 	captions.sort_custom(func(a:Caption, b:Caption) -> bool: return a.delay < b.delay)
 
 ## Automatically calculate duration of captions depending on delay of next caption and the length of the audio stream.
-## Will not assign duration longer than 5 seconds.
+## Will not assign duration longer than 5 seconds. Will always leave a small gap.
 func assign_durations():
 	for i in range(captions.size()-1):
 		if captions[i].duration == 0:
-			captions[i]._duration = min(5, captions[i+1].delay - captions[i].delay)
+			captions[i]._duration = min(5, captions[i+1].delay - captions[i].delay - 0.1) 
 	
 	if captions[-1].duration == 0:
 		captions[-1]._duration = 5
