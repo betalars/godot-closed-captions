@@ -8,16 +8,10 @@ var speakers: Array[Array] = [["", 0],["", 0],["", 0],["", 0]]
 
 @export var displaying: Array[Caption] = []:
 	set(display):
-		for caption in display:
-			if not displaying.has(caption):
-				_display.add_child(CaptionLabel.new(caption, !_is_speaker_name_recent(caption), false))
-		for caption in displaying:
-			if not display.has(caption):
-				_remove_caption(caption)
 		displaying = display
-		_order_captions()
+		_update_displayed_labels()
 var _displayed_captions: Array[CaptionLabel] = []
-@export_flags_2d_physics var source_bus: int = 2
+@export_flags_2d_physics var source_bus: int = 255
 @export_range(0, 100) var priority: float = 10
 
 @export_range(0, 100) var side_margin:int = 50:
@@ -52,15 +46,17 @@ func _exit_tree():
 ## Displays a caption for its duration.
 func display_caption(caption: Caption):
 	displaying.append(caption)
-	# Using a deferred call to return without delay
-	pull_caption.call_deferred(caption.duration)
+	_update_displayed_labels()
+	# Using a deferred call to return without a delay.
+	# Also using the internal duration of the caption, because this is where the auto generated length is stored.
+	pull_caption.call_deferred(caption, caption._duration)
 
 ## Pulls a caption from the display, awaiting an optional display.
 func pull_caption(caption: Caption, delay:float = 0):
-	if displaying.has(caption):
-		if delay > 0:
-			await get_tree().create_timer(delay).timeout
-			displaying.erase(caption)
+	if delay > 0:
+		await get_tree().create_timer(delay).timeout
+	displaying.erase(caption)
+	_update_displayed_labels()
 
 ## Checks if it is receiving Captions from a Bus by the bus name.
 func is_receiving_bus(bus: StringName):
@@ -78,6 +74,7 @@ func _is_speaker_name_recent(caption:Caption) -> bool:
 ## Removes the Label belonging to a caption from children of _display.
 func _remove_caption(caption:Caption) -> void:
 	for child:CaptionLabel in _display.get_children():
+		print(child)
 		if child.caption == caption:
 			_display.remove_child(child)
 
@@ -94,7 +91,16 @@ func _find_caption_label_id(caption:Caption) -> int:
 	if cap == null: return -1
 	return _display.get_children().find(cap)
 
-## Rearranges children of _display to have the same order as displaying
-func _order_captions() -> void:
+## Rearranges children of _display to reflect the order of displaying
+func _update_displayed_labels():
+	var current_display: Array[Caption] = []
+	for label:CaptionLabel in _display.get_children(true):
+		current_display.append(label.caption)
+	for caption in displaying:
+		if not current_display.has(caption):
+			_display.add_child(CaptionLabel.new(caption, !_is_speaker_name_recent(caption), false))
+	for caption in current_display:
+		if not displaying.has(caption):
+			_remove_caption(caption)
 	for i in range(displaying.size()):
 		_display.move_child(_find_caption_label(displaying[i]), i)
