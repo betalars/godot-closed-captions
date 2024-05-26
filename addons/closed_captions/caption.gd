@@ -98,3 +98,9 @@ func get_warnings() -> int:
 	var is_positioned: int = int(position != Positions.CENTER) << ConfigurationWarnings.SET_POSITION
 	
 	return is_empty & is_long  & is_missing & is_positioned
+
+func _to_string() -> String:
+	if speaker_name == "":
+		return ("<Caption [%s]>" % [text])
+	else:
+		return ("<Caption [%s]: %s>" % [speaker_name, text])
