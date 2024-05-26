@@ -20,10 +20,11 @@ var _displayed_captions: Array[CaptionLabel] = []
 		add_theme_constant_override("margin_left", side_margin)
 		add_theme_constant_override("margin_right", side_margin)
 
-@export_range(0, 100) var bottom_margin:int = 25:
+@export_range(0, 100) var top_bottom_margin:int = 25:
 	set(margin):
-		bottom_margin = margin
-		add_theme_constant_override("margin_bottom", bottom_margin)
+		top_bottom_margin = margin
+		add_theme_constant_override("margin_top", top_bottom_margin)
+		add_theme_constant_override("margin_bottom", top_bottom_margin)
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray
