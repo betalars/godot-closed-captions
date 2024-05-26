@@ -30,12 +30,19 @@ var _displayed_captions: Array[CaptionLabel] = []
 		add_theme_constant_override("margin_top", top_bottom_margin)
 		add_theme_constant_override("margin_bottom", top_bottom_margin)
 
+# Determine, if this label is rendered compatcly
+@export var is_compact: bool = false:
+	set(small):
+		is_compact = small
+		for caption in _display.get_children():
+			caption.is_compact = small
+
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray
 	# get_viewport_rect in editor mode returns the editor viewport, therefore we need this workaround:
 	var screen_size = Rect2(Vector2(), Vector2(ProjectSettings.get_setting("display/window/size/viewport_width"), ProjectSettings.get_setting("display/window/size/viewport_height")))
-	if not get_rect().is_equal_approx(screen_size):
-		warnings.append("This node is intended to be used covering the entire screen. Use Compact Captions Container for small captions.")
+	if not get_rect().is_equal_approx(screen_size) and not is_compact:
+		warnings.append("This node is intended to be used covering the entire screen when is compact is false.")
 	if get_child_count() != 0: warnings.append("Do not attatch children to Captions Container.")
 	return warnings
 
@@ -79,7 +86,6 @@ func _is_speaker_name_recent(caption:Caption) -> bool:
 ## Removes the Label belonging to a caption from children of _display.
 func _remove_caption(caption:Caption) -> void:
 	for child:CaptionLabel in _display.get_children():
-		print(child)
 		if child.caption == caption:
 			_display.remove_child(child)
 
@@ -103,7 +109,7 @@ func _update_displayed_labels():
 		current_display.append(label.caption)
 	for caption in displaying:
 		if not current_display.has(caption):
-			_display.add_child(CaptionLabel.new(caption, !_is_speaker_name_recent(caption), false))
+			_display.add_child(CaptionLabel.new(caption, !_is_speaker_name_recent(caption), is_compact))
 	for caption in current_display:
 		if not displaying.has(caption):
 			_remove_caption(caption)
