@@ -6,12 +6,16 @@ var _display: VBoxContainer = VBoxContainer.new()
 
 var speakers: Array[Array] = [["", 0],["", 0],["", 0],["", 0]]
 
+## Shows the Captions being displayed. Keep in mind: those are the resources the CaptionLabels are being generated from, not the actual Labels.
 @export var displaying: Array[Caption] = []:
 	set(display):
 		displaying = display
 		_update_displayed_labels()
 var _displayed_captions: Array[CaptionLabel] = []
+## Select the audio busses this Label is listening to.
 @export_flags_2d_physics var source_bus: int = 255
+
+## Captions will only be displayed on onw caption display. Set a higher priority to choose this label over another that may display the same caption.
 @export_range(0, 100) var priority: float = 10
 
 @export_range(0, 100) var side_margin:int = 50:
