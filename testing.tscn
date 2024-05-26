@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bvoalto1u56ic"]
+[gd_scene load_steps=26 format=3 uid="uid://bvoalto1u56ic"]
 
 [ext_resource type="Script" path="res://addons/closed_captions/captioned_autio_stream_player.gd" id="1_582kv"]
 [ext_resource type="AudioStream" uid="uid://ch6dxwlabitpf" path="res://demo/Phasmophobia_No_Evidence.wav" id="1_f0dlp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/closed_captions/multi_caption_audio_stream.gd" id="3_ojrc2"]
 [ext_resource type="Script" path="res://addons/closed_captions/fullscreen_caption_display.gd" id="5_y6mi8"]
 [ext_resource type="Script" path="res://addons/closed_captions/caption_label.gd" id="6_hjjn5"]
+[ext_resource type="Theme" uid="uid://dg5xg7e6qqlgq" path="res://addons/closed_captions/captions.theme" id="6_xqbub"]
 
 [sub_resource type="GDScript" id="GDScript_kvl3x"]
 script/source = "extends Node2D
@@ -13,11 +14,6 @@ script/source = "extends Node2D
 
 func _ready():
 	$CaptionedAudioStreamPlayer.play()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 "
 
 [sub_resource type="Resource" id="Resource_v6ia2"]
@@ -234,6 +230,7 @@ alignment = 2
 [node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer"]
 visible = false
 layout_mode = 2
+theme = ExtResource("6_xqbub")
 bbcode_enabled = true
 text = "[center]   [color=cyan]wasddd [/color]  [center]"
 fit_content = true
