@@ -84,6 +84,7 @@ func _init(from_caption: Caption = Caption.new(), include_name: bool = false, co
 	self.include_name = include_name
 	self.override_position = override_position
 	self.name = "CaptionLebel"
+	self.theme = CaptionTheme.captions_theme
 
 func _ready():
 	rebuild()

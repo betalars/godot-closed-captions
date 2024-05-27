@@ -1,7 +1,6 @@
 @tool
 extends EditorPlugin
-
-var plugin_theme:Theme = preload("res://addons/closed_captions/captions.theme")
+class_name  CaptionPlugin
 
 # Cosmetic: declaring values of property names as variables to improve readability
 var _allow_sound_stacking:String = "accessibility/closed_captions/allow_sound_stacking"
@@ -84,12 +83,8 @@ func _enable_plugin():
 
 func _enter_tree():
 	add_autoload_singleton("CaptionServer", "res://addons/closed_captions/caption_server.gd")
+	add_autoload_singleton("CaptionTheme", "res://addons/closed_captions/theme.gd")
 	add_custom_type("CaptionedAudioStreamPlayer", "AudioStreamPlayer", preload("res://addons/closed_captions/captioned_autio_stream_player.gd"), preload("icon.svg"))
-	ProjectSettings.settings_changed.connect(_on_project_settings_update)
-
-func _on_project_settings_update():
-	plugin_theme.default_base_scale = ProjectSettings.get_setting(_text_scaling)
-	## TODO: Add Color and Font Handling.
 
 func _exit_tree():
 	remove_custom_type("CaptionedAudioStreamPlayer")
