@@ -41,9 +41,6 @@ func _enable_plugin():
 	})
 	ProjectSettings.set_initial_value(_text_scaling, 1)
 	
-	var error: int = ProjectSettings.save()
-	if error: push_error("Encountered error %d when saving project settings." % error)
-	
 	ProjectSettings.set_setting(_background_color, Color.BLACK)
 	ProjectSettings.add_property_info({
 		"name": _background_color,
@@ -79,7 +76,10 @@ func _enable_plugin():
 		"hint": PROPERTY_HINT_ENUM,
 		"hint_string": "never, at_intervals, always"
 	})
-	ProjectSettings.set_initial_value(_display_continuous_sounds, 1)
+	ProjectSettings.set_initial_value(_update_sound_directions, 1)
+	
+	var error: int = ProjectSettings.save()
+	if error: push_error("Encountered error %d when saving project settings." % error)
 
 func _enter_tree():
 	add_autoload_singleton("CaptionServer", "res://addons/closed_captions/caption_server.gd")
@@ -88,6 +88,7 @@ func _enter_tree():
 
 func _exit_tree():
 	remove_custom_type("CaptionedAudioStreamPlayer")
+	remove_autoload_singleton("CaptionTheme")
 	remove_autoload_singleton("CaptionServer")
 
 func _disable_plugin():
