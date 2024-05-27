@@ -17,6 +17,7 @@ config/icon="res://addons/closed_captions/icon.svg"
 [autoload]
 
 CaptionServer="*res://addons/closed_captions/caption_server.gd"
+CaptionTheme="*res://addons/closed_captions/theme.gd"
 
 [editor_plugins]
 

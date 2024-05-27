@@ -228,12 +228,13 @@ offset_bottom = 623.0
 alignment = 2
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer"]
-visible = false
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("6_xqbub")
 bbcode_enabled = true
 text = "[center]   [color=cyan]wasddd [/color]  [center]"
 fit_content = true
+autowrap_mode = 0
 script = ExtResource("6_hjjn5")
 caption = SubResource("Resource_ilb7m")
 is_compact = true

@@ -85,6 +85,8 @@ func _init(from_caption: Caption = Caption.new(), include_name: bool = false, co
 	self.override_position = override_position
 	self.name = "CaptionLebel"
 	self.theme = CaptionTheme.captions_theme
+	self.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	self.autowrap_mode = TextServer.AUTOWRAP_OFF
 
 func _ready():
 	rebuild()
