@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="16"
+   viewBox="0 0 16 16"
+   width="16"
+   version="1.1"
+   id="svg4"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <path
+     id="rect12"
+     style="fill:#8eef97;fill-opacity:1;stroke-width:0.534406;stroke-linecap:round;stroke-linejoin:round"
+     d="m 1,9 v 2 2 2 H 4 V 13 H 3 V 11 H 4 V 9 Z m 11,0 v 2 h 1 v 2 h -1 v 2 h 3 V 13 9 Z" />
+  <defs
+     id="defs4" />
+  <linearGradient
+     id="a"
+     gradientUnits="userSpaceOnUse"
+     x2="0"
+     y1="1"
+     y2="15">
+    <stop
+       offset="0"
+       stop-color="#ff5f5f"
+       id="stop1" />
+    <stop
+       offset=".5"
+       stop-color="#e1da5b"
+       id="stop2" />
+    <stop
+       offset="1"
+       stop-color="#5fff97"
+       id="stop3" />
+  </linearGradient>
+  <path
+     id="path1"
+     style="fill:#8eef97;fill-opacity:1;stroke-width:0.534406;stroke-linecap:round;stroke-linejoin:round"
+     d="M 5,1 V 3 5 7 H 8 V 5 H 7 V 3 H 8 V 1 Z m 7,0 v 2 h 1 v 2 h -1 v 2 h 3 V 5 1 Z" />
+  <path
+     id="rect1"
+     style="fill:#8eef97;fill-opacity:1;stroke-width:1.12139;stroke-linecap:round;stroke-linejoin:round"
+     d="M 0.96725815,4 2.1566678,5.1894097 3.3460775,6.3788193 4.5354872,5.1894097 3.3460775,4 4.5354872,2.8105902 3.3460775,1.6211806 2.1566678,2.8105902 Z" />
+  <rect
+     style="fill:#8eef97;fill-opacity:1;stroke-width:0.707107;stroke-linecap:round;stroke-linejoin:round"
+     id="rect2"
+     width="2"
+     height="2"
+     x="9"
+     y="3" />
+  <rect
+     style="fill:#8eef97;fill-opacity:1;stroke-width:0.707107;stroke-linecap:round;stroke-linejoin:round"
+     id="rect3"
+     width="6"
+     height="2"
+     x="5"
+     y="11" />
+</svg>
