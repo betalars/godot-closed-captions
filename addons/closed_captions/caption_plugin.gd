@@ -12,79 +12,14 @@ var _display_continuous_sounds: String = "accessibility/closed_captions/display_
 var _update_sound_directions: String = "accessibility/closed_captions/update_sound_directions"
 
 func _enable_plugin():
-	ProjectSettings.set_setting(_allow_sound_stacking, true)
-	ProjectSettings.add_property_info({
-		"name": _allow_sound_stacking,
-		"type": TYPE_BOOL,
-		"hint": PROPERTY_HINT_NONE,
-		# At the moment, this will not be rendered by godot editor, see https://github.com/godotengine/godot-proposals/discussions/8224
-		"doc": "Disable to make sure only one sound is captioned at a time."
-	})
-	ProjectSettings.set_initial_value(_allow_sound_stacking, false)
+	_initialise_project_settings()
 	
-	ProjectSettings.set_setting(_use_custom_font, "")
-	ProjectSettings.add_property_info({
-		"name": _use_custom_font,
-		"type": TYPE_STRING,
-		"hint": PROPERTY_HINT_NONE,
-		"doc": "Set the name of a custom font. Needs to be installed on user device. Alternatively, you can set the font directly by modifying captions.theme."
-	})
-	ProjectSettings.set_initial_value(_allow_sound_stacking, false)
-	
-	ProjectSettings.set_setting(_text_scaling, 1)
-	ProjectSettings.add_property_info({
-		"name": _text_scaling,
-		"type": TYPE_FLOAT,
-		"hint": PROPERTY_HINT_RANGE,
-		"hint_string": "0.5,5,0.1",
-		"doc": "Define custom scaling."
-	})
-	ProjectSettings.set_initial_value(_text_scaling, 1)
-	
-	ProjectSettings.set_setting(_background_color, Color.BLACK)
-	ProjectSettings.add_property_info({
-		"name": _background_color,
-		"type": TYPE_COLOR,
-		"hint": PROPERTY_HINT_NONE,
-		"description": "Sets the Background color of Caption Boxes. Will ignore non-WGCA complient settings."
-	})
-	ProjectSettings.set_initial_value(_background_color, Color.BLACK)
-	
-	ProjectSettings.set_setting(_audibility_threshhold, true)
-	ProjectSettings.add_property_info({
-		"name": _audibility_threshhold,
-		"type": TYPE_FLOAT,
-		"hint": PROPERTY_HINT_RANGE,
-		"hint_string": "0.1,5,0.1",
-		"doc": "Define custom scaling."
-	})
-	ProjectSettings.set_initial_value(_audibility_threshhold, 1)
-	
-	ProjectSettings.set_setting(_display_continuous_sounds, 1)
-	ProjectSettings.add_property_info({
-		"name": _display_continuous_sounds,
-		"type": TYPE_INT,
-		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": "once, when_becoming_audible, always"
-	})
-	ProjectSettings.set_initial_value(_display_continuous_sounds, 1)
-	
-	ProjectSettings.set_setting(_update_sound_directions, 1)
-	ProjectSettings.add_property_info({
-		"name": _update_sound_directions,
-		"type": TYPE_INT,
-		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": "never, at_intervals, always"
-	})
-	ProjectSettings.set_initial_value(_update_sound_directions, 1)
-	
-	var error: int = ProjectSettings.save()
-	if error: push_error("Encountered error %d when saving project settings." % error)
-
 func _enter_tree():
+	_initialise_project_settings()
 	add_autoload_singleton("CaptionServer", "res://addons/closed_captions/caption_server.gd")
 	add_autoload_singleton("CaptionTheme", "res://addons/closed_captions/theme.gd")
 	add_custom_type("CaptionedAudioStreamPlayer", "AudioStreamPlayer", preload("res://addons/closed_captions/captioned_autio_stream_player.gd"), preload("icon.svg"))
+	add_custom_type("CaptionLabel", "RichTextLabel", preload("res://addons/closed_captions/caption_label.gd"), preload("icon.svg"))
 
 func _exit_tree():
 	remove_custom_type("CaptionedAudioStreamPlayer")
@@ -102,3 +37,81 @@ func _disable_plugin():
 	
 	var error: int = ProjectSettings.save()
 	if error: push_error("Encountered error %d when saving project settings." % error)
+
+func _initialise_project_settings():
+	if !ProjectSettings.has_setting(_allow_sound_stacking):
+		ProjectSettings.set_setting(_allow_sound_stacking, true)
+		ProjectSettings.add_property_info({
+			"name": _allow_sound_stacking,
+			"type": TYPE_BOOL,
+			"hint": PROPERTY_HINT_NONE,
+			# At the moment, this will not be rendered by godot editor, see https://github.com/godotengine/godot-proposals/discussions/8224
+			"doc": "Disable to make sure only one sound is captioned at a time."
+		})
+		ProjectSettings.set_initial_value(_allow_sound_stacking, false)
+	
+	if !ProjectSettings.has_setting(_use_custom_font):
+		ProjectSettings.set_setting(_use_custom_font, "")
+		ProjectSettings.add_property_info({
+			"name": _use_custom_font,
+			"type": TYPE_STRING,
+			"hint": PROPERTY_HINT_NONE,
+			"doc": "Set the name of a custom font. Needs to be installed on user device. Alternatively, you can set the font directly by modifying captions.theme."
+		})
+		ProjectSettings.set_initial_value(_allow_sound_stacking, false)
+	
+	if !ProjectSettings.has_setting(_text_scaling):
+		ProjectSettings.set_setting(_text_scaling, 1)
+		ProjectSettings.add_property_info({
+			"name": _text_scaling,
+			"type": TYPE_FLOAT,
+			"hint": PROPERTY_HINT_RANGE,
+			"hint_string": "0.5,5,0.1",
+			"doc": "Define custom scaling."
+		})
+		ProjectSettings.set_initial_value(_text_scaling, 1)
+	
+	if !ProjectSettings.has_setting(_background_color):
+		ProjectSettings.set_setting(_background_color, Color.BLACK)
+		ProjectSettings.add_property_info({
+			"name": _background_color,
+			"type": TYPE_COLOR,
+			"hint": PROPERTY_HINT_NONE,
+		"description": "Sets the Background color of Caption Boxes. Will ignore non-WGCA complient settings."
+	    })
+		ProjectSettings.set_initial_value(_background_color, Color.BLACK)
+	
+	if !ProjectSettings.has_setting(_audibility_threshhold):	
+		ProjectSettings.set_setting(_audibility_threshhold, true)
+		ProjectSettings.add_property_info({
+			"name": _audibility_threshhold,
+			"type": TYPE_FLOAT,
+			"hint": PROPERTY_HINT_RANGE,
+			"hint_string": "0.1,5,0.1",
+			"doc": "Define custom scaling."
+		})
+		ProjectSettings.set_initial_value(_audibility_threshhold, 1)
+	
+	if !ProjectSettings.has_setting(_display_continuous_sounds):
+		ProjectSettings.set_setting(_display_continuous_sounds, 1)
+		ProjectSettings.add_property_info({
+			"name": _display_continuous_sounds,
+			"type": TYPE_INT,
+			"hint": PROPERTY_HINT_ENUM,
+			"hint_string": "once, when_becoming_audible, always"
+		})
+		ProjectSettings.set_initial_value(_display_continuous_sounds, 1)
+	
+	if !ProjectSettings.has_setting(_update_sound_directions):
+		ProjectSettings.set_setting(_update_sound_directions, 1)
+		ProjectSettings.add_property_info({
+			"name": _update_sound_directions,
+			"type": TYPE_INT,
+			"hint": PROPERTY_HINT_ENUM,
+			"hint_string": "never, at_intervals, always"
+		})
+		ProjectSettings.set_initial_value(_update_sound_directions, 1)
+		
+	var error: int = ProjectSettings.save()
+	if error: push_error("Encountered error %d when saving project settings." % error)
+	
