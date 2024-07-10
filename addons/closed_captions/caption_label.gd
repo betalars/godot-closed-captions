@@ -1,5 +1,5 @@
 @tool
-## Caption for internal use in caption server.
+## Tool for generating a 
 extends RichTextLabel
 class_name CaptionLabel
 
