@@ -1,3 +1,4 @@
+@tool
 extends Node
 # I would really like to move this code into the main plugin script, but for some reason that does not work.
 
@@ -16,7 +17,7 @@ func _on_project_settings_update():
 		
 		if captions_theme.default_font is SystemFont:
 			# Making sure "Sans-Serif remains a failover"
-			captions_theme.default_font.font_names.insert(font_name, 0)
+			captions_theme.default_font.font_names.insert(0, font_name)
 		else:
 			push_warning("costum font configuration found, ignoring name set in Project Settings.")
 		
