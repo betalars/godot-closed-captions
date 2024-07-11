@@ -5,14 +5,15 @@ This AddOn allows you to dynamically create closed captions and subtitles follow
 ## How to install
 1. Get it off the Godot Asset Store once it is available
    OR copy the `addons/closed_captions` into your addons folder
-2. Enable the plugin in Project Settings
+2. Enable the plugin in Project Settings.
+3. Run `git lfs install` and `git lfs pull` to enjoy the demo scene.
 
 ## Usage
-1. Use `CaptionedAudioStreamPlayers` instead of regular `AudioStreamPlayers` for any sound sources that need captioning.
-2. Use the `SingleCaptionAudioStream` to assign a single caption to a noise or a brief speech clip.
-3. Use an Array of Captions held by the `MultiCaptionAudioStream` Resource to caption dialouge or longer speach clips.
-4. Use `CaptionDisplay` to display captions. When the streams are audible. Choose `compact` to get a les intrusive version of the component ideal for showing ambient noises during gameplay.
-5. Use `AudioBus`ses to filter what `Caption`s will be shown on specific `CaptionDisplay`s.
+1. Use `CaptionedAudioStreamPlayer` instead of regular `AudioStreamPlayer` for any sound sources that need captioning.
+2. Use the `SingleCaptionAudioStream` to assign a single `Caption` to a noise or a brief speech clip.
+3. Use an Array of Captions held by the `MultiCaptionAudioStream` `Resource` to caption dialouge or longer speach clips.
+4. Add a `CaptionDisplay` and the `CaptionServer` will display captions of audible sound sources. Choose `compact` to get a les intrusive version of the component ideal for showing ambient noises during gameplay.
+5. Use Audio Busses to filter what `CaptionedAudioStreamPlayer` will be shown on any `CaptionDisplay`.
 
 ## Limitations
  1. This is an Acessability Plugin. It is not meant to be pretty. When you try to apply your own theme to the subtitles, please make it as acessible as you can and allow users to switch back.
