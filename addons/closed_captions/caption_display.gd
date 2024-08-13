@@ -79,7 +79,7 @@ func _is_speaker_name_recent(caption:Caption) -> bool:
 	var ret:bool = false
 	if speakers[caption.speaker_color][0] == caption.speaker_name:
 		ret = Time.get_unix_time_from_system() - speakers[caption.speaker_color][1] < 60
-	speakers[caption.speaker_color][0] = caption.speaker_name
+	speakers[caption.speaker_color][0] = caption.speaker_name if (!caption.speaker_name == "") else "sfx"
 	speakers[caption.speaker_color][1] = Time.get_unix_time_from_system()
 	return ret
 
