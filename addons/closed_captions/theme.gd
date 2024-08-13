@@ -5,6 +5,11 @@ extends Node
 var _use_custom_font:String = "accessibility/closed_captions/use_custom_font"
 var _text_scaling:String = "accessibility/closed_captions/text_scaling"
 var _background_color:String = "accessibility/closed_captions/background_colour"
+var project_settings_initialised:
+	set(finished):
+		if finished:
+			project_settings_initialised = true
+			_on_project_settings_update()
 
 var captions_theme:Theme = preload("res://addons/closed_captions/captions.theme")
 
@@ -12,7 +17,7 @@ func _ready():
 	ProjectSettings.settings_changed.connect(_on_project_settings_update)
 
 func _on_project_settings_update():
-	if is_inside_tree():
+	if project_settings_initialised:
 		var font_name:StringName = ProjectSettings.get_setting(_use_custom_font)
 		
 		if captions_theme.default_font is SystemFont:

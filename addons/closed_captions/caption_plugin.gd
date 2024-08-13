@@ -119,3 +119,5 @@ func _initialise_project_settings():
 	var error: int = ProjectSettings.save()
 	if error: push_error("Encountered error %d when saving project settings." % error)
 	
+	CaptionTheme.project_settings_initialised = true
+	
