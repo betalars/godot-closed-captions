@@ -62,7 +62,7 @@ func _initialise_project_settings():
 			"hint": PROPERTY_HINT_NONE,
 			"doc": "Set the name of a custom font. Needs to be installed on user device. Alternatively, you can set the font directly by modifying captions.theme."
 		})
-		ProjectSettings.set_initial_value(_allow_sound_stacking, false)
+		ProjectSettings.set_initial_value(_use_custom_font, false)
 	
 	if !ProjectSettings.has_setting(_text_scaling):
 		ProjectSettings.set_setting(_text_scaling, 1)
