@@ -225,6 +225,7 @@ theme_override_constants/margin_bottom = 25
 script = ExtResource("5_moo6n")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+visible = false
 offset_left = 50.0
 offset_right = 1102.0
 offset_bottom = 623.0
