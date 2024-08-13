@@ -58,6 +58,8 @@ func _exit_tree():
 ## Displays a caption for its duration.
 func display_caption(caption: Caption):
 	displaying.append(caption)
+	if caption.previous != null:
+		displaying.erase(caption.previous)
 	_update_displayed_labels()
 	# Using a deferred call to return without a delay.
 	# Also using the internal duration of the caption, because this is where the auto generated length is stored.

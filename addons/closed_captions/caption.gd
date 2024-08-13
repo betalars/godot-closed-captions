@@ -87,6 +87,8 @@ enum Formatting{
 			push_warning("Cannot set duration of Caption to negative value. Use 0 for automatic duration.")
 		_duration = duration
 
+var previous: Caption
+
 ## Hidden duration field for storing automatically generated durations (they do not effect the manually configured duration)
 var _duration:float = duration
 

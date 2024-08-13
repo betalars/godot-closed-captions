@@ -43,7 +43,8 @@ func sort_captions():
 func assign_durations():
 	for i in range(captions.size()-1):
 		if captions[i].duration == 0:
-			captions[i]._duration = min(5, captions[i+1].delay - captions[i].delay - 0.1) 
+			captions[i]._duration = min(5, captions[i+1].delay - captions[i].delay + 0.05)
+			captions[i+1].previous = captions[i]
 	
 	if captions[-1].duration == 0:
 		captions[-1]._duration = 5
