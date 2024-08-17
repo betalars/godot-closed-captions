@@ -15,10 +15,10 @@ var captions_theme:Theme = preload("res://addons/closed_captions/captions.theme"
 
 func _ready():
 	ProjectSettings.settings_changed.connect(_on_project_settings_update)
+	_on_project_settings_update()
 
 func _on_project_settings_update():
-	if project_settings_initialised:
-		var font_name:StringName = ProjectSettings.get_setting(_use_custom_font)
+	var font_name:StringName = ProjectSettings.get_setting(CaptionPlugin.use_custom_font_path)
 		
 		if captions_theme.default_font is SystemFont:
 			# Making sure "Sans-Serif remains a failover"
@@ -26,21 +26,21 @@ func _on_project_settings_update():
 		else:
 			push_warning("costum font configuration found, ignoring name set in Project Settings.")
 		
-		captions_theme.default_base_scale = ProjectSettings.get_setting(_text_scaling)
+	captions_theme.default_base_scale = ProjectSettings.get_setting(CaptionPlugin.text_scaling_path)
 		var background: StyleBox = StyleBoxFlat.new()
-		var bg_color: Color = ProjectSettings.get_setting(_background_color)
+	var bg_color: Color = ProjectSettings.get_setting(CaptionPlugin.background_color_path)
 		if bg_color.a < 0.7:
 			bg_color.a = 0.7
 			push_warning("Transparency below 70% is not supported.")
 		if bg_color.v > 0.6:
 			bg_color.v = 0.6
-			push_warning("Backgound Color must be WGCA complient. Setting was set too dark.")
+		push_warning("Backgound Color must be WGCA complient. Setting was set too bright.")
 		if bg_color.s > 0.7:
 			bg_color.v = 0.6
-			push_warning("High saturation of colour would cause some speakers to blend into the background.")
-		if !bg_color == ProjectSettings.get_setting(_background_color):
+		push_warning("High saturation of colour would cause some speaker names to blend into the background.")
+	if !bg_color == ProjectSettings.get_setting(CaptionPlugin.background_color_path):
 			push_warning("Background Color Settings have been adjusted.")
-		background.bg_color = ProjectSettings.get_setting(_background_color)
+	background.bg_color = ProjectSettings.get_setting(CaptionPlugin.background_color_path)
 		captions_theme.set_stylebox("normal", "RichTextLabel", background)
 	
 	
