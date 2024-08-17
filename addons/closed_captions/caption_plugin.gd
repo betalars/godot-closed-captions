@@ -17,7 +17,7 @@ func _enable_plugin():
 func _enter_tree():
 	_initialise_project_settings()
 	add_autoload_singleton("CaptionServer", "res://addons/closed_captions/caption_server.gd")
-	add_autoload_singleton("CaptionTheme", "res://addons/closed_captions/theme.gd")
+	add_autoload_singleton("CaptionTheme", "res://addons/closed_captions/caption_theme.gd")
 	add_custom_type("Caption", "Resource", preload("res://addons/closed_captions/caption.gd"), preload("icons/Caption.svg"))
 	add_custom_type("CaptionedAudioStream", "Resource", preload("res://addons/closed_captions/captioned_audio_stream.gd"), preload("icons/CaptionedAudioStream.svg"))
 	add_custom_type("MultiCaptionAudioStream", "CaptionedAudioStream", preload("res://addons/closed_captions/multi_caption_audio_stream.gd"), preload("icons/MultiCaptionAudioStream.svg"))
@@ -26,9 +26,15 @@ func _enter_tree():
 	add_custom_type("CaptionDisplay", "VBoxContainer", preload("res://addons/closed_captions/caption_display.gd"), preload("icons/CaptionDisplay.svg"))
 
 func _exit_tree():
+	remove_custom_type("Caption")
+	remove_custom_type("CaptionedAudioStream")
+	remove_custom_type("MultiCaptionAudioStream")
 	remove_custom_type("CaptionedAudioStreamPlayer")
-	remove_autoload_singleton("CaptionTheme")
+	remove_custom_type("CaptionLabel")
+	remove_custom_type("CaptionDisplay")
 	remove_autoload_singleton("CaptionServer")
+	remove_autoload_singleton("CaptionTheme")
+
 
 func _disable_plugin():
 	ProjectSettings.set_setting(_allow_sound_stacking, null)
@@ -119,6 +125,3 @@ func _initialise_project_settings():
 		
 	var error: int = ProjectSettings.save()
 	if error: push_error("Encountered error %d when saving project settings." % error)
-	
-	CaptionTheme.project_settings_initialised = true
-	
