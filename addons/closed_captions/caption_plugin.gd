@@ -5,6 +5,7 @@ class_name  CaptionPlugin
 # Cosmetic: declaring values of property names as variables to improve readability
 const allow_sound_stacking_path:String = "accessibility/closed_captions/allow_sound_stacking"
 const use_custom_font_path:String = "accessibility/closed_captions/use_custom_font"
+const target_display_type_path:String = "accessibility/closed_captions/target_display_type"
 const text_scaling_path:String = "accessibility/closed_captions/text_scaling"
 const background_color_path:String = "accessibility/closed_captions/background_colour"
 const audibility_threshhold_path: String = "accessibility/closed_captions/sensitivity_threashold"
@@ -37,13 +38,7 @@ func _exit_tree():
 
 
 func _disable_plugin():
-	ProjectSettings.set_setting(_allow_sound_stacking, null)
-	ProjectSettings.set_setting(_use_custom_font, null)
-	ProjectSettings.set_setting(_text_scaling, null)
-	ProjectSettings.set_setting(_background_color, null)
-	ProjectSettings.set_setting(_audibility_threshhold, null)
-	ProjectSettings.set_setting(_display_continuous_sounds, null)
-	ProjectSettings.set_setting(_update_sound_directions, null)
+	ProjectSettings.set_setting(text_scaling_path, null)
 	
 	var error: int = ProjectSettings.save()
 	if error: push_error("Encountered error %d when saving project settings." % error)
@@ -70,6 +65,15 @@ func _initialise_project_settings():
 		})
 		ProjectSettings.set_initial_value(use_custom_font_path, false)
 	
+	if !ProjectSettings.has_setting(target_display_type_path):
+		ProjectSettings.set_setting(target_display_type_path, 0)
+		ProjectSettings.add_property_info({
+			"name": target_display_type_path,
+			"type": TYPE_INT,
+			"hint": PROPERTY_HINT_ENUM,
+			"hint_string": "detect,Desktop,Constole,mobile,BBC"
+		})
+		ProjectSettings.set_initial_value(target_display_type_path, 0)
 	
 	if !ProjectSettings.has_setting(text_scaling_path):
 		ProjectSettings.set_setting(text_scaling_path, 1)
