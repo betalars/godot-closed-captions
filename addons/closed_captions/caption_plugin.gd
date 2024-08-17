@@ -38,7 +38,7 @@ func _exit_tree():
 
 func _initialise_project_settings():
 	if !ProjectSettings.has_setting(allow_sound_stacking_path):
-		ProjectSettings.set_setting(allow_sound_stacking_path, true)
+		ProjectSettings.set_setting(allow_sound_stacking_path, false)
 		ProjectSettings.add_property_info({
 			"name": allow_sound_stacking_path,
 			"type": TYPE_BOOL,
@@ -56,7 +56,7 @@ func _initialise_project_settings():
 			"hint": PROPERTY_HINT_NONE,
 			"doc": "Set the name of a custom font. Needs to be installed on user device. Alternatively, you can set the font directly by modifying captions.theme."
 		})
-		ProjectSettings.set_initial_value(use_custom_font_path, false)
+		ProjectSettings.set_initial_value(use_custom_font_path, "")
 	
 	if !ProjectSettings.has_setting(target_display_type_path):
 		ProjectSettings.set_setting(target_display_type_path, 0)
@@ -89,8 +89,8 @@ func _initialise_project_settings():
 		})
 		ProjectSettings.set_initial_value(background_color_path, Color.BLACK)
 	
-	if !ProjectSettings.has_setting(audibility_threshhold_path):	
-		ProjectSettings.set_setting(audibility_threshhold_path, true)
+	if !ProjectSettings.has_setting(audibility_threshhold_path):
+		ProjectSettings.set_setting(audibility_threshhold_path, 1)
 		ProjectSettings.add_property_info({
 			"name": audibility_threshhold_path,
 			"type": TYPE_FLOAT,
