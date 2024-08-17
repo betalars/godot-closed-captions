@@ -1,6 +1,6 @@
 @tool
 extends EditorPlugin
-class_name  CaptionPlugin
+class_name CaptionPlugin
 
 # Cosmetic: declaring values of property names as variables to improve readability
 const allow_sound_stacking_path:String = "accessibility/closed_captions/allow_sound_stacking"
@@ -38,7 +38,14 @@ func _exit_tree():
 
 
 func _disable_plugin():
+	ProjectSettings.set_setting(allow_sound_stacking_path, null)
+	ProjectSettings.set_setting(use_custom_font_path, null)
+	ProjectSettings.set_setting(target_display_type_path, null)
 	ProjectSettings.set_setting(text_scaling_path, null)
+	ProjectSettings.set_setting(background_color_path, null)
+	ProjectSettings.set_setting(audibility_threshhold_path, null)
+	ProjectSettings.set_setting(display_continuous_sounds_path, null)
+	ProjectSettings.set_setting(update_sound_directions_path, null)
 	
 	var error: int = ProjectSettings.save()
 	if error: push_error("Encountered error %d when saving project settings." % error)
