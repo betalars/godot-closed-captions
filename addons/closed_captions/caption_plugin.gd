@@ -2,7 +2,6 @@
 extends EditorPlugin
 class_name CaptionPlugin
 
-# Cosmetic: declaring values of property names as variables to improve readability
 const allow_sound_stacking_path:String = "accessibility/closed_captions/allow_sound_stacking"
 const use_custom_font_path:String = "accessibility/closed_captions/use_custom_font"
 const target_display_type_path:String = "accessibility/closed_captions/target_display_type"
@@ -17,6 +16,7 @@ func _enable_plugin():
 	
 func _enter_tree():
 	_initialise_project_settings()
+	ProjectSettings.set_setting("settings_initialised", true)
 	add_autoload_singleton("CaptionServer", "res://addons/closed_captions/caption_server.gd")
 	add_autoload_singleton("CaptionTheme", "res://addons/closed_captions/caption_theme.gd")
 	add_custom_type("Caption", "Resource", preload("res://addons/closed_captions/caption.gd"), preload("icons/Caption.svg"))
@@ -37,6 +37,7 @@ func _exit_tree():
 	remove_autoload_singleton("CaptionTheme")
 
 func _initialise_project_settings():
+	print("initialising!")
 	if !ProjectSettings.has_setting(allow_sound_stacking_path):
 		ProjectSettings.set_setting(allow_sound_stacking_path, false)
 		ProjectSettings.add_property_info({
@@ -49,14 +50,15 @@ func _initialise_project_settings():
 		ProjectSettings.set_initial_value(allow_sound_stacking_path, false)
 	
 	if !ProjectSettings.has_setting(use_custom_font_path):
-		ProjectSettings.set_setting(use_custom_font_path, "")
+		ProjectSettings.set_setting(use_custom_font_path, "font name")
 		ProjectSettings.add_property_info({
 			"name": use_custom_font_path,
 			"type": TYPE_STRING,
 			"hint": PROPERTY_HINT_NONE,
 			"doc": "Set the name of a custom font. Needs to be installed on user device. Alternatively, you can set the font directly by modifying captions.theme."
 		})
-		ProjectSettings.set_initial_value(use_custom_font_path, "")
+		ProjectSettings.set_initial_value(use_custom_font_path, "font name")
+		print("initialised_me")
 	
 	if !ProjectSettings.has_setting(target_display_type_path):
 		ProjectSettings.set_setting(target_display_type_path, 0)
