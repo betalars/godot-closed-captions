@@ -86,6 +86,8 @@ enum Formatting{
 		else:
 			push_warning("Cannot set duration of Caption to negative value. Use 0 for automatic duration.")
 		_duration = duration
+		
+		changed.emit()
 
 var previous: Caption
 
