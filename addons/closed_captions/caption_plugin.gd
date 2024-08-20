@@ -1,6 +1,7 @@
 @tool
 extends EditorPlugin
 class_name CaptionPlugin
+extends EditorPlugin
 
 const allow_sound_stacking_path:String = "accessibility/closed_captions/allow_sound_stacking"
 const use_custom_font_path:String = "accessibility/closed_captions/use_custom_font"
@@ -14,13 +15,23 @@ var relay:Relay
 
 func _enable_plugin():
 	_initialise_project_settings()
+	add_autoload_singleton("CaptionTheme", "res://addons/closed_captions/caption_theme.gd")
+	add_autoload_singleton("CaptionSever", "res://addons/closed_captions/caption_server.gd")
+	add_autoload_singleton("PluginReference", "res://addons/closed_captions/plugin_reference.gd")
+	
+func _disable_plugin():
+	remove_autoload_singleton("CaptionTheme")
+	remove_autoload_singleton("CaptionServer")
+	remove_autoload_singleton("PluginReference")
 	
 func _enter_tree():
 	_initialise_project_settings()
 	relay = Relay.new(self)
 	relay.settings_initialised()
-	add_autoload_singleton("CaptionServer", "res://addons/closed_captions/caption_server.gd")
 	add_autoload_singleton("CaptionTheme", "res://addons/closed_captions/caption_theme.gd")
+	add_autoload_singleton("CaptionServer", "res://addons/closed_captions/caption_server.gd")
+	add_autoload_singleton("PluginReference", "res://addons/closed_captions/plugin_reference.gd")
+	
 	add_custom_type("Caption", "Resource", preload("res://addons/closed_captions/caption.gd"), preload("icons/Caption.svg"))
 	add_custom_type("CaptionedAudioStream", "Resource", preload("res://addons/closed_captions/captioned_audio_stream.gd"), preload("icons/CaptionedAudioStream.svg"))
 	add_custom_type("MultiCaptionAudioStream", "CaptionedAudioStream", preload("res://addons/closed_captions/multi_caption_audio_stream.gd"), preload("icons/MultiCaptionAudioStream.svg"))
