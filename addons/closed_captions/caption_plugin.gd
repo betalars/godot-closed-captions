@@ -10,13 +10,15 @@ const background_color_path:String = "accessibility/closed_captions/background_c
 const audibility_threshhold_path: String = "accessibility/closed_captions/sensitivity_threashold"
 const display_continuous_sounds_path: String = "accessibility/closed_captions/display_continous_sounds"
 const update_sound_directions_path: String = "accessibility/closed_captions/update_sound_directions"
+var relay:Relay
 
 func _enable_plugin():
 	_initialise_project_settings()
 	
 func _enter_tree():
 	_initialise_project_settings()
-	ProjectSettings.set_setting("settings_initialised", true)
+	relay = Relay.new(self)
+	relay.settings_initialised()
 	add_autoload_singleton("CaptionServer", "res://addons/closed_captions/caption_server.gd")
 	add_autoload_singleton("CaptionTheme", "res://addons/closed_captions/caption_theme.gd")
 	add_custom_type("Caption", "Resource", preload("res://addons/closed_captions/caption.gd"), preload("icons/Caption.svg"))
@@ -37,7 +39,6 @@ func _exit_tree():
 	remove_autoload_singleton("CaptionTheme")
 
 func _initialise_project_settings():
-	print("initialising!")
 	if !ProjectSettings.has_setting(allow_sound_stacking_path):
 		ProjectSettings.set_setting(allow_sound_stacking_path, false)
 		ProjectSettings.add_property_info({
@@ -58,7 +59,6 @@ func _initialise_project_settings():
 			"doc": "Set the name of a custom font. Needs to be installed on user device. Alternatively, you can set the font directly by modifying captions.theme."
 		})
 		ProjectSettings.set_initial_value(use_custom_font_path, "font name")
-		print("initialised_me")
 	
 	if !ProjectSettings.has_setting(target_display_type_path):
 		ProjectSettings.set_setting(target_display_type_path, 0)

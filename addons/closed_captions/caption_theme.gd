@@ -15,28 +15,27 @@ enum scaling_type {
 	BBC
 }
 
+var setting_initialized:bool = false:
+	set(ini):
+		setting_initialized = ini
+		if ini:
+			_on_project_settings_update()
 var scaling_behaviour:scaling_type = scaling_type.DESKTOP:
 	set(new):
-		scaling_behaviour = new
-		# Setting Editor Scaling to largest possible default.
-		if !OS.has_feature("editor"):
-			_scaling_behaviour = scaling_type.BBC
-			if not new == scaling_behaviour:
-				push_warning("meep")
-		else:
-			if new == scaling_type.DETECT:
-				match OS.get_name():
-					"Windows", "macOS", "Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
-						_scaling_behaviour = scaling_type.DESKTOP
-					"Android", "iOS":
+		scaling_behaviour = new if !OS.has_feature("editor") else scaling_type.BBC
+		if scaling_behaviour == scaling_type.DETECT:
+			match OS.get_name():
+				"Windows", "macOS", "Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
+					_scaling_behaviour = scaling_type.DESKTOP
+				"Android", "iOS":
+					_scaling_behaviour = scaling_type.MOBILE
+				"Web":
+					if OS.has_feature("mobile"):
 						_scaling_behaviour = scaling_type.MOBILE
-					"Web":
-						if OS.has_feature("mobile"):
-							_scaling_behaviour = scaling_type.MOBILE
-						else:
-							_scaling_behaviour = scaling_type.DESKTOP
-					_:
-						_scaling_behaviour = scaling_type.CONSOLE
+					else:
+						_scaling_behaviour = scaling_type.DESKTOP
+				_:
+					_scaling_behaviour = scaling_type.CONSOLE
 		
 var _scaling_behaviour:scaling_type = scaling_type.DESKTOP:
 	set(new):
@@ -49,7 +48,6 @@ func _enter_tree():
 	ProjectSettings.settings_changed.connect(_on_project_settings_update)
 	if ProjectSettings.has_setting("settings_initialised"):
 		get_tree().root.get_viewport().size_changed.connect(_on_app_resized)
-		_on_project_settings_update()
 
 func _exit_tree():
 	ProjectSettings.settings_changed.disconnect(_on_project_settings_update)
@@ -85,7 +83,7 @@ func _on_app_resized():
 				captions_theme.default_font_size = max(vis_rect.size.y / dpi - 2, 0) * dpi/8 + dpi/6
 
 func _on_project_settings_update():
-	if ProjectSettings.has_setting("settings_initialised"):
+	if setting_initialized:
 		var font_name:StringName = ProjectSettings.get_setting(CaptionPlugin.use_custom_font_path)
 		
 		if captions_theme.default_font is SystemFont:
