@@ -51,6 +51,8 @@ func _ready():
 	_display.alignment = BoxContainer.ALIGNMENT_END
 	
 	CaptionServer.signup_display(self)
+	
+	resized.connect(update_configuration_warnings)
 
 func _exit_tree():
 	CaptionServer.signoff_display(self)
