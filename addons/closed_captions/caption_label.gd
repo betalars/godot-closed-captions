@@ -64,13 +64,17 @@ var color_strings:PackedStringArray = [
 		caption = new_caption
 		if caption != null:
 			caption.changed.connect(rebuild)
+			rebuild()
 ## Use this to decide if a label is supposed to span the whole screen or be tucked to a small box.
 @export var is_compact: bool = false:
 	set(compact):
 		is_compact = compact
 		rebuild()
 ## This is being set to true, if a caption of the same speaker is showing up repeatedly without conflicting colors.
-@export var include_name: bool = true
+@export var include_name: bool = true:
+	set(include):
+		include_name = include
+		rebuild()
 var _caption_text:String = ""
 var _speaker_color:Caption.Colors = Caption.Colors.AUTOMATIC
 var _caption_position:Positions = Positions.CENTER
@@ -150,7 +154,11 @@ func _set_compact_text():
 	if _is_off_screen or _caption_position == Positions.BEHIND:
 		left += left
 		right += right
-	text = ("[center] %s [color=%s][%s %s]: %s [/color]%s [center]" % [left, color_strings[_speaker_color], _prefix, _extra_formatting, _caption_text, right]).replace("[ ]: ", "").replace("[ ", "[").replace(" ]", "]")
+	text = ("[center] %s [color=%s][%s %s]%s %s [/color]%s [/center]" % \
+				[left, color_strings[_speaker_color], _prefix, _extra_formatting,\
+				" \n" if (_prefix+_extra_formatting).length() > 12  or _caption_text.contains("\n") else ":",\
+				 _caption_text, right])\
+				.replace("[ ]: ", "").replace("[ ] \n ", "").replace("[ ", "[").replace(" ]", "]").replace("  ", " ")
 
 ## Generating a bbcode string and putting it as the label text for the wide rendering option.
 func _set_wide_text():
@@ -172,4 +180,8 @@ func _set_wide_text():
 	if _caption_position == Positions.BEHIND:
 		left += left
 		right += right
-	text = ("[%s] %s [color=%s] [%s %s]: %s [/color] %s [/%s]" % [alignment, left, color_strings[_speaker_color], _prefix, _extra_formatting, _caption_text, right, alignment]).replace("[ ]: ", "").replace("[ ", "[").replace(" ]", "]")
+	text = ("[%s] %s [color=%s][%s %s]%s %s [/color]%s [/%s]" % \
+				[alignment, left, color_strings[_speaker_color], _prefix, _extra_formatting, \
+				" \n" if (_prefix+_extra_formatting).length() > 12 or _caption_text.contains("\n") else ":", \
+				_caption_text, right, alignment])\
+				.replace("[ ]: ", "").replace("[ ] \n ", "").replace("[ ", "[").replace(" ]", "]").replace("  ", " ")
