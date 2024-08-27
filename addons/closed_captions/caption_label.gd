@@ -123,8 +123,17 @@ func rebuild():
 	
 	if is_compact:
 		_set_compact_text()
+		size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	else:
 		_set_wide_text()
+		
+		match caption.position:
+			caption.Positions.OFF_SCREEN_LEFT, caption.Positions.LEFT:
+				size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+			caption.Positions.OFF_SCREEN_RIGHT, caption.Positions.RIGHT:
+				size_flags_horizontal = Control.SIZE_SHRINK_END
+			_:
+				size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 
 ## Converting the Position based off the enum declared in caption to the bigger Position standard declared in this class. Will use position in override_position instead, if it was set.
 func set_pos(pos = Caption.Positions):
