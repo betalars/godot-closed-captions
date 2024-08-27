@@ -11,13 +11,16 @@ config_version=5
 [application]
 
 config/name="captions"
-config/features=PackedStringArray("4.2", "Forward Plus")
+run/main_scene="res://addons/closed_captions/caption_panel.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://addons/closed_captions/icon.svg"
 
 [autoload]
 
+CaptionSever="*res://addons/closed_captions/caption_server.gd"
+CaptionTheme="*res://addons/closed_captions/caption_theme.gd"
 CaptionServer="*res://addons/closed_captions/caption_server.gd"
-CaptionTheme="*res://addons/closed_captions/theme.gd"
+PluginReference="*res://addons/closed_captions/plugin_reference.gd"
 
 [editor_plugins]
 
