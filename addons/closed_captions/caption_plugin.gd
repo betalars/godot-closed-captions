@@ -1,5 +1,4 @@
 @tool
-extends EditorPlugin
 class_name CaptionPlugin
 extends EditorPlugin
 
@@ -31,9 +30,9 @@ func _enter_tree():
 	add_autoload_singleton("CaptionTheme", "res://addons/closed_captions/caption_theme.gd")
 	add_autoload_singleton("CaptionServer", "res://addons/closed_captions/caption_server.gd")
 	add_autoload_singleton("PluginReference", "res://addons/closed_captions/plugin_reference.gd")
-	
 	add_custom_type("Caption", "Resource", preload("res://addons/closed_captions/caption.gd"), preload("icons/Caption.svg"))
 	add_custom_type("CaptionedAudioStream", "Resource", preload("res://addons/closed_captions/captioned_audio_stream.gd"), preload("icons/CaptionedAudioStream.svg"))
+	add_custom_type("SimpleCaptionAudioStream", "CaptionedAudioStream", preload("res://addons/closed_captions/single_caption_audio_stream.gd"), preload("icons/SimpleCaptionedAudioStream.svg"))
 	add_custom_type("MultiCaptionAudioStream", "CaptionedAudioStream", preload("res://addons/closed_captions/multi_caption_audio_stream.gd"), preload("icons/MultiCaptionAudioStream.svg"))
 	add_custom_type("CaptionedAudioStreamPlayer", "AudioStreamPlayer", preload("res://addons/closed_captions/captioned_autio_stream_player.gd"), preload("icons/CaptionedAudioStreamPlayer.svg"))
 	add_custom_type("CaptionLabel", "RichTextLabel", preload("res://addons/closed_captions/caption_label.gd"), preload("icons/CaptionLabel.svg"))
