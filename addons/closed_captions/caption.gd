@@ -21,7 +21,12 @@ enum Colors {
 	## Third speaker.
 	CYAN,
 	## Fourth speaker.
-	GREEN
+	GREEN,
+	## Extra Colors:
+	PURPLE,
+	VIOLET,
+	SALMON,
+	BLUE,
 }
 
 enum ConfigurationWarnings {

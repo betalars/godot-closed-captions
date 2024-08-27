@@ -54,6 +54,10 @@ var color_strings:PackedStringArray = [
 	"yellow",
 	"cyan",
 	"green",
+	"mediumpurple",
+	"violet",
+	"salmon",
+	"dodgerblue"
 ]
 
 ## The caption being displayed by this label.
