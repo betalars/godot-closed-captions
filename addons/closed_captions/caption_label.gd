@@ -140,10 +140,7 @@ func set_pos(pos = Caption.Positions):
 	if override_position != null:
 		_caption_position = override_position
 	match pos:
-		Caption.Positions.BEHIND:
-			_caption_position = Positions.BEHIND
-			_is_off_screen = false
-		Caption.Positions.OFF_SCREN_LEFT:
+		Caption.Positions.OFF_SCREEN_LEFT:
 			_caption_position = Positions.LEFT
 			_is_off_screen = true
 		Caption.Positions.LEFT:
@@ -157,6 +154,9 @@ func set_pos(pos = Caption.Positions):
 			_is_off_screen = false
 		Caption.Positions.OFF_SCREEN_RIGHT:
 			_caption_position = Positions.RIGHT
+			_is_off_screen = true
+		Caption.Positions.BEHIND:
+			_caption_position = Positions.BEHIND
 			_is_off_screen = true
 
 ## Generating a bbcode string and putting it as the label text for the compact rendering option.

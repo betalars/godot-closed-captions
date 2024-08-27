@@ -3,12 +3,12 @@ extends Resource
 class_name Caption
 
 enum Positions {
-	BEHIND,
-	OFF_SCREN_LEFT,
+	OFF_SCREEN_LEFT,
 	LEFT,
 	CENTER,
 	RIGHT,
-	OFF_SCREEN_RIGHT
+	OFF_SCREEN_RIGHT,
+	BEHIND
 }
 
 enum Colors {
