@@ -27,7 +27,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	var warnings:PackedStringArray = []
 	if captioned_stream == null: return warnings
 	# Add any classes derived from CaptionedAudioStream here if this warning pops up ironiousely.
-	if not (captioned_stream is SingleCaptionAudioStream or captioned_stream is MultiCaptionAudioStream): warnings.append("CaptionedAudioStream is an abstract class not designed to be used on it's own.")
+	if not (captioned_stream is SimpleCaptionAudioStream or captioned_stream is MultiCaptionAudioStream): warnings.append("CaptionedAudioStream is an abstract class not designed to be used on it's own.")
 	if captioned_stream.audio_stream != stream: warnings.append("Stream mismatch. Set Stream in \"Captioned Stream\", not in AudioPlayer.")
 	elif stream == null: warnings.append("Audio Stream is not yet configured.")
 	var caption_warnings:int = captioned_stream.get_caption_warnings()
@@ -44,14 +44,14 @@ func _play(from_position: float = 0.0):
 	if captioned_stream is MultiCaptionAudioStream:
 		captioned_stream.sort_captions()
 		captioned_stream.assign_durations()
-		captioned_stream.current_caption_id = captioned_stream.get_id_by_offset_time(from_position)
+		captioned_stream.select_caption = captioned_stream.get_id_by_offset_time(from_position)
 	
-	if captioned_stream.current_caption.delay - from_position > 0:
+	if captioned_stream.caption.delay - from_position > 0:
 		await get_tree().create_timer(captioned_stream.current_caption.delay - from_position).timeout
 	CaptionServer.push_caption(self, captioned_stream.current_caption)
 	
 	if captioned_stream is MultiCaptionAudioStream:
-		captioned_stream.current_caption_id += 1
+		captioned_stream.select_caption += 1
 
 func _on_resource_changed():
 	stream = captioned_stream.audio_stream

@@ -1,6 +1,6 @@
 @tool
 extends CaptionedAudioStream
-class_name SingleCaptionAudioStream
+class_name SimpleCaptionAudioStream
 
 @export var caption: Caption:
 	set(sub):
@@ -9,4 +9,3 @@ class_name SingleCaptionAudioStream
 
 func are_captions_valid() -> bool:
 	return is_instance_valid(caption) and caption.is_valid()
-
