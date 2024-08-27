@@ -10,6 +10,12 @@ const background_color_path:String = "accessibility/closed_captions/background_c
 const audibility_threshhold_path: String = "accessibility/closed_captions/sensitivity_threashold"
 const display_continuous_sounds_path: String = "accessibility/closed_captions/display_continous_sounds"
 const update_sound_directions_path: String = "accessibility/closed_captions/update_sound_directions"
+
+var caption_inspector_plugin: EditorInspectorPlugin
+#var inspector_plugin = CaptionInspector.new()
+
+
+var bottom_panel: Control
 var relay:Relay
 
 func _enable_plugin():
@@ -22,11 +28,14 @@ func _disable_plugin():
 	remove_autoload_singleton("CaptionTheme")
 	remove_autoload_singleton("CaptionServer")
 	remove_autoload_singleton("PluginReference")
-	
+
 func _enter_tree():
 	_initialise_project_settings()
 	relay = Relay.new(self)
 	relay.settings_initialised()
+	if Engine.is_editor_hint():
+		caption_inspector_plugin = (CaptionInspectorPlugin as Variant).new()
+	add_inspector_plugin(caption_inspector_plugin)
 	add_autoload_singleton("CaptionTheme", "res://addons/closed_captions/caption_theme.gd")
 	add_autoload_singleton("CaptionServer", "res://addons/closed_captions/caption_server.gd")
 	add_autoload_singleton("PluginReference", "res://addons/closed_captions/plugin_reference.gd")
@@ -37,6 +46,19 @@ func _enter_tree():
 	add_custom_type("CaptionedAudioStreamPlayer", "AudioStreamPlayer", preload("res://addons/closed_captions/captioned_autio_stream_player.gd"), preload("icons/CaptionedAudioStreamPlayer.svg"))
 	add_custom_type("CaptionLabel", "RichTextLabel", preload("res://addons/closed_captions/caption_label.gd"), preload("icons/CaptionLabel.svg"))
 	add_custom_type("CaptionDisplay", "VBoxContainer", preload("res://addons/closed_captions/caption_display.gd"), preload("icons/CaptionDisplay.svg"))
+	
+	#add_inspector_plugin(inspector_plugin)
+
+func display_caption_panel_for(audio_player):
+	if bottom_panel == null:
+		bottom_panel = preload("res://addons/closed_captions/caption_panel.tscn").instantiate()
+		bottom_panel.audio_player = audio_player
+		add_control_to_bottom_panel(bottom_panel, "Captions")
+		
+func hide_caption_panel():
+	if bottom_panel != null:
+		remove_control_from_bottom_panel(bottom_panel)
+		bottom_panel = null
 
 func _exit_tree():
 	remove_custom_type("Caption")
@@ -45,8 +67,7 @@ func _exit_tree():
 	remove_custom_type("CaptionedAudioStreamPlayer")
 	remove_custom_type("CaptionLabel")
 	remove_custom_type("CaptionDisplay")
-	remove_autoload_singleton("CaptionServer")
-	remove_autoload_singleton("CaptionTheme")
+	remove_inspector_plugin(caption_inspector_plugin)
 
 func _initialise_project_settings():
 	if !ProjectSettings.has_setting(allow_sound_stacking_path):
