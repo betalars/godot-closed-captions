@@ -131,6 +131,7 @@ func update_caption_text():
 		current_caption.text = caption_input.text
 
 func display_caption(caption: Caption = Caption.new()):
+	if caption == null: caption = Caption.new()
 	lock_signals = true
 	
 	var color_button_name
