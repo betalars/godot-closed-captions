@@ -49,39 +49,40 @@ func get_readable_time(mins: float) -> String:
 		return "%d:%d" % [floor(mins), floor(fmod(mins, 1) * 60)]
 
 func populate() -> void:
-	generate_stack()
+	if is_node_ready():
+		generate_stack()
 	
-	print(caption_stacks)
-	
-	for child in button_timelines.get_children():
-		button_timelines.remove_child(child)
-	
-	for stack: Array[Caption] in caption_stacks:
-		var time = time_begin
-		var row = HBoxContainer.new()
-		button_timelines.add_child(row)
+		print(caption_stacks)
 		
-		for i in range(stack.size()):
-			row.add_child(CaptionPanelTimelineButton.new(stack[i], minute_size, time_end if i == stack.size()-1 else stack[i+1].delay))
-			if stack[i].duration != 0:
-				if i < stack.size()-2:
-					if stack[i].duration + stack[i].delay > stack[i+1].delay:
-						var spacer = VSeparator.new()
-						spacer.custom_minimum_size.x = (min(stack[i+1].delay, time_end) - stack[i].duration - stack[i].delay) * minute_size
-						row.add_child(spacer)
+		for child in button_timelines.get_children():
+			button_timelines.remove_child(child)
+		
+		for stack: Array[Caption] in caption_stacks:
+			var time = time_begin
+			var row = HBoxContainer.new()
+			button_timelines.add_child(row)
+			
+			for i in range(stack.size()):
+				row.add_child(CaptionPanelTimelineButton.new(stack[i], minute_size, time_end if i == stack.size()-1 else stack[i+1].delay))
+				if stack[i].duration != 0:
+					if i < stack.size()-2:
+						if stack[i].duration + stack[i].delay > stack[i+1].delay:
+							var spacer = VSeparator.new()
+							spacer.custom_minimum_size.x = (min(stack[i+1].delay, time_end) - stack[i].duration - stack[i].delay) * minute_size
+							row.add_child(spacer)
 
 func generate_stack() -> void:
 	caption_stacks = [[]]
 	
-	print(multi_caption_stream._captions)
+	print(multi_caption_stream._captions_array)
 	
 	var depth = 0
 	var last_end = -1
-	for caption in multi_caption_stream._captions:
+	for caption in multi_caption_stream._captions_array:
 		if last_end > caption.delay:
 			depth += 1
 			if depth > caption_stacks.size()-1:
-				caption_stacks.resize(depth)
+				caption_stacks.resize(depth+1)
 		else:
 			depth = 0
 		caption_stacks[depth].append(caption)
