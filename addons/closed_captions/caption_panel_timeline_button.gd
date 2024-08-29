@@ -15,18 +15,16 @@ var color_override: Caption.Colors
 var stylebox: StyleBoxFlat = StyleBoxFlat.new()
 
 func _init(caption: Caption, timescale: float, max_time: float, color_override: Caption.Colors = Caption.Colors.AUTOMATIC):
-	timescale = timescale
-	max_time = max_time
-	color_override = color_override
-	caption = caption
+	self.timescale = timescale
+	self.max_time = max_time
+	self.color_override = color_override
+	self.caption = caption
 	
-	stylebox.set_corner_radius_all(4)
-	stylebox.border_blend = true
-	stylebox.border_color = Color.LIGHT_SLATE_GRAY
+	self.stylebox.set_corner_radius_all(4)
+	self.stylebox.border_blend = true
+	self.stylebox.border_color = Color.LIGHT_SLATE_GRAY
 
 func rebuild():
-	# this component cannot set its own color automatically
-	assert(not (caption.speaker_color == Caption.Colors.AUTOMATIC and color_override == Caption.Colors.AUTOMATIC))
 	
 	if color_override == Caption.Colors.AUTOMATIC:
 		color_override = caption.speaker_color
@@ -43,13 +41,17 @@ func rebuild():
 	
 	add_theme_stylebox_override("normal", stylebox)
 	
-	if caption.duration == -1 or caption.duration + caption.delay > max_time:
-		stylebox.border_width_right = 8
+	if caption.duration <= 0 or caption.duration + caption.delay > max_time:
+		print(caption.text)
+		stylebox.expand_margin_right = 10
+		stylebox.border_width_right = 32
 		stylebox.corner_radius_bottom_right = 0
-		stylebox.corner_radius_bottom_left = 0
+		stylebox.corner_radius_top_right = 0
 	else:
+		stylebox.expand_margin_right = 0
 		stylebox.border_width_right = 0
 		stylebox.corner_radius_bottom_right = 4
-		stylebox.corner_radius_bottom_left = 4
+		stylebox.corner_radius_top_right = 4
 		
 	custom_minimum_size.x = (max(caption.duration + caption.delay, max_time) - caption.delay) * timescale
+	custom_minimum_size.y = 16
