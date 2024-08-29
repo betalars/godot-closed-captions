@@ -5,30 +5,34 @@ class_name MultiCaptionAudioStream
 
 ## Currently active or edited caption. Setting this null will erase it!
 @export var caption: Caption = Caption.new():
-	set(cap):
-		if cap != caption:
-			current_caption_set.emit(cap)
-		caption = cap
-		if cap == null:
-			erase_caption(caption)
-		elif not _captions_array.has(cap):
-			append_caption(caption)
+	set(new):
+		if new != caption:
+			current_caption_set.emit(new)
+		
+		if new == null:
+			erase_caption_at(select_caption)
+		elif not _captions_array.has(new):
+			append_caption(new)
+		caption = new
 ## ID of the current caption, naming convention chosen to create more intuitive Inspector UI.
 @export var select_caption: int = 0:
 	set(id):
-		select_caption = id if id >= 0 else _captions_array.size() + id
-		# This will raise acreate a new element, but only when max array index is missed by one.
+		select_caption = min((id if id >= 0 else _captions_array.size() + id), _captions_array.size())
+		
 		if select_caption == _captions_array.size():
-			append_caption(Caption.new())
-		if not _captions_array == []: caption = _captions_array[select_caption]
+			var new_caption = Caption.new()
+			new_caption.delay = _captions_array[-1].delay + _captions_array[-1].duration + 0.5
+			append_caption(new_caption)
+		if not (_captions_array == [] or _captions_array == null): caption = _captions_array[select_caption]
 
 ## Array of all Captopns. Not meant to be manipulated directly. May not immediately update when you edit captions.
-@export var _captions_array: Array[Caption]:
-	set(cap):
-		_captions_array = cap
+@export var _captions_array: Array[Caption] = []:
+	set(new):
+		_captions_array = []
+		for caption in new:
+			append_caption(caption)
 		sort_captions()
 		if _captions_array.size() > select_caption + 1: select_caption = _captions_array.size() - 1
-		caption = _captions_array[select_caption]
 
 var finished = false
 
@@ -91,6 +95,12 @@ func erase_caption(old_caption: Caption):
 	_captions_array.erase(old_caption)
 	_on_caption_changed(old_caption)
 	
+func erase_caption_at(id: int):
+	var old_caption: Caption = _captions_array.pop_at(id)
+	old_caption.changed.disconnect(_on_caption_changed)
+	_on_caption_changed(old_caption)
+	select_caption = select_caption
+
 func _on_caption_changed(changed_caption: Caption):
 	sort_captions()
 	assign_durations()
