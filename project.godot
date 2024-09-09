@@ -8,6 +8,10 @@
 
 config_version=5
 
+[accessibility]
+
+closed_captions/global_cast_save_path="res://global_cast.res"
+
 [application]
 
 config/name="captions"
