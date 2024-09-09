@@ -2,19 +2,32 @@
 extends Resource
 class_name CaptionedAudioStream
 
-var current_caption:Caption:
+@export var caption:Caption:
 	set(new_caption):
-		current_caption = new_caption
+		if caption != null:
+			caption.changed.disconnect(captions_changed.emit)
+		caption = new_caption
+		# calls a special handle if this is one of its child classes. This is as close as I could get to overlaying a set function.
+		if self is MultiCaptionAudioStream:
+			handle_caption_set(caption)
+		if caption != null:
+			caption.changed.connect(captions_changed.emit)
+		caption_set.emit(caption)
+		emit_changed()
 @export var audio_stream: AudioStream:
 	set(new_stream):
 		audio_stream = new_stream
 		emit_changed()
 
-signal current_caption_set(caption:Caption)
-signal caption_changed(changed_caption: Caption)
+signal caption_set(caption:Caption)
+signal captions_changed(changed_caption: Caption)
 
 func get_caption_warnings() -> int:
-	return current_caption.get_warnings()
+	return caption.get_warnings()
 	
 func has_neutral_positioning() -> bool:
-	return current_caption.has_neutral_positioning()
+	return caption.has_neutral_positioning()
+
+# See comment in set(new_caption)
+func handle_caption_set(caption: Caption):
+	assert(false)

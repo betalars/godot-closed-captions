@@ -3,27 +3,27 @@ extends CaptionedAudioStream
 class_name MultiCaptionAudioStream
 
 
-## Currently active or edited caption. Setting this null will erase it!
-@export var caption: Caption = Caption.new():
-	set(new):
-		if new != caption:
-			current_caption_set.emit(new)
-		
-		if new == null:
+## Overriding set function for Caption, as variabl eoverlay is not supported by Godot Script
+#FIXME THIS IS NOT CALLED WHAT THE FUCK
+func handle_caption_set(caption: Caption):
+	if caption == null:
 			erase_caption_at(select_caption)
-		elif not _captions_array.has(new):
-			append_caption(new)
-		caption = new
+	elif not _captions_array.has(caption):
+		append_caption(caption)
+
+		
 ## ID of the current caption, naming convention chosen to create more intuitive Inspector UI.
 @export var select_caption: int = 0:
 	set(id):
 		select_caption = min((id if id >= 0 else _captions_array.size() + id), _captions_array.size())
 		
-		if select_caption == _captions_array.size():
+		if select_caption == _captions_array.size() and not select_caption == 0:
 			var new_caption = Caption.new()
 			new_caption.delay = _captions_array[-1].delay + _captions_array[-1].duration + 0.5
 			append_caption(new_caption)
-		if not (_captions_array == [] or _captions_array == null): caption = _captions_array[select_caption]
+		
+		if not (_captions_array == [] or _captions_array == null):
+			caption = _captions_array[select_caption]
 
 ## Array of all Captopns. Not meant to be manipulated directly. May not immediately update when you edit captions.
 @export var _captions_array: Array[Caption] = []:
