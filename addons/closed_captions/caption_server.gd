@@ -13,6 +13,12 @@ func push_caption(source: CaptionedAudioStreamPlayer, caption: Caption):
 			outputs.sort_custom(func(a:CaptionDisplay, b:CaptionDisplay) -> bool: return a.priority > b.priority)
 			outputs[0].display_caption(caption)
 
+func push_caption_2D(source: CaptionedAudioStreamPlayer2D, caption: Caption):
+	pass
+
+func push_caption_3D(source: CaptionedAudioStreamPlayer3D, caption: Caption):
+	pass
+
 func pull_caption(caption: Caption): for display in caption_displays: display.pull_caption(caption)
 
 func is_listening(listener: Viewport):
