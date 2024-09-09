@@ -1,5 +1,5 @@
 @tool
-extends CaptionedAudioStream
+extends SimpleCaptionedAudioStream
 class_name MultiCaptionAudioStream
 
 
