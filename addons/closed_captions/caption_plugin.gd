@@ -2,6 +2,7 @@
 class_name CaptionPlugin
 extends EditorPlugin
 
+const global_cast_save_path:String = "accessibility/closed_captions/global_cast_save_path"
 const allow_sound_stacking_path:String = "accessibility/closed_captions/allow_sound_stacking"
 const use_custom_font_path:String = "accessibility/closed_captions/use_custom_font"
 const target_display_type_path:String = "accessibility/closed_captions/target_display_type"
@@ -70,13 +71,24 @@ func _exit_tree():
 	remove_inspector_plugin(caption_inspector_plugin)
 
 func _initialise_project_settings():
+	if !ProjectSettings.has_setting(global_cast_save_path):
+		ProjectSettings.set_setting(global_cast_save_path, "res://global_cast.res")
+		ProjectSettings.add_property_info({
+			"name": global_cast_save_path,
+			"type": TYPE_STRING,
+			"hint": PROPERTY_HINT_FILE,
+			"hint_string": ".res",
+			# At the moment, this will not be rendered by godot editor, see https://github.com/godotengine/godot-proposals/discussions/8224
+			"doc": "Choose the location where global cast is being saved to. Global cast is stored whenever you use the $Godette annotation in a caption to use special speakers."
+		})
+		ProjectSettings.set_initial_value(allow_sound_stacking_path, false)
+	
 	if !ProjectSettings.has_setting(allow_sound_stacking_path):
 		ProjectSettings.set_setting(allow_sound_stacking_path, false)
 		ProjectSettings.add_property_info({
 			"name": allow_sound_stacking_path,
 			"type": TYPE_BOOL,
 			"hint": PROPERTY_HINT_NONE,
-			# At the moment, this will not be rendered by godot editor, see https://github.com/godotengine/godot-proposals/discussions/8224
 			"doc": "Disable to make sure only one sound is captioned at a time."
 		})
 		ProjectSettings.set_initial_value(allow_sound_stacking_path, false)

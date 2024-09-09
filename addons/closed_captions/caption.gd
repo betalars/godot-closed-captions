@@ -36,7 +36,6 @@ enum ConfigurationWarnings {
 	SET_POSITION
 }
 
-
 enum Formatting{
 	## For Characters on screen or within the same scene
 	NEUTRAL,
@@ -49,19 +48,37 @@ enum Formatting{
 ## The Text of the Caption.
 @export_multiline var text:String = "":
 	set(new_text):
-		if new_text == null: text = ""
-		else: text = new_text
+		if new_text == null:
+			text = ""
+		else:
+			text = new_text
 		changed.emit()
 ## Position of the Sound source relative to the Screen. Leave on center with 3D or 2D Player.
 @export var position:Positions = Positions.CENTER:
 	set(new_position):
 		position = new_position
 		changed.emit()
-@export_group("Speaker (leave empty for Sounds)")
+@export_group("Speaker")
 ## Name of the Speaker. Leave empty for Sound Effects. Will be displayed when the speaker speaks first.
-@export var speaker_name:String = "":
+@export_placeholder("Blank for SFX") var speaker_name:String = "":
 	set(name):
+		if name.begins_with("$"):
+			if special_speaker != null and special_speaker.name != name:
+				special_speaker = PluginReference.global_cast.get_speaker_by_name(name)
+		else:
+			special_speaker = null
+		if speaker_name == "" or name == "":
+			speaker_name = name
+			property_list_changed.emit()
+		else:
 		speaker_name = name
+		changed.emit()
+## This shows a special speaker if referenced. Use "$Godette" Format for Speaker Name to reference a speaker. Requires Cast Override or Global Cast to be configured.
+@export var special_speaker: Speaker:
+	set(speaker):
+		if speaker == null and speaker_name != "":
+			special_speaker == PluginReference.global_cast.get_speaker_by_name(speaker_name)
+		special_speaker = speaker
 		changed.emit()
 ## The Speaker Color. Speakers should have consistent colors.
 @export var speaker_color:Colors = Colors.AUTOMATIC:
@@ -97,6 +114,13 @@ enum Formatting{
 		_duration = duration
 		
 		changed.emit()
+
+func _validate_property(property: Dictionary) -> void:
+	if ["speaker_color", "speaker_format", "force_name_display"].has(property.name) and speaker_name == "":
+		property.usage |= PROPERTY_USAGE_READ_ONLY
+
+func _init(initial_time_offset = 0) -> void:
+	delay = initial_time_offset
 
 var previous: Caption
 

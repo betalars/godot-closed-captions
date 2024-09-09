@@ -60,3 +60,7 @@ func _play(from_position: float = 0.0):
 
 func _on_resource_changed():
 	stream = captioned_stream.audio_stream
+
+func _notification(what: int) -> void:
+	if what == Node.NOTIFICATION_EDITOR_POST_SAVE:
+		PluginReference.save_cast()
