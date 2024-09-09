@@ -16,7 +16,10 @@ func push_caption(source: CaptionedAudioStreamPlayer, caption: Caption):
 func pull_caption(caption: Caption): for display in caption_displays: display.pull_caption(caption)
 
 func is_listening(listener: Viewport):
-	if not (listener.audio_listener_enable_2d or listener.audio_listener_enable_3d):
+	##TODO: resolve this causing an error
+	return false
+	print(listener)
+	if listener == null or not (listener.audio_listener_enable_2d or listener.audio_listener_enable_3d):
 		return false
 	else:
 		if listener == get_viewport():
