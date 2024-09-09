@@ -94,14 +94,21 @@ func erase_caption(old_caption: Caption):
 	old_caption.changed.disconnect(_on_caption_changed)
 	_captions_array.erase(old_caption)
 	_on_caption_changed(old_caption)
+	if select_caption == _captions_array.size():
+		select_caption -= 1
+	else:
+		select_caption = select_caption
 	
 func erase_caption_at(id: int):
 	var old_caption: Caption = _captions_array.pop_at(id)
 	old_caption.changed.disconnect(_on_caption_changed)
+	if select_caption == _captions_array.size():
+		select_caption -= 1
+	else:
+		select_caption = select_caption
 	_on_caption_changed(old_caption)
-	select_caption = select_caption
 
 func _on_caption_changed(changed_caption: Caption):
 	sort_captions()
 	assign_durations()
-	caption_changed.emit(changed_caption)
+	captions_changed.emit(changed_caption)
