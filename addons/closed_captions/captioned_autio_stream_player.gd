@@ -32,8 +32,6 @@ func _process(delta):
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings:PackedStringArray = []
 	if captioned_stream == null: return warnings
-	# Add any classes derived from CaptionedAudioStream here if this warning pops up ironiousely.
-	if not (captioned_stream is SimpleCaptionAudioStream or captioned_stream is MultiCaptionAudioStream): warnings.append("CaptionedAudioStream is an abstract class not designed to be used on it's own.")
 	if captioned_stream.audio_stream != stream: warnings.append("Set Stream in \"Captioned Stream\", not in AudioPlayer.")
 	var caption_warnings:int = captioned_stream.get_caption_warnings()
 	if bool(caption_warnings & 2**Caption.ConfigurationWarnings.EMPTY): warnings.append("Some Captions are empty.")
