@@ -49,11 +49,11 @@ func _play(from_position: float = 0.0):
 	if captioned_stream is MultiCaptionAudioStream:
 		captioned_stream.sort_captions()
 		captioned_stream.assign_durations()
-		captioned_stream.select_caption = captioned_stream.get_id_by_offset_time(from_position)
+		captioned_stream.select_caption = captioned_stream.get_next_id_by_offset_time(from_position)
 	
 	if captioned_stream.caption.delay - from_position > 0:
-		await get_tree().create_timer(captioned_stream.current_caption.delay - from_position).timeout
-	CaptionServer.push_caption(self, captioned_stream.current_caption)
+		await get_tree().create_timer(captioned_stream.caption.delay - from_position).timeout
+	CaptionServer.push_caption(self, captioned_stream.caption)
 	
 	if captioned_stream is MultiCaptionAudioStream:
 		captioned_stream.select_caption += 1
