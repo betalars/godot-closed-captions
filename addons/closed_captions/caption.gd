@@ -12,7 +12,7 @@ enum Positions {
 }
 
 enum Colors {
-	## Color is picke based on speaker occurance.
+	## Color picked by speaker appearance. This setting will result in unreliable speaker colors and is not reccomended.
 	AUTOMATIC,
 	## Frist speaker.
 	WHITE,
@@ -71,7 +71,7 @@ enum Formatting{
 			speaker_name = name
 			property_list_changed.emit()
 		else:
-		speaker_name = name
+			speaker_name = name
 		changed.emit()
 ## This shows a special speaker if referenced. Use "$Godette" Format for Speaker Name to reference a speaker. Requires Cast Override or Global Cast to be configured.
 @export var special_speaker: Speaker:
