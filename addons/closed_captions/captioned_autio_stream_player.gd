@@ -11,6 +11,12 @@ class_name CaptionedAudioStreamPlayer
 			stream == null
 		captioned_stream = sub_stream
 
+func _set(property: StringName, value: Variant) -> bool:
+	if property == "stream":
+		if value != null and not captioned_stream.audio_stream == value:
+			captioned_stream.audio_stream = value
+	return false
+
 func _ready():
 	if autoplay:
 		_play()
@@ -19,8 +25,8 @@ func _process(delta):
 	if playing:
 		if captioned_stream is MultiCaptionAudioStream:
 			if not captioned_stream.finished:
-				if super.get_playback_position() > captioned_stream.current_caption.delay:
-					CaptionServer.push_caption(self, captioned_stream.current_caption)
+				if super.get_playback_position() > captioned_stream.caption.delay:
+					CaptionServer.push_caption(self, captioned_stream.caption)
 					captioned_stream.next()
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -28,8 +34,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if captioned_stream == null: return warnings
 	# Add any classes derived from CaptionedAudioStream here if this warning pops up ironiousely.
 	if not (captioned_stream is SimpleCaptionAudioStream or captioned_stream is MultiCaptionAudioStream): warnings.append("CaptionedAudioStream is an abstract class not designed to be used on it's own.")
-	if captioned_stream.audio_stream != stream: warnings.append("Stream mismatch. Set Stream in \"Captioned Stream\", not in AudioPlayer.")
-	elif stream == null: warnings.append("Audio Stream is not yet configured.")
+	if captioned_stream.audio_stream != stream: warnings.append("Set Stream in \"Captioned Stream\", not in AudioPlayer.")
 	var caption_warnings:int = captioned_stream.get_caption_warnings()
 	if bool(caption_warnings & 2**Caption.ConfigurationWarnings.EMPTY): warnings.append("Some Captions are empty.")
 	if bool(caption_warnings & 2**Caption.ConfigurationWarnings.TOO_LONG): warnings.append("Some captions are too longer, than 15 words.")
