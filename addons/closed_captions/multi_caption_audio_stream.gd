@@ -7,7 +7,7 @@ class_name MultiCaptionAudioStream
 #FIXME THIS IS NOT CALLED WHAT THE FUCK
 func handle_caption_set(caption: Caption):
 	if caption == null:
-			erase_caption_at(select_caption)
+		erase_caption_at(select_caption)
 	elif not _captions_array.has(caption):
 		append_caption(caption)
 
@@ -82,10 +82,10 @@ func next():
 	else:
 		finished = true
 
-func get_id_by_offset_time(time: float) -> int:
-	return _captions_array.find(get_caption_by_offset_time(time))
+func get_next_id_by_offset_time(time: float) -> int:
+	return _captions_array.find(get_next_caption_by_offset_time(time))
 	
-func get_caption_by_offset_time(time: float) -> Caption:
+func get_next_caption_by_offset_time(time: float) -> Caption:
 	if time <= 0:
 		return _captions_array[0]
 	else:
@@ -93,7 +93,19 @@ func get_caption_by_offset_time(time: float) -> Caption:
 			if caption.delay + caption._duration > time:
 				return caption
 	return null
-	
+
+func seek_closest(time:float) -> Caption:
+	if time <= 0:
+		select_caption = 0
+		return _captions_array[0]
+	else:
+		for i in range(_captions_array.size()-1):
+			if _captions_array[i].delay + _captions_array[i]._duration - time > time - _captions_array[i+1].delay:
+				select_caption = i
+				return caption
+	caption = _captions_array[-1]
+	return _captions_array[-1]
+
 func append_caption(new_caption: Caption):
 	new_caption.changed.connect(func f(): _on_caption_changed(new_caption))
 	_captions_array.append(new_caption)
