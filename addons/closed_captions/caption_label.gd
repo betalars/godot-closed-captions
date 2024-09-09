@@ -94,7 +94,6 @@ func _init(from_caption: Caption = Caption.new(), include_name: bool = false, co
 	self.name = "CaptionLebel"
 	self.theme = CaptionTheme.captions_theme
 	self.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	self.autowrap_mode = TextServer.AUTOWRAP_OFF
 
 func _ready():
 	rebuild()
@@ -119,7 +118,8 @@ func rebuild():
 	set_pos(caption.position)
 	bbcode_enabled = true
 	fit_content = true
-	if include_name: _prefix = caption.speaker_name
+	
+	if include_name or (caption.force_name_display and not caption.speaker_name == ""): _prefix = caption.speaker_name
 	
 	if is_compact:
 		_set_compact_text()
@@ -134,6 +134,7 @@ func rebuild():
 				size_flags_horizontal = Control.SIZE_SHRINK_END
 			_:
 				size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	custom_minimum_size.x = min(CaptionTheme.maximum_label_width, get_theme_default_font().get_multiline_string_size(text).x+10)
 
 ## Converting the Position based off the enum declared in caption to the bigger Position standard declared in this class. Will use position in override_position instead, if it was set.
 func set_pos(pos = Caption.Positions):

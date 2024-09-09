@@ -44,6 +44,8 @@ var _scaling_behaviour:scaling_type = scaling_type.DESKTOP:
 
 var captions_theme:Theme = preload("res://addons/closed_captions/captions.theme")
 
+var maximum_label_width:int = 512
+
 func _enter_tree():
 	ProjectSettings.settings_changed.connect(_on_project_settings_update)
 	if ProjectSettings.has_setting("settings_initialised"):
