@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsd237msq7cn4"]
+
+[ext_resource type="Script" path="res://addons/closed_captions/captioned_audio_stream_player_2d.gd" id="1_yrmh6"]
+[ext_resource type="Script" path="res://addons/closed_captions/captioned_autio_stream_player.gd" id="2_wlams"]
+[ext_resource type="Script" path="res://addons/closed_captions/multi_caption_audio_stream.gd" id="3_arttc"]
+[ext_resource type="Script" path="res://addons/closed_captions/caption.gd" id="3_vqbco"]
+
+[sub_resource type="Resource" id="Resource_j7m8a"]
+script = ExtResource("3_vqbco")
+text = "this is the third caption	"
+position = 2
+speaker_name = ""
+speaker_color = 0
+speaker_format = 0
+extra_formatting = ""
+force_name_display = false
+delay = 0.0
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_ogdqu"]
+script = ExtResource("3_vqbco")
+text = ""
+position = 2
+speaker_name = ""
+speaker_color = 0
+speaker_format = 0
+extra_formatting = ""
+force_name_display = false
+delay = 0.0
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_jilg5"]
+script = ExtResource("3_arttc")
+select_caption = 1
+_captions_array = Array[ExtResource("3_vqbco")]([SubResource("Resource_j7m8a"), SubResource("Resource_ogdqu")])
+caption = SubResource("Resource_ogdqu")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("1_yrmh6")
+
+[node name="CaptionedAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("2_wlams")
+captioned_stream = SubResource("Resource_jilg5")

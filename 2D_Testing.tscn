@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://dunpbqjxoeegg"]
+
+[ext_resource type="Script" path="res://addons/closed_captions/captioned_audio_stream.gd" id="2_01bj8"]
+[ext_resource type="Script" path="res://addons/closed_captions/captioned_autio_stream_player.gd" id="2_fmgrj"]
+[ext_resource type="Script" path="res://addons/closed_captions/caption.gd" id="3_q0g6x"]
+[ext_resource type="Theme" uid="uid://dg5xg7e6qqlgq" path="res://addons/closed_captions/captions.theme" id="5_i745o"]
+[ext_resource type="Script" path="res://addons/closed_captions/caption_display.gd" id="5_jhxuw"]
+[ext_resource type="Script" path="res://addons/closed_captions/caption_label.gd" id="6_cvmpc"]
+
+[sub_resource type="Resource" id="Resource_wuks3"]
+script = ExtResource("2_01bj8")
+
+[sub_resource type="Resource" id="Resource_uv54j"]
+script = ExtResource("3_q0g6x")
+text = "asdfgh"
+position = 3
+speaker_name = ""
+speaker_color = 0
+speaker_format = 0
+extra_formatting = ""
+force_name_display = false
+delay = 0.0
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_2jyy3"]
+script = ExtResource("3_q0g6x")
+text = "test"
+position = 3
+speaker_name = ""
+speaker_color = 0
+speaker_format = 0
+extra_formatting = ""
+force_name_display = false
+delay = 0.0
+duration = 0.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ruedigers" type="AudioStreamPlayer" parent="."]
+autoplay = true
+script = ExtResource("2_fmgrj")
+captioned_stream = SubResource("Resource_wuks3")
+
+[node name="CaptionLabel" type="RichTextLabel" parent="ruedigers"]
+custom_minimum_size = Vector2(342, 0)
+offset_right = 78.0
+offset_bottom = 63.0
+size_flags_horizontal = 8
+theme = ExtResource("5_i745o")
+bbcode_enabled = true
+text = "[right]  [color=white][asdfgh] [/color] [/right]"
+fit_content = true
+autowrap_mode = 0
+script = ExtResource("6_cvmpc")
+caption = SubResource("Resource_uv54j")
+include_name = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CaptionDisplay" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 25
+script = ExtResource("5_jhxuw")
+displaying = Array[ExtResource("3_q0g6x")]([SubResource("Resource_2jyy3")])

@@ -1,0 +1,114 @@
+[gd_scene load_steps=13 format=3 uid="uid://cy7elqxb7miku"]
+
+[ext_resource type="Script" path="res://addons/closed_captions/caption_display.gd" id="1_tvqt4"]
+[ext_resource type="Script" path="res://addons/closed_captions/captioned_autio_stream_player.gd" id="2_uk060"]
+[ext_resource type="Script" path="res://addons/closed_captions/caption.gd" id="3_hgtqg"]
+[ext_resource type="Theme" uid="uid://dg5xg7e6qqlgq" path="res://addons/closed_captions/captions.theme" id="6_g7vcn"]
+[ext_resource type="Script" path="res://addons/closed_captions/captioned_audio_stream.gd" id="6_igw1i"]
+[ext_resource type="Script" path="res://addons/closed_captions/caption_label.gd" id="7_11mcf"]
+[ext_resource type="Script" path="res://helper.gd" id="7_knsqo"]
+[ext_resource type="Script" path="res://addons/closed_captions/speaker.gd" id="8_yhohl"]
+
+[sub_resource type="GDScript" id="GDScript_8tqpr"]
+script/source = "extends Node2D
+
+
+func _ready():
+	$CaptionedAudioStreamPlayer.play()
+"
+
+[sub_resource type="Resource" id="Resource_k1p54"]
+script = ExtResource("3_hgtqg")
+text = "This "
+position = 3
+speaker_name = "Prof Dumbledoor"
+speaker_color = 0
+speaker_format = 0
+extra_formatting = ""
+delay = 0.0
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_krgc1"]
+script = ExtResource("6_igw1i")
+
+[sub_resource type="Resource" id="Resource_jijvi"]
+script = ExtResource("8_yhohl")
+name = &"Dumbledore"
+preferred_colour = 0
+theme = Object(GDScriptNativeClass,"script":null)
+
+override_font_color = true
+font_color = Color(0.753984, 0.753984, 0.753984, 1)
+override_font_shadow = true
+font_shadow = Color(0, 0, 0, 1)
+override_font_outline = true
+font_outline = Color(0, 0, 0, 1)
+override_line_spacing = true
+line_spacing = 0
+override_shadow_offset_x = true
+shadow_offset_x = 0
+override_shadow_offset_y = true
+shadow_offset_y = 0
+override_outline_size = true
+outline_size = 0
+override_shadow_size = true
+shadow_size = 0
+override_font_size = true
+font_size = 0
+override_italic_font_size = true
+italic_font_size = 0
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_8tqpr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CaptionDisplay" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 25
+script = ExtResource("1_tvqt4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CaptionLabel" type="RichTextLabel" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_g7vcn")
+bbcode_enabled = true
+text = "[center]  [color=white]This [/color]> [/center]"
+fit_content = true
+autowrap_mode = 0
+script = ExtResource("7_11mcf")
+caption = SubResource("Resource_k1p54")
+is_compact = true
+include_name = false
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/CaptionLabel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 70.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/VBoxContainer/CaptionLabel/Label"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CaptionedAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("2_uk060")
+captioned_stream = SubResource("Resource_krgc1")
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("7_knsqo")
+helper = SubResource("Resource_jijvi")
