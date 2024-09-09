@@ -35,7 +35,22 @@ class_name CaptionsPanel
 @onready var nav_add: Button = $Layout/Navigation/Add
 @onready var nav_next: Button = $Layout/Navigation/Next
 
-var current_time: float = 0
+@onready var time_scale:float = 0:
+	set(value):
+		time_scale_selector.value = time_scale
+	get():
+		return time_scale_selector.value
+
+var current_time: float = 0:
+	set(value):
+		current_time = value
+		if is_node_ready():
+			time_selector.value = current_time
+	get():
+		if is_node_ready():
+			return time_selector.value
+		else:
+			return 0
 
 @onready var audio_player: Object:
 	set(player):
@@ -50,9 +65,10 @@ var current_speaker_id = -1
 var lock_signals
 
 func _ready():
-	$TimeScale.value_changed.connect(set_time_scale)
-	
-	label.caption = current_caption
+	##FIXME for some reason, this is not allowed
+	#time_scale_selector.value_changed.connect(timeline.select_time_scale)
+	time_selector.value_changed.connect(multi_caption_stream.seek_closest)
+	time_scale_selector.editable = false
 	
 	name_input.text_set.connect(confirm_speaker_name)
 	name_input.text_changed.connect(update_speaker_name)
