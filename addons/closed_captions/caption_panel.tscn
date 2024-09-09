@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dn5deabsaiubp"]
+[gd_scene load_steps=50 format=3 uid="uid://dn5deabsaiubp"]
 
 [ext_resource type="Script" path="res://addons/closed_captions/caption_panel.gd" id="1_euj1v"]
 [ext_resource type="Theme" uid="uid://dg5xg7e6qqlgq" path="res://addons/closed_captions/captions.theme" id="1_rptbq"]
@@ -7,6 +7,16 @@
 [ext_resource type="Script" path="res://addons/closed_captions/caption.gd" id="3_wdwpm"]
 [ext_resource type="Script" path="res://addons/closed_captions/multi_caption_audio_stream.gd" id="4_uskjc"]
 [ext_resource type="Script" path="res://addons/closed_captions/caption_panel_timeline.gd" id="5_re1ab"]
+[ext_resource type="Texture2D" uid="uid://ccxnfnwsva2uf" path="res://addons/closed_captions/icons/PlayStartBackwards.svg" id="5_ye21x"]
+[ext_resource type="Texture2D" uid="uid://8ej20n3eckem" path="res://addons/closed_captions/icons/Play.svg" id="6_1y88t"]
+[ext_resource type="Texture2D" uid="uid://b5jg6wfi0out4" path="res://addons/closed_captions/icons/Pause.svg" id="7_ll6cm"]
+[ext_resource type="Texture2D" uid="uid://c81j4ifydh4i3" path="res://addons/closed_captions/icons/PlayStart.svg" id="8_hu67y"]
+[ext_resource type="Texture2D" uid="uid://b3b6j7v60jrkm" path="res://addons/closed_captions/icons/Caption.svg" id="9_1g6rc"]
+[ext_resource type="Texture2D" uid="uid://c3df1mdc4o1oq" path="res://addons/closed_captions/icons/Add.svg" id="9_uwcfx"]
+[ext_resource type="Texture2D" uid="uid://bpr5wke2cwx1j" path="res://addons/closed_captions/icons/Remove.svg" id="10_drnvq"]
+[ext_resource type="Texture2D" uid="uid://bk577tudxoagj" path="res://addons/closed_captions/icons/Pin.svg" id="11_sxxue"]
+[ext_resource type="Texture2D" uid="uid://bg3nnsa43vfnc" path="res://addons/closed_captions/icons/PinPressed.svg" id="12_3gp5o"]
+[ext_resource type="Texture2D" uid="uid://csvp7ckf3wey8" path="res://addons/closed_captions/icons/Zoom.svg" id="13_jqvhd"]
 
 [sub_resource type="Resource" id="Resource_wa64w"]
 script = ExtResource("3_wdwpm")
@@ -16,94 +26,103 @@ speaker_name = ""
 speaker_color = 0
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 0.0
 duration = 2.0
 
 [sub_resource type="Resource" id="Resource_5fdjd"]
 script = ExtResource("3_wdwpm")
 text = "Boy, do I love light switches."
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = true
 delay = 0.5
 duration = 0.0
 
 [sub_resource type="Resource" id="Resource_lndpt"]
 script = ExtResource("3_wdwpm")
 text = "Love turning them on and off so much fun."
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 2.0
 duration = 0.0
 
 [sub_resource type="Resource" id="Resource_1g0h8"]
 script = ExtResource("3_wdwpm")
 text = "I love turning on lights"
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 4.0
 duration = 0.0
 
 [sub_resource type="Resource" id="Resource_4bnx5"]
 script = ExtResource("3_wdwpm")
 text = "next to my large collection of throwable objects"
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 5.5
 duration = 0.0
 
 [sub_resource type="Resource" id="Resource_npr8r"]
 script = ExtResource("3_wdwpm")
 text = "and also empty notebooks it would sure suck"
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 8.4
 duration = 0.0
 
 [sub_resource type="Resource" id="Resource_mo8ok"]
 script = ExtResource("3_wdwpm")
 text = "if someone named Carol Thomas showed up"
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 11.8
 duration = 0.0
 
 [sub_resource type="Resource" id="Resource_p1y83"]
 script = ExtResource("3_wdwpm")
 text = "to ruin all my fun."
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 14.0
 duration = 0.0
 
 [sub_resource type="Resource" id="Resource_pc5ud"]
 script = ExtResource("3_wdwpm")
 text = "Carol Thomas, Carol Thomas, Carol Thomas"
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 15.0
 duration = 0.0
 
@@ -115,99 +134,100 @@ speaker_name = ""
 speaker_color = 0
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 17.2
 duration = 0.0
 
 [sub_resource type="Resource" id="Resource_8cm81"]
 script = ExtResource("3_wdwpm")
 text = "Hey, I've been here for half an hour"
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = "into radio"
+force_name_display = false
 delay = 18.5
 duration = 0.0
 
 [sub_resource type="Resource" id="Resource_1bclt"]
 script = ExtResource("3_wdwpm")
 text = "can we please just call this a shade and go home?"
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 20.3
 duration = 0.0
 
 [sub_resource type="Resource" id="Resource_qyomo"]
 script = ExtResource("3_wdwpm")
 text = "We need at least one piece of evidence."
-position = 3
+position = 2
 speaker_name = "Jefferey"
 speaker_color = 2
 speaker_format = 1
 extra_formatting = "over the radio"
+force_name_display = false
 delay = 21.87
 duration = 0.0
 
 [sub_resource type="Resource" id="Resource_mepef"]
 script = ExtResource("3_wdwpm")
 text = "Do we, tho? I feel like this evidence is pretty conclusive."
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 23.8
 duration = 0.0
 
 [sub_resource type="Resource" id="Resource_v6ia2"]
 script = ExtResource("3_wdwpm")
 text = "Let's go trough the cheklist."
-position = 3
+position = 2
 speaker_name = "Jefferey"
 speaker_color = 2
 speaker_format = 1
 extra_formatting = "over the radio"
+force_name_display = false
 delay = 26.5
-duration = 0.0
+duration = 2.0
 
 [sub_resource type="Resource" id="Resource_ghdwf"]
 script = ExtResource("4_uskjc")
-caption = SubResource("Resource_v6ia2")
-select_caption = 14
+select_caption = 0
 _captions_array = Array[ExtResource("3_wdwpm")]([SubResource("Resource_wa64w"), SubResource("Resource_5fdjd"), SubResource("Resource_lndpt"), SubResource("Resource_1g0h8"), SubResource("Resource_4bnx5"), SubResource("Resource_npr8r"), SubResource("Resource_mo8ok"), SubResource("Resource_p1y83"), SubResource("Resource_pc5ud"), SubResource("Resource_e75l0"), SubResource("Resource_8cm81"), SubResource("Resource_1bclt"), SubResource("Resource_qyomo"), SubResource("Resource_mepef"), SubResource("Resource_v6ia2")])
+caption = SubResource("Resource_wa64w")
 audio_stream = ExtResource("2_aot4b")
 
-[sub_resource type="Resource" id="Resource_wfx5i"]
-script = ExtResource("3_wdwpm")
-text = "This is a Test Caption."
-position = 2
-speaker_name = ""
-speaker_color = 0
-speaker_format = 0
-extra_formatting = ""
-delay = 0.0
-duration = 0.0
+[sub_resource type="GDScript" id="GDScript_ajg5t"]
+script/source = "extends Control
 
-[sub_resource type="Resource" id="Resource_jm85r"]
-script = ExtResource("3_wdwpm")
-text = "This is a second test caption."
-position = 2
-speaker_name = ""
-speaker_color = 0
-speaker_format = 0
-extra_formatting = ""
-delay = 0.0
-duration = 0.0
+@onready var label = $Label
+@export var text:String = \"\":
+	set(new):
+		text = new
+		label.text = text
+"
 
-[sub_resource type="Resource" id="Resource_6bihc"]
-script = ExtResource("4_uskjc")
-caption = SubResource("Resource_jm85r")
-select_caption = 1
-_captions_array = Array[ExtResource("3_wdwpm")]([SubResource("Resource_wfx5i"), SubResource("Resource_jm85r")])
-audio_stream = ExtResource("2_aot4b")
+[sub_resource type="GDScript" id="GDScript_q4n24"]
+script/source = "@tool
+extends TextEdit
+
+func _set(property: StringName, value: Variant) -> bool:
+	if property == \"text\":
+		if value is String:
+			if value.begins_with(\"$\"):
+				add_theme_color_override(\"font_color\", Color.GREEN_YELLOW)
+			else:
+				remove_theme_color_override(\"font_color\")
+	return false
+"
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_m22g1"]
 
@@ -337,85 +357,112 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="CaptionPanel" type="Control"]
-layout_mode = 3
+[node name="CaptionPanel" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
 script = ExtResource("1_euj1v")
 multi_caption_stream = SubResource("Resource_ghdwf")
 
-[node name="TimeScale" type="HSlider" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -248.0
-offset_top = 6.0
-offset_right = -10.0
-offset_bottom = 22.0
-grow_horizontal = 0
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 13
+
+[node name="Navigation" type="HBoxContainer" parent="Layout"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Seperator3" type="VSeparator" parent="Layout/Navigation"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="Layout/Navigation"]
+self_modulate = Color(0.552956, 0.552956, 0.552956, 1)
+layout_mode = 2
+texture = ExtResource("9_1g6rc")
+
+[node name="Add" type="TextureButton" parent="Layout/Navigation"]
+layout_mode = 2
+tooltip_text = "add new caption"
+texture_normal = ExtResource("9_uwcfx")
+
+[node name="DeleteCurrent" type="TextureButton" parent="Layout/Navigation"]
+layout_mode = 2
+tooltip_text = "delete current caption"
+texture_normal = ExtResource("10_drnvq")
+
+[node name="PinCurrent" type="TextureButton" parent="Layout/Navigation"]
+layout_mode = 2
+tooltip_text = "delete current caption"
+toggle_mode = true
+button_pressed = true
+texture_normal = ExtResource("11_sxxue")
+texture_pressed = ExtResource("12_3gp5o")
+
+[node name="Seperator" type="VSeparator" parent="Layout/Navigation"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="Last" type="TextureButton" parent="Layout/Navigation"]
+layout_mode = 2
+tooltip_text = "skip to previous caption"
+texture_normal = ExtResource("5_ye21x")
+
+[node name="Play" type="TextureButton" parent="Layout/Navigation"]
+layout_mode = 2
+tooltip_text = "play"
+toggle_mode = true
+texture_normal = ExtResource("6_1y88t")
+texture_pressed = ExtResource("7_ll6cm")
+
+[node name="Next" type="TextureButton" parent="Layout/Navigation"]
+layout_mode = 2
+tooltip_text = "skip to next caption"
+texture_normal = ExtResource("8_hu67y")
+
+[node name="Seperator2" type="VSeparator" parent="Layout/Navigation"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect2" type="TextureRect" parent="Layout/Navigation"]
+layout_mode = 2
+texture = ExtResource("13_jqvhd")
+
+[node name="TimeScale" type="HSlider" parent="Layout/Navigation"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
 min_value = 0.1
 max_value = 2.0
 step = 0.1
 value = 1.1
-
-[node name="Layout" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Navigation" type="HFlowContainer" parent="Layout"]
-layout_mode = 2
-alignment = 1
-
-[node name="Last" type="Button" parent="Layout/Navigation"]
-layout_mode = 2
-tooltip_text = "skip to previous caption"
-text = "|<"
-
-[node name="DeleteCurrent" type="Button" parent="Layout/Navigation"]
-layout_mode = 2
-tooltip_text = "delete current caption"
-text = "-"
-
-[node name="Play" type="Button" parent="Layout/Navigation"]
-layout_mode = 2
-tooltip_text = "play"
-toggle_mode = true
-text = "||/>"
-
-[node name="Add" type="Button" parent="Layout/Navigation"]
-layout_mode = 2
-tooltip_text = "add new caption"
-text = "+"
-
-[node name="Next" type="Button" parent="Layout/Navigation"]
-layout_mode = 2
-tooltip_text = "skip to next caption"
-text = ">|"
+editable = false
 
 [node name="Timeline" type="VBoxContainer" parent="Layout"]
 layout_mode = 2
 script = ExtResource("5_re1ab")
-multi_caption_stream = SubResource("Resource_6bihc")
+multi_caption_stream = SubResource("Resource_ghdwf")
 
 [node name="TimeLabels" type="HBoxContainer" parent="Layout/Timeline"]
 layout_mode = 2
 
 [node name="VSeparator" type="VSeparator" parent="Layout/Timeline/TimeLabels"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(100, 8)
 layout_mode = 2
 
-[node name="Control" type="Control" parent="Layout/Timeline/TimeLabels"]
+[node name="time_label" type="Control" parent="Layout/Timeline/TimeLabels"]
 layout_mode = 2
+script = SubResource("GDScript_ajg5t")
 
-[node name="Label" type="Label" parent="Layout/Timeline/TimeLabels/Control"]
+[node name="Label" type="Label" parent="Layout/Timeline/TimeLabels/time_label"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -430,16 +477,11 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "1"
 
-[node name="VSeparator2" type="HSeparator" parent="Layout/Timeline/TimeLabels"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
 [node name="TimeSelector" type="HSlider" parent="Layout/Timeline"]
 layout_mode = 2
+step = 0.0
 allow_greater = true
 allow_lesser = true
-tick_count = 10
 
 [node name="Waveform" type="TextureRect" parent="Layout/Timeline"]
 custom_minimum_size = Vector2(0, 32)
@@ -474,9 +516,13 @@ size_flags_horizontal = 3
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Layout"]
 layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
 
 [node name="Speaker_properties" type="GridContainer" parent="Layout/HBoxContainer3"]
 layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 6
 columns = 2
 
 [node name="NameLabel" type="Label" parent="Layout/HBoxContainer3/Speaker_properties"]
@@ -489,140 +535,22 @@ layout_mode = 2
 [node name="NameInput" type="TextEdit" parent="Layout/HBoxContainer3/Speaker_properties/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "Godette"
+tooltip_text = "Put your Speaker Name here. Name should be as short as possible, for instance use \"Godette\" instead of \"Professor Godette\".
+
+Leave thiss field empty if it is a sound."
+placeholder_text = "blank for SFX"
 scroll_fit_content_height = true
+script = SubResource("GDScript_q4n24")
 
 [node name="NamePicker" type="OptionButton" parent="Layout/HBoxContainer3/Speaker_properties/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-selected = 0
-item_count = 127
+tooltip_text = "Choose from already used speakers."
+item_count = 3
+popup/item_1/text = "Kyle"
 popup/item_1/id = 1
+popup/item_2/text = "Jefferey"
 popup/item_2/id = 2
-popup/item_3/id = 3
-popup/item_4/id = 4
-popup/item_5/id = 5
-popup/item_6/id = 6
-popup/item_7/id = 7
-popup/item_8/id = 8
-popup/item_9/id = 9
-popup/item_10/id = 10
-popup/item_11/id = 11
-popup/item_12/id = 12
-popup/item_13/id = 13
-popup/item_14/id = 14
-popup/item_15/id = 15
-popup/item_16/id = 16
-popup/item_17/id = 17
-popup/item_18/id = 18
-popup/item_19/id = 19
-popup/item_20/id = 20
-popup/item_21/id = 21
-popup/item_22/id = 22
-popup/item_23/id = 23
-popup/item_24/id = 24
-popup/item_25/id = 25
-popup/item_26/id = 26
-popup/item_27/id = 27
-popup/item_28/id = 28
-popup/item_29/id = 29
-popup/item_30/id = 30
-popup/item_31/id = 31
-popup/item_32/id = 32
-popup/item_33/id = 33
-popup/item_34/id = 34
-popup/item_35/id = 35
-popup/item_36/id = 36
-popup/item_37/id = 37
-popup/item_38/id = 38
-popup/item_39/id = 39
-popup/item_40/id = 40
-popup/item_41/id = 41
-popup/item_42/id = 42
-popup/item_43/id = 43
-popup/item_44/id = 44
-popup/item_45/id = 45
-popup/item_46/id = 46
-popup/item_47/id = 47
-popup/item_48/id = 48
-popup/item_49/id = 49
-popup/item_50/id = 50
-popup/item_51/id = 51
-popup/item_52/id = 52
-popup/item_53/id = 53
-popup/item_54/id = 54
-popup/item_55/id = 55
-popup/item_56/id = 56
-popup/item_57/id = 57
-popup/item_58/id = 58
-popup/item_59/id = 59
-popup/item_60/id = 60
-popup/item_61/id = 61
-popup/item_62/id = 62
-popup/item_63/id = 63
-popup/item_64/id = 64
-popup/item_65/id = 65
-popup/item_66/id = 66
-popup/item_67/id = 67
-popup/item_68/id = 68
-popup/item_69/id = 69
-popup/item_70/id = 70
-popup/item_71/id = 71
-popup/item_72/id = 72
-popup/item_73/id = 73
-popup/item_74/id = 74
-popup/item_75/id = 75
-popup/item_76/id = 76
-popup/item_77/id = 77
-popup/item_78/id = 78
-popup/item_79/id = 79
-popup/item_80/id = 80
-popup/item_81/id = 81
-popup/item_82/id = 82
-popup/item_83/id = 83
-popup/item_84/id = 84
-popup/item_85/id = 85
-popup/item_86/id = 86
-popup/item_87/id = 87
-popup/item_88/id = 88
-popup/item_89/id = 89
-popup/item_90/id = 90
-popup/item_91/id = 91
-popup/item_92/id = 92
-popup/item_93/id = 93
-popup/item_94/id = 94
-popup/item_95/id = 95
-popup/item_96/id = 96
-popup/item_97/id = 97
-popup/item_98/id = 98
-popup/item_99/id = 99
-popup/item_100/id = 100
-popup/item_101/id = 101
-popup/item_102/id = 102
-popup/item_103/id = 103
-popup/item_104/id = 104
-popup/item_105/id = 105
-popup/item_106/id = 106
-popup/item_107/id = 107
-popup/item_108/id = 108
-popup/item_109/id = 109
-popup/item_110/id = 110
-popup/item_111/id = 111
-popup/item_112/id = 112
-popup/item_113/id = 113
-popup/item_114/id = 114
-popup/item_115/id = 115
-popup/item_116/id = 116
-popup/item_117/id = 117
-popup/item_118/id = 118
-popup/item_119/id = 119
-popup/item_120/id = 120
-popup/item_121/id = 121
-popup/item_122/id = 122
-popup/item_123/id = 123
-popup/item_124/id = 124
-popup/item_125/id = 125
-popup/item_126/id = 126
 
 [node name="PositionLabel" type="Label" parent="Layout/HBoxContainer3/Speaker_properties"]
 layout_mode = 2
@@ -685,6 +613,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "automatically determine speaker colors based on game context. First ovurring speaker will be white, second yellow and so on."
+disabled = true
 toggle_mode = true
 button_pressed = true
 button_group = SubResource("ButtonGroup_uuf7x")
@@ -694,6 +623,7 @@ text = "AUTO"
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Color of the "
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_uuf7x")
 text = "white"
@@ -703,6 +633,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
 theme_override_colors/font_color = Color(1, 1, 0, 1)
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_uuf7x")
 text = "yellow"
@@ -712,6 +643,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_pressed_color = Color(0, 1, 1, 1)
 theme_override_colors/font_color = Color(0, 1, 1, 1)
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_uuf7x")
 text = "cyan"
@@ -721,6 +653,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_pressed_color = Color(0, 1, 0, 1)
 theme_override_colors/font_color = Color(0, 1, 0, 1)
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_uuf7x")
 text = "green"
@@ -738,6 +671,7 @@ tooltip_text = "extra colors"
 theme_override_styles/hover = SubResource("StyleBoxFlat_4c2gi")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_d5r0a")
 theme_override_styles/normal = SubResource("StyleBoxFlat_edq2t")
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_uuf7x")
 
@@ -749,6 +683,7 @@ tooltip_text = "extra colors"
 theme_override_styles/hover = SubResource("StyleBoxFlat_kbcgr")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_66wo5")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j1rue")
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_uuf7x")
 
@@ -760,6 +695,7 @@ tooltip_text = "extra colors"
 theme_override_styles/hover = SubResource("StyleBoxFlat_722xw")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_5pxds")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0c5c8")
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_uuf7x")
 
@@ -772,6 +708,7 @@ theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_styles/hover = SubResource("StyleBoxFlat_054n2")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ofbuq")
 theme_override_styles/normal = SubResource("StyleBoxFlat_4wcle")
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_uuf7x")
 
@@ -782,46 +719,26 @@ text = "Extras"
 [node name="extra_input" type="TextEdit" parent="Layout/HBoxContainer3/Speaker_properties"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-placeholder_text = "over the radio"
+placeholder_text = "for exmaple \"over the radio\""
+editable = false
 scroll_fit_content_height = true
 
 [node name="CaptionInput" type="TextEdit" parent="Layout/HBoxContainer3"]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-text = "This is a second test caption."
+text = "clicking"
 placeholder_text = "Caption Text"
 wrap_mode = 1
 
 [node name="Scroll" type="ScrollContainer" parent="Layout/HBoxContainer3"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
 [node name="CaptionList" type="VBoxContainer" parent="Layout/HBoxContainer3/Scroll"]
 layout_mode = 2
-
-[node name="Button" type="Button" parent="Layout/HBoxContainer3/Scroll/CaptionList"]
-layout_mode = 2
-text = "1:00 some very long caption that needs to be cutoff"
-
-[node name="Button2" type="Button" parent="Layout/HBoxContainer3/Scroll/CaptionList"]
-layout_mode = 2
-text = "1:00 some very long caption that needs to be cutoff"
-
-[node name="Button3" type="Button" parent="Layout/HBoxContainer3/Scroll/CaptionList"]
-layout_mode = 2
-text = "1:00 some very long caption that needs to be cutoff"
-
-[node name="Button4" type="Button" parent="Layout/HBoxContainer3/Scroll/CaptionList"]
-layout_mode = 2
-text = "1:00 some very long caption that needs to be cutoff"
-
-[node name="Button5" type="Button" parent="Layout/HBoxContainer3/Scroll/CaptionList"]
-layout_mode = 2
-text = "1:00 some very long caption that needs to be cutoff"
-
-[node name="Button6" type="Button" parent="Layout/HBoxContainer3/Scroll/CaptionList"]
-layout_mode = 2
-text = "1:00 some very long caption that needs to be cutoff"
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="Layout"]
 layout_mode = 2
@@ -829,14 +746,19 @@ text = "Preview"
 horizontal_alignment = 1
 
 [node name="CaptionLabel" type="RichTextLabel" parent="Layout"]
+custom_minimum_size = Vector2(370, 0)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 theme = ExtResource("1_rptbq")
 bbcode_enabled = true
-text = "[right]  [color=yellow][over the radio] 
- 'Let's go trough the cheklist.' [/color] [/right]"
+text = "[center]  [color=white][clicking] [/color] [/center]"
 fit_content = true
-autowrap_mode = 0
 script = ExtResource("2_7ifoh")
-caption = SubResource("Resource_v6ia2")
+caption = SubResource("Resource_wa64w")
 include_name = false
+
+[node name="Panel" type="HBoxContainer" parent="Layout"]
+layout_mode = 2
+alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

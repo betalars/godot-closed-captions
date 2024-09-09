@@ -1,26 +1,35 @@
 @tool
-extends Control
+extends MarginContainer
 class_name CaptionsPanel
 
 @export var multi_caption_stream: MultiCaptionAudioStream:
 	set(stream):
 		if stream != null:
 			if multi_caption_stream != null:
-				multi_caption_stream.current_caption_set.disconnect(display_caption)
+				multi_caption_stream.captions_changed.disconnect(update_caption_list)
+				multi_caption_stream.caption_set.disconnect(current_caption_changed)
 			multi_caption_stream = stream
-			multi_caption_stream.current_caption_set.connect(display_caption)
-			multi_caption_stream.caption_changed.connect(display_caption)
-			current_caption = multi_caption_stream.caption
-			if is_node_ready():
-				label.caption = current_caption
+			multi_caption_stream.select_caption = 0
+			if multi_caption_stream != null:
+				multi_caption_stream.captions_changed.connect(update_caption_list)
+				multi_caption_stream.caption_set.connect(current_caption_changed)
+				current_caption = multi_caption_stream.caption
+				speaker_colors = {}
+				for caption in multi_caption_stream._captions_array:
+					confirm_speaker_name(caption)
+				if is_node_ready():
+					#TODO: remove current caption from this entirely?
+					label.caption = current_caption
+					update_caption_list()
 
 @export var force_update:bool = false:
 	set(nix):
 		update_timeline()
 
 @onready var label: CaptionLabel = $Layout/CaptionLabel
-@onready var time_scale: float = $TimeScale.value
-@onready var timeline: VBoxContainer = $Layout/Timeline
+@onready var time_selector: HSlider = $Layout/Timeline/TimeSelector
+@onready var time_scale_selector: HSlider = $Layout/Navigation/TimeScale
+@onready var timeline: CaptionPanelTimeline = $Layout/Timeline
 @onready var waveform: TextureRect = $Layout/Timeline/Waveform
 @onready var caption_input: TextEdit = $Layout/HBoxContainer3/CaptionInput
 @onready var position_group: ButtonGroup = $Layout/HBoxContainer3/Speaker_properties/Position/center.button_group
@@ -28,12 +37,13 @@ class_name CaptionsPanel
 @onready var name_input: TextEdit = $Layout/HBoxContainer3/Speaker_properties/HSplitContainer/NameInput
 @onready var name_picker: OptionButton = $Layout/HBoxContainer3/Speaker_properties/HSplitContainer/NamePicker
 @onready var extra_input: TextEdit = $Layout/HBoxContainer3/Speaker_properties/extra_input
+@onready var caption_list: VBoxContainer = $Layout/HBoxContainer3/Scroll/CaptionList
 
-@onready var nav_last: Button = $Layout/Navigation/Last
-@onready var nav_delete: Button = $Layout/Navigation/DeleteCurrent
-@onready var nav_play: Button = $Layout/Navigation/Play
-@onready var nav_add: Button = $Layout/Navigation/Add
-@onready var nav_next: Button = $Layout/Navigation/Next
+@onready var nav_last: TextureButton = $Layout/Navigation/Last
+@onready var nav_delete: TextureButton = $Layout/Navigation/DeleteCurrent
+@onready var nav_play: TextureButton = $Layout/Navigation/Play
+@onready var nav_add: TextureButton = $Layout/Navigation/Add
+@onready var nav_next: TextureButton = $Layout/Navigation/Next
 
 @onready var time_scale:float = 0:
 	set(value):
@@ -58,11 +68,21 @@ var current_time: float = 0:
 		audio_player = player
 		multi_caption_stream = audio_player.captioned_stream
 
-var current_caption:Caption
+var current_caption:Caption:
+	set(caption):
+		if current_caption != null:
+			current_caption.changed.disconnect(update_caption_display)
+		current_caption = caption
+		if current_caption != null:
+			current_caption.changed.connect(update_caption_display)
+		#if not audio_player.playing:
+			current_time = caption.delay
+		update_caption_display()
 
-var speaker_colors: Array[int] = []
+var speaker_colors: Dictionary = {}
 var current_speaker_id = -1
 var lock_signals
+	
 
 func _ready():
 	##FIXME for some reason, this is not allowed
@@ -72,31 +92,39 @@ func _ready():
 	
 	name_input.text_set.connect(confirm_speaker_name)
 	name_input.text_changed.connect(update_speaker_name)
+	name_picker.item_selected.connect(name_picked)
 	
 	extra_input.text_changed.connect(update_extra_formatting)
 	
 	position_group.pressed.connect(update_speaker_position)
 	color_group.pressed.connect(update_speaker_color)
 	
+	# Connect navigation button signals
 	nav_delete.pressed.connect(delete_current)
 	nav_add.pressed.connect(add_new)
+	nav_last.pressed.connect(last)
+	nav_next.pressed.connect(next)
 	
-	display_caption(current_caption)
+	update_caption_display()
+	update_caption_list()
 	
+	print(multi_caption_stream)
+	print(timeline)
 	timeline.multi_caption_stream = multi_caption_stream
+	
+	if audio_player == null:
+		audio_player = CaptionedAudioStreamPlayer.new()
+		add_child(audio_player)
 
-func set_time_scale(value:float):
-	time_scale = value
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _process(delta: float) -> void:
+	return
+	if audio_player.playing:
+		current_time = audio_player.get_playback_position()
 
 func update_timeline():
 	EditorInterface.get_resource_previewer().queue_edited_resource_preview(audio_player.audio_stream, self, "update_waveform", null)
 
 func update_waveform(texture:Texture2D):
-	print("got_called")
 	waveform.texture = texture
 
 func update_speaker_name():
@@ -107,14 +135,16 @@ func update_extra_formatting():
 	if not lock_signals:
 		current_caption.extra_formatting = extra_input.text
 
-func confirm_speaker_name():
-	if current_speaker_id == -1:
-		current_speaker_id = speaker_colors.size()
-		speaker_colors.append(current_caption.speaker_color)
-		name_picker.add_item(current_caption.speaker_name)
-	else:
-		speaker_colors[current_speaker_id] = current_caption.speaker_color
-		name_picker.set_item_text(current_speaker_id, current_caption.speaker_name)
+func confirm_speaker_name(caption:Caption = current_caption):
+	speaker_colors[caption.speaker_name] = caption.speaker_color
+	update_name_picker()
+
+func update_name_picker():
+	if is_inside_tree():
+		name_picker.clear()
+		for speaker_name in speaker_colors.keys():
+			name_picker.add_item(speaker_name)
+		
 
 func update_speaker_color(color_pick: Button):
 	if not lock_signals:
@@ -146,59 +176,81 @@ func update_caption_text():
 	if not lock_signals:
 		current_caption.text = caption_input.text
 
-func display_caption(caption: Caption = Caption.new()):
-	if caption == null: caption = Caption.new()
-	lock_signals = true
-	
-	var color_button_name
-	match caption.speaker_color:
-		Caption.Colors.AUTOMATIC:
-			color_button_name = "auto"
-		Caption.Colors.WHITE:
-			color_button_name = "white"
-		Caption.Colors.YELLOW:
-			color_button_name = "yellow"
-		Caption.Colors.CYAN:
-			color_button_name = "cyan"
-		Caption.Colors.GREEN:
-			color_button_name = "green"
-		Caption.Colors.PURPLE:
-			color_button_name = "purple"
-		Caption.Colors.VIOLET:
-			color_button_name = "violet"
-		Caption.Colors.SALMON:
-			color_button_name = "salmon"
-		Caption.Colors.BLUE:
-			color_button_name = "blue"
-	for button:Button in color_group.get_buttons():
-		if button.name == color_button_name:
-			button.button_pressed = true
-			break
-	
-	current_speaker_id = -1
-	
-	if not caption.speaker_name == "":
-		for i in range(speaker_colors.size()):
-			if caption.speaker_name == name_picker.get_item_text(i):
-				current_speaker_id = i
-				break
+func update_caption_list(_ignore = null):
+	for child in caption_list.get_children():
+		child.free()
 		
-		if current_speaker_id == -1: confirm_speaker_name()
+	for caption in multi_caption_stream._captions_array: 
+		var button:= CaptionPanelButton.new(caption)
+		caption_list.add_child(button)
+		button.pressed.connect(multi_caption_stream.set.bind("caption", caption))
+
+func current_caption_changed(caption: Caption):
+	current_caption = caption
+
+func update_caption_display():
+	if is_node_ready() and current_caption != null:
+		lock_signals = true
+
+		var color_button_name
+		match current_caption.speaker_color:
+			Caption.Colors.AUTOMATIC:
+				color_button_name = "auto"
+			Caption.Colors.WHITE:
+				color_button_name = "white"
+			Caption.Colors.YELLOW:
+				color_button_name = "yellow"
+			Caption.Colors.CYAN:
+				color_button_name = "cyan"
+			Caption.Colors.GREEN:
+				color_button_name = "green"
+			Caption.Colors.PURPLE:
+				color_button_name = "purple"
+			Caption.Colors.VIOLET:
+				color_button_name = "violet"
+			Caption.Colors.SALMON:
+				color_button_name = "salmon"
+			Caption.Colors.BLUE:
+				color_button_name = "blue"
+		for button:Button in color_group.get_buttons():
+			if button.name == color_button_name:
+				button.button_pressed = true
+			button.disabled = current_caption.speaker_name == ""
 		
-		name_picker.select(current_speaker_id)
-	else:
-		name_input.text = ""
-	
-	(position_group.get_pressed_button().get_parent().get_child(caption.position) as Button).button_pressed = true
-	
-	name_input.text = caption.speaker_name
-	caption_input.text = caption.text
-	extra_input.text = caption.extra_formatting
-	
-	lock_signals = false
+		
+		
+		if not current_caption.speaker_name == "":
+			name_picker.select(speaker_colors.keys().find(current_caption.speaker_color))
+		else:
+			name_input.text = ""
+			name_picker.select(-1)
+		
+		(position_group.get_pressed_button().get_parent().get_child(current_caption.position) as Button).button_pressed = true
+		
+		name_input.text = current_caption.speaker_name
+		caption_input.text = current_caption.text
+		extra_input.text = current_caption.extra_formatting
+		extra_input.editable = current_caption.speaker_name != ""
+		
+		lock_signals = false
+		
+		label.caption = current_caption
+
+func name_picked(id):
+	current_caption.speaker_color = speaker_colors[speaker_colors.keys()[id]]
+	current_caption.speaker_name = speaker_colors.keys()[id]
+	update_caption_display()
 
 func delete_current():
-	multi_caption_stream.erase_caption(current_caption)
+	multi_caption_stream.caption = null
 	
-func add_new():
-	multi_caption_stream.append_caption(Caption.new())
+func add_new():	
+	multi_caption_stream.append_caption(Caption.new(current_time))
+
+func last():
+	if not multi_caption_stream.caption == multi_caption_stream._captions_array[0]:
+		multi_caption_stream.select_caption -= 1
+
+func next():
+	if not multi_caption_stream.caption == multi_caption_stream._captions_array[-1]:
+		multi_caption_stream.select_caption += 1
