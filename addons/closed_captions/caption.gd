@@ -78,6 +78,10 @@ enum Formatting{
 	set(extra):
 		extra_formatting = extra
 		changed.emit()
+@export var force_name_display: bool = false:
+	set(force):
+		force_name_display = force
+		changed.emit()
 @export_group("Timing")
 ## Delay between sound starting and caption popping up.
 @export var delay:float = 0:

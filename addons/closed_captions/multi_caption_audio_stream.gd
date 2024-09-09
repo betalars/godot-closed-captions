@@ -63,6 +63,15 @@ func assign_durations():
 	if _captions_array[-1].duration == 0:
 		_captions_array[-1]._duration = 5
 
+func enable_forced_names():
+	var speakers: Array[String] = []
+	speakers.resize(8)
+	
+	for cap:Caption in _captions_array:
+		if cap.speaker_name != "":
+			cap.force_name_display = speakers[cap.speaker_color] != cap.speaker_name
+			speakers[cap.speaker_color] != cap.speaker_name
+
 func get_length():
 	audio_stream.get_length()
 
