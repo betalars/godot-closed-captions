@@ -1,13 +1,13 @@
 [gd_scene load_steps=13 format=3 uid="uid://cy7elqxb7miku"]
 
-[ext_resource type="Script" path="res://addons/closed_captions/caption_display.gd" id="1_tvqt4"]
-[ext_resource type="Script" path="res://addons/closed_captions/captioned_autio_stream_player.gd" id="2_uk060"]
-[ext_resource type="Script" path="res://addons/closed_captions/caption.gd" id="3_hgtqg"]
+[ext_resource type="Script" uid="uid://bp0m1uwc5s23s" path="res://addons/closed_captions/caption_display.gd" id="1_tvqt4"]
+[ext_resource type="Script" uid="uid://cf6g3k8jbu0ey" path="res://addons/closed_captions/captioned_audio_stream_player.gd" id="2_uk060"]
+[ext_resource type="Script" uid="uid://n6u5h54jsgqu" path="res://addons/closed_captions/caption.gd" id="3_hgtqg"]
 [ext_resource type="Theme" uid="uid://dg5xg7e6qqlgq" path="res://addons/closed_captions/captions.theme" id="6_g7vcn"]
-[ext_resource type="Script" path="res://addons/closed_captions/captioned_audio_stream.gd" id="6_igw1i"]
-[ext_resource type="Script" path="res://addons/closed_captions/caption_label.gd" id="7_11mcf"]
-[ext_resource type="Script" path="res://helper.gd" id="7_knsqo"]
-[ext_resource type="Script" path="res://addons/closed_captions/speaker.gd" id="8_yhohl"]
+[ext_resource type="Script" uid="uid://cvsfy2lmgk4ys" path="res://addons/closed_captions/captioned_audio_stream.gd" id="6_igw1i"]
+[ext_resource type="Script" uid="uid://da0ptt3pnmosg" path="res://addons/closed_captions/caption_label.gd" id="7_11mcf"]
+[ext_resource type="Script" uid="uid://btlwsd7ej2c6r" path="res://helper.gd" id="7_knsqo"]
+[ext_resource type="Script" uid="uid://ktnpjb8thj5s" path="res://addons/closed_captions/speaker.gd" id="8_yhohl"]
 
 [sub_resource type="GDScript" id="GDScript_8tqpr"]
 script/source = "extends Node2D
