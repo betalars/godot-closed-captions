@@ -96,6 +96,7 @@ func _init(from_caption: Caption = Caption.new(), include_name: bool = false, co
 	self.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 
 func _ready():
+	autowrap_mode = TextServer.AUTOWRAP_OFF
 	rebuild()
 
 func rebuild():

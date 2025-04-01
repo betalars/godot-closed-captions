@@ -43,7 +43,9 @@ func _enter_tree():
 	add_custom_type("Caption", "Resource", preload("res://addons/closed_captions/caption.gd"), preload("icons/Caption.svg"))
 	add_custom_type("SimpleCaptionedAudioStream", "Resource", preload("res://addons/closed_captions/captioned_audio_stream.gd"), preload("icons/SimpleCaptionedAudioStream.svg"))
 	add_custom_type("MultiCaptionAudioStream", "CaptionedAudioStream", preload("res://addons/closed_captions/multi_caption_audio_stream.gd"), preload("icons/MultiCaptionAudioStream.svg"))
-	add_custom_type("CaptionedAudioStreamPlayer", "AudioStreamPlayer", preload("res://addons/closed_captions/captioned_autio_stream_player.gd"), preload("icons/CaptionedAudioStreamPlayer.svg"))
+	add_custom_type("CaptionedAudioStreamPlayer", "AudioStreamPlayer", preload("res://addons/closed_captions/captioned_audio_stream_player.gd"), preload("icons/CaptionedAudioStreamPlayer.svg"))
+	add_custom_type("CaptionedAudioStreamPlayer2D", "AudioStreamPlayer", preload("res://addons/closed_captions/captioned_audio_stream_player_2d.gd"), preload("icons/CaptionedAudioStreamPlayer2D.svg"))
+	add_custom_type("CaptionedAudioStreamPlayer3D", "AudioStreamPlayer", preload("res://addons/closed_captions/captioned_audio_stream_player_3d.gd"), preload("icons/CaptionedAudioStreamPlayer3D.svg"))
 	add_custom_type("CaptionLabel", "RichTextLabel", preload("res://addons/closed_captions/caption_label.gd"), preload("icons/CaptionLabel.svg"))
 	add_custom_type("CaptionDisplay", "VBoxContainer", preload("res://addons/closed_captions/caption_display.gd"), preload("icons/CaptionDisplay.svg"))
 	

@@ -64,9 +64,10 @@ var current_time: float = 0:
 
 @onready var audio_player: Object:
 	set(player):
-		assert(player is CaptionedAudioStreamPlayer or player is CaptionedAudioStreamPlayer2D or player is AudioStreamPlayer)
-		audio_player = player
-		multi_caption_stream = audio_player.captioned_stream
+		assert(player is CaptionedAudioStreamPlayer or player is CaptionedAudioStreamPlayer2D or player is AudioStreamPlayer or player == null)
+		if not player == null:
+			audio_player = player
+			multi_caption_stream = audio_player.captioned_stream
 
 var current_caption:Caption:
 	set(caption):
@@ -102,19 +103,20 @@ func _ready():
 	# Connect navigation button signals
 	nav_delete.pressed.connect(delete_current)
 	nav_add.pressed.connect(add_new)
+	nav_play.toggled.connect(toggle_play)
 	nav_last.pressed.connect(last)
 	nav_next.pressed.connect(next)
 	
 	update_caption_display()
 	update_caption_list()
 	
-	print(multi_caption_stream)
-	print(timeline)
 	timeline.multi_caption_stream = multi_caption_stream
 	
 	if audio_player == null:
 		audio_player = CaptionedAudioStreamPlayer.new()
-		add_child(audio_player)
+		
+	#audio_player.new_caption_started.connect(current_caption_changed)
+	audio_player.captioned_stream = multi_caption_stream
 
 func _process(delta: float) -> void:
 	return
@@ -186,6 +188,7 @@ func update_caption_list(_ignore = null):
 		button.pressed.connect(multi_caption_stream.set.bind("caption", caption))
 
 func current_caption_changed(caption: Caption):
+	print("updating current caption")
 	current_caption = caption
 
 func update_caption_display():
@@ -240,6 +243,13 @@ func name_picked(id):
 	current_caption.speaker_color = speaker_colors[speaker_colors.keys()[id]]
 	current_caption.speaker_name = speaker_colors.keys()[id]
 	update_caption_display()
+
+func toggle_play(pressed: bool):
+	if pressed:
+		#FIXME: implement better handling for audioplayer.play, seek and so on ...
+		audio_player.play()
+	else:
+		audio_player.playing = false
 
 func delete_current():
 	multi_caption_stream.caption = null

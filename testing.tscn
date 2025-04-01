@@ -198,7 +198,7 @@ duration = 0.0
 
 [sub_resource type="Resource" id="Resource_hniww"]
 script = ExtResource("3_ojrc2")
-select_caption = 0
+select_caption = 14
 _captions_array = Array[ExtResource("2_o8vlo")]([SubResource("Resource_wa64w"), SubResource("Resource_5fdjd"), SubResource("Resource_lndpt"), SubResource("Resource_1g0h8"), SubResource("Resource_4bnx5"), SubResource("Resource_npr8r"), SubResource("Resource_mo8ok"), SubResource("Resource_p1y83"), SubResource("Resource_pc5ud"), SubResource("Resource_e75l0"), SubResource("Resource_8cm81"), SubResource("Resource_1bclt"), SubResource("Resource_qyomo"), SubResource("Resource_mepef"), SubResource("Resource_v6ia2")])
 caption = SubResource("Resource_wa64w")
 audio_stream = ExtResource("1_f0dlp")

@@ -44,6 +44,7 @@ func rebuild():
 	
 	add_theme_stylebox_override("normal", stylebox)
 	
+	
 	if timescale > -1:
 		stylebox.bg_color = accent_color
 		if caption.duration <= 0 or caption.duration + caption.delay > max_time:
@@ -66,3 +67,12 @@ func rebuild():
 		
 		if caption.special_speaker != null:
 			caption.special_speaker.preview_overrides_on(self)
+
+	var hover:StyleBoxFlat = stylebox.duplicate(true)
+	hover.expand_margin_top = 1
+	hover.expand_margin_bottom = 1
+	hover.border_color = Color.CORNFLOWER_BLUE
+	hover.border_blend = 0
+	hover.set_border_width_all(4)
+	
+	add_theme_stylebox_override("hover", hover)
