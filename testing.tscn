@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://bvoalto1u56ic"]
 
-[ext_resource type="Script" uid="uid://cf6g3k8jbu0ey" path="res://addons/closed_captions/captioned_autio_stream_player.gd" id="1_582kv"]
+[ext_resource type="Script" uid="uid://cf6g3k8jbu0ey" path="res://addons/closed_captions/captioned_audio_stream_player.gd" id="1_582kv"]
 [ext_resource type="AudioStream" uid="uid://ch6dxwlabitpf" path="res://demo/Phasmophobia_No_Evidence.wav" id="1_f0dlp"]
 [ext_resource type="Script" uid="uid://n6u5h54jsgqu" path="res://addons/closed_captions/caption.gd" id="2_o8vlo"]
 [ext_resource type="Script" uid="uid://l3vcjy5wurfi" path="res://addons/closed_captions/multi_caption_audio_stream.gd" id="3_ojrc2"]
@@ -31,7 +31,7 @@ duration = 2.0
 [sub_resource type="Resource" id="Resource_5fdjd"]
 script = ExtResource("2_o8vlo")
 text = "Boy, do I love light switches."
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
@@ -43,7 +43,7 @@ duration = 0.0
 [sub_resource type="Resource" id="Resource_lndpt"]
 script = ExtResource("2_o8vlo")
 text = "Love turning them on and off so much fun."
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
@@ -55,7 +55,7 @@ duration = 0.0
 [sub_resource type="Resource" id="Resource_1g0h8"]
 script = ExtResource("2_o8vlo")
 text = "I love turning on lights"
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
@@ -67,7 +67,7 @@ duration = 0.0
 [sub_resource type="Resource" id="Resource_4bnx5"]
 script = ExtResource("2_o8vlo")
 text = "next to my large collection of throwable objects"
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
@@ -79,7 +79,7 @@ duration = 0.0
 [sub_resource type="Resource" id="Resource_npr8r"]
 script = ExtResource("2_o8vlo")
 text = "and also empty notebooks it would sure suck"
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
@@ -91,7 +91,7 @@ duration = 0.0
 [sub_resource type="Resource" id="Resource_mo8ok"]
 script = ExtResource("2_o8vlo")
 text = "if someone named Carol Thomas showed up"
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
@@ -103,7 +103,7 @@ duration = 0.0
 [sub_resource type="Resource" id="Resource_p1y83"]
 script = ExtResource("2_o8vlo")
 text = "to ruin all my fun."
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
@@ -115,7 +115,7 @@ duration = 0.0
 [sub_resource type="Resource" id="Resource_pc5ud"]
 script = ExtResource("2_o8vlo")
 text = "Carol Thomas, Carol Thomas, Carol Thomas"
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
@@ -139,7 +139,7 @@ duration = 0.0
 [sub_resource type="Resource" id="Resource_8cm81"]
 script = ExtResource("2_o8vlo")
 text = "Hey, I've been here for half an hour"
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
@@ -151,7 +151,7 @@ duration = 0.0
 [sub_resource type="Resource" id="Resource_1bclt"]
 script = ExtResource("2_o8vlo")
 text = "can we please just call this a shade and go home?"
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
@@ -163,7 +163,7 @@ duration = 0.0
 [sub_resource type="Resource" id="Resource_qyomo"]
 script = ExtResource("2_o8vlo")
 text = "We need at least one piece of evidence."
-position = 3
+position = 2
 speaker_name = "Jefferey"
 speaker_color = 2
 speaker_format = 1
@@ -175,7 +175,7 @@ duration = 0.0
 [sub_resource type="Resource" id="Resource_mepef"]
 script = ExtResource("2_o8vlo")
 text = "Do we, tho? I feel like this evidence is pretty conclusive."
-position = 3
+position = 2
 speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
@@ -187,7 +187,7 @@ duration = 0.0
 [sub_resource type="Resource" id="Resource_v6ia2"]
 script = ExtResource("2_o8vlo")
 text = "Let's go trough the cheklist."
-position = 3
+position = 2
 speaker_name = "Jefferey"
 speaker_color = 2
 speaker_format = 1
@@ -222,9 +222,6 @@ script = SubResource("GDScript_kvl3x")
 stream = ExtResource("1_f0dlp")
 script = ExtResource("1_582kv")
 captioned_stream = SubResource("Resource_hniww")
-
-[node name="CaptionedAudioStreamPlayer" type="AudioStreamPlayer" parent="CaptionedAudioStreamPlayer"]
-script = ExtResource("1_582kv")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
