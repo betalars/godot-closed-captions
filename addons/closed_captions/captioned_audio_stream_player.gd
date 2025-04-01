@@ -2,11 +2,13 @@
 extends AudioStreamPlayer
 class_name CaptionedAudioStreamPlayer
 
+signal new_caption_started(caption: Caption)
+
 @export var captioned_stream:SimpleCaptionedAudioStream:
 	set(sub_stream):
 		if not sub_stream == null:
 			stream = sub_stream.audio_stream
-			sub_stream.changed.connect(func f(): _on_resource_changed())
+			sub_stream.audio_stream_replaced.connect(_on_stream_changed)
 		else:
 			stream == null
 		captioned_stream = sub_stream
@@ -26,6 +28,8 @@ func _process(delta):
 		if captioned_stream is MultiCaptionAudioStream:
 			if not captioned_stream.finished or captioned_stream.caption == null:
 				if super.get_playback_position() > captioned_stream.caption.delay:
+					print("Playback: ", get_playback_position(),"caption: ", captioned_stream.caption.delay)
+					#new_caption_started.emit(captioned_stream.caption)
 					CaptionServer.push_caption(self, captioned_stream.caption)
 					captioned_stream.next()
 
@@ -50,19 +54,20 @@ func _play(from_position: float = 0.0):
 		captioned_stream.assign_durations()
 		captioned_stream.select_caption = captioned_stream.get_next_id_by_offset_time(from_position)
 	
-	if captioned_stream.caption == null:
+	if captioned_stream == null or captioned_stream.caption == null:
 		push_warning("CaptionedAudioStream of player %s is playing but missing Captions." % name)
 		return
 	
 	if captioned_stream.caption.delay - from_position > 0:
 		await get_tree().create_timer(captioned_stream.caption.delay - from_position).timeout
+	new_caption_started.emit(captioned_stream.caption)
 	CaptionServer.push_caption(self, captioned_stream.caption)
 	
 	if captioned_stream is MultiCaptionAudioStream:
 		captioned_stream.select_caption += 1
 
-func _on_resource_changed():
-	stream = captioned_stream.audio_stream
+func _on_stream_changed(new_stream: AudioStream):
+	stream = new_stream
 
 func _notification(what: int) -> void:
 	if what == Node.NOTIFICATION_EDITOR_POST_SAVE:

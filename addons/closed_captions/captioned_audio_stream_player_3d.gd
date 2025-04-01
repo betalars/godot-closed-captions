@@ -2,11 +2,13 @@
 extends AudioStreamPlayer3D
 class_name CaptionedAudioStreamPlayer3D
 
+signal new_caption_started(caption: Caption)
+
 @export var captioned_stream:SimpleCaptionedAudioStream:
 	set(sub_stream):
 		if not sub_stream == null:
 			stream = sub_stream.audio_stream
-			sub_stream.changed.connect(func f(): _on_resource_changed())
+			sub_stream.audio_stream_replaced.connect(_on_stream_changed)
 		else:
 			stream == null
 		captioned_stream = sub_stream
@@ -26,6 +28,7 @@ func _process(delta):
 		if captioned_stream is MultiCaptionAudioStream:
 			if not captioned_stream.finished:
 				if super.get_playback_position() > captioned_stream.caption.delay:
+					new_caption_started.emit(captioned_stream.caption)
 					CaptionServer.push_caption_3D(self, captioned_stream.caption)
 					captioned_stream.next()
 
@@ -61,8 +64,8 @@ func _play(from_position: float = 0.0):
 	if captioned_stream is MultiCaptionAudioStream:
 		captioned_stream.select_caption += 1
 
-func _on_resource_changed():
-	stream = captioned_stream.audio_stream
+func _on_stream_changed(new_stream: AudioStream):
+	stream = new_stream
 
 func _notification(what: int) -> void:
 	if what == Node.NOTIFICATION_EDITOR_POST_SAVE:

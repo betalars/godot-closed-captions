@@ -17,10 +17,11 @@ class_name SimpleCaptionedAudioStream
 @export var audio_stream: AudioStream:
 	set(new_stream):
 		audio_stream = new_stream
-		emit_changed()
+		audio_stream_replaced.emit(new_stream)
 
 signal caption_set(caption:Caption)
 signal captions_changed(changed_caption: Caption)
+signal audio_stream_replaced(new_stream: AudioStream)
 
 func get_caption_warnings() -> int:
 	return caption.get_warnings() if caption != null else Caption.ConfigurationWarnings.MISSING
