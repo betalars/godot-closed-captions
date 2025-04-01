@@ -368,7 +368,6 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 8
 script = ExtResource("1_euj1v")
-multi_caption_stream = SubResource("Resource_ghdwf")
 
 [node name="Layout" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -449,6 +448,7 @@ editable = false
 [node name="Timeline" type="VBoxContainer" parent="Layout"]
 layout_mode = 2
 script = ExtResource("5_re1ab")
+time_end = 60.0
 multi_caption_stream = SubResource("Resource_ghdwf")
 
 [node name="TimeLabels" type="HBoxContainer" parent="Layout/Timeline"]
@@ -479,6 +479,7 @@ text = "1"
 
 [node name="TimeSelector" type="HSlider" parent="Layout/Timeline"]
 layout_mode = 2
+max_value = 60.0
 step = 0.0
 allow_greater = true
 allow_lesser = true
@@ -490,36 +491,13 @@ layout_mode = 2
 [node name="Buttons" type="VBoxContainer" parent="Layout/Timeline"]
 layout_mode = 2
 
-[node name="line_1" type="HBoxContainer" parent="Layout/Timeline/Buttons"]
-layout_mode = 2
-
-[node name="VSeparator" type="HSeparator" parent="Layout/Timeline/Buttons/line_1"]
-custom_minimum_size = Vector2(42.145, 0)
-layout_mode = 2
-
-[node name="Button" type="Button" parent="Layout/Timeline/Buttons/line_1"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-
-[node name="VSeparator3" type="HSeparator" parent="Layout/Timeline/Buttons/line_1"]
-custom_minimum_size = Vector2(42.145, 0)
-layout_mode = 2
-
-[node name="Button2" type="Button" parent="Layout/Timeline/Buttons/line_1"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-
-[node name="VSeparator2" type="HSeparator" parent="Layout/Timeline/Buttons/line_1"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
 [node name="HBoxContainer3" type="HBoxContainer" parent="Layout"]
 layout_mode = 2
 theme_override_constants/separation = 32
 alignment = 1
 
 [node name="Speaker_properties" type="GridContainer" parent="Layout/HBoxContainer3"]
+custom_minimum_size = Vector2(512, 0)
 layout_mode = 2
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 6
@@ -531,6 +509,7 @@ text = "Name"
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Layout/HBoxContainer3/Speaker_properties"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="NameInput" type="TextEdit" parent="Layout/HBoxContainer3/Speaker_properties/HSplitContainer"]
 layout_mode = 2
@@ -538,7 +517,7 @@ size_flags_horizontal = 3
 tooltip_text = "Put your Speaker Name here. Name should be as short as possible, for instance use \"Godette\" instead of \"Professor Godette\".
 
 Leave thiss field empty if it is a sound."
-placeholder_text = "blank for SFX"
+placeholder_text = "leave blank for SFX"
 scroll_fit_content_height = true
 script = SubResource("GDScript_q4n24")
 
@@ -547,6 +526,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Choose from already used speakers."
 item_count = 3
+popup/item_0/id = 0
 popup/item_1/text = "Kyle"
 popup/item_1/id = 1
 popup/item_2/text = "Jefferey"
@@ -631,8 +611,8 @@ text = "white"
 [node name="yellow" type="Button" parent="Layout/HBoxContainer3/Speaker_properties/Color"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
 theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
 disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_uuf7x")
@@ -641,8 +621,8 @@ text = "yellow"
 [node name="cyan" type="Button" parent="Layout/HBoxContainer3/Speaker_properties/Color"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_pressed_color = Color(0, 1, 1, 1)
 theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 1, 1)
 disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_uuf7x")
@@ -651,8 +631,8 @@ text = "cyan"
 [node name="green" type="Button" parent="Layout/HBoxContainer3/Speaker_properties/Color"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_pressed_color = Color(0, 1, 0, 1)
 theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 0, 1)
 disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_uuf7x")
@@ -753,6 +733,7 @@ theme = ExtResource("1_rptbq")
 bbcode_enabled = true
 text = "[center]  [color=white][clicking] [/color] [/center]"
 fit_content = true
+autowrap_mode = 0
 script = ExtResource("2_7ifoh")
 caption = SubResource("Resource_wa64w")
 include_name = false
@@ -760,5 +741,3 @@ include_name = false
 [node name="Panel" type="HBoxContainer" parent="Layout"]
 layout_mode = 2
 alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
