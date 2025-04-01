@@ -46,7 +46,7 @@ func get_caption_warnings() -> int:
 	# Bitwise combining all warnigns of all captions.
 	for caption in _captions_array: out |= caption.get_warnings()
 	
-	return out
+	return out if _captions_array != [] else Caption.ConfigurationWarnings.MISSING
 
 ## Sorts Caption by appearance
 func sort_captions():

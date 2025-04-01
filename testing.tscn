@@ -1,14 +1,12 @@
-[gd_scene load_steps=29 format=3 uid="uid://bvoalto1u56ic"]
+[gd_scene load_steps=26 format=3 uid="uid://bvoalto1u56ic"]
 
-[ext_resource type="Script" path="res://addons/closed_captions/captioned_autio_stream_player.gd" id="1_582kv"]
+[ext_resource type="Script" uid="uid://cf6g3k8jbu0ey" path="res://addons/closed_captions/captioned_autio_stream_player.gd" id="1_582kv"]
 [ext_resource type="AudioStream" uid="uid://ch6dxwlabitpf" path="res://demo/Phasmophobia_No_Evidence.wav" id="1_f0dlp"]
-[ext_resource type="Script" path="res://addons/closed_captions/caption.gd" id="2_o8vlo"]
-[ext_resource type="Script" path="res://addons/closed_captions/multi_caption_audio_stream.gd" id="3_ojrc2"]
-[ext_resource type="Script" path="res://addons/closed_captions/caption_display.gd" id="5_moo6n"]
+[ext_resource type="Script" uid="uid://n6u5h54jsgqu" path="res://addons/closed_captions/caption.gd" id="2_o8vlo"]
+[ext_resource type="Script" uid="uid://l3vcjy5wurfi" path="res://addons/closed_captions/multi_caption_audio_stream.gd" id="3_ojrc2"]
+[ext_resource type="Script" uid="uid://bp0m1uwc5s23s" path="res://addons/closed_captions/caption_display.gd" id="5_moo6n"]
 [ext_resource type="Theme" uid="uid://dg5xg7e6qqlgq" path="res://addons/closed_captions/captions.theme" id="6_eoqud"]
-[ext_resource type="Script" path="res://addons/closed_captions/caption_label.gd" id="6_ka0nt"]
-[ext_resource type="Script" path="res://helper.gd" id="8_5t8u6"]
-[ext_resource type="Script" path="res://addons/closed_captions/speaker.gd" id="9_gfor5"]
+[ext_resource type="Script" uid="uid://da0ptt3pnmosg" path="res://addons/closed_captions/caption_label.gd" id="6_ka0nt"]
 
 [sub_resource type="GDScript" id="GDScript_kvl3x"]
 script/source = "extends Node2D
@@ -26,6 +24,7 @@ speaker_name = ""
 speaker_color = 0
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 0.0
 duration = 2.0
 
@@ -37,6 +36,7 @@ speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 0.5
 duration = 0.0
 
@@ -48,6 +48,7 @@ speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 2.0
 duration = 0.0
 
@@ -59,6 +60,7 @@ speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 4.0
 duration = 0.0
 
@@ -70,6 +72,7 @@ speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 5.5
 duration = 0.0
 
@@ -81,6 +84,7 @@ speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 8.4
 duration = 0.0
 
@@ -92,6 +96,7 @@ speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 11.8
 duration = 0.0
 
@@ -103,6 +108,7 @@ speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 14.0
 duration = 0.0
 
@@ -114,6 +120,7 @@ speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 15.0
 duration = 0.0
 
@@ -125,6 +132,7 @@ speaker_name = ""
 speaker_color = 0
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 17.2
 duration = 0.0
 
@@ -136,6 +144,7 @@ speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = "into radio"
+force_name_display = false
 delay = 18.5
 duration = 0.0
 
@@ -147,6 +156,7 @@ speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 20.3
 duration = 0.0
 
@@ -158,6 +168,7 @@ speaker_name = "Jefferey"
 speaker_color = 2
 speaker_format = 1
 extra_formatting = "over the radio"
+force_name_display = false
 delay = 21.87
 duration = 0.0
 
@@ -169,6 +180,7 @@ speaker_name = "Kyle"
 speaker_color = 1
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 23.8
 duration = 0.0
 
@@ -180,14 +192,15 @@ speaker_name = "Jefferey"
 speaker_color = 2
 speaker_format = 1
 extra_formatting = "over the radio"
+force_name_display = false
 delay = 26.5
 duration = 0.0
 
 [sub_resource type="Resource" id="Resource_hniww"]
 script = ExtResource("3_ojrc2")
-select_caption = 14
+select_caption = 0
 _captions_array = Array[ExtResource("2_o8vlo")]([SubResource("Resource_wa64w"), SubResource("Resource_5fdjd"), SubResource("Resource_lndpt"), SubResource("Resource_1g0h8"), SubResource("Resource_4bnx5"), SubResource("Resource_npr8r"), SubResource("Resource_mo8ok"), SubResource("Resource_p1y83"), SubResource("Resource_pc5ud"), SubResource("Resource_e75l0"), SubResource("Resource_8cm81"), SubResource("Resource_1bclt"), SubResource("Resource_qyomo"), SubResource("Resource_mepef"), SubResource("Resource_v6ia2")])
-caption = SubResource("Resource_v6ia2")
+caption = SubResource("Resource_wa64w")
 audio_stream = ExtResource("1_f0dlp")
 
 [sub_resource type="Resource" id="Resource_fl6qq"]
@@ -198,35 +211,9 @@ speaker_name = ""
 speaker_color = 0
 speaker_format = 0
 extra_formatting = ""
+force_name_display = false
 delay = 0.0
 duration = 0.0
-
-[sub_resource type="Resource" id="Resource_nvu7y"]
-script = ExtResource("9_gfor5")
-name = &""
-preferred_colour = 0
-theme = Object(GDScriptNativeClass,"script":null)
-
-override_font_color = false
-font_color = Color(0, 0, 0, 1)
-override_font_shadow = false
-font_shadow = Color(0, 0, 0, 1)
-override_font_outline = false
-font_outline = Color(0, 0, 0, 1)
-override_line_spacing = false
-line_spacing = 0
-override_shadow_offset_x = false
-shadow_offset_x = 0
-override_shadow_offset_y = false
-shadow_offset_y = 0
-override_outline_size = false
-outline_size = 0
-override_shadow_size = false
-shadow_size = 0
-override_font_size = false
-font_size = 0
-override_italic_font_size = false
-italic_font_size = 0
 
 [node name="Node2D" type="Node2D"]
 script = SubResource("GDScript_kvl3x")
@@ -260,6 +247,7 @@ offset_bottom = 623.0
 alignment = 2
 
 [node name="CaptionLabel" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 theme = ExtResource("6_eoqud")
@@ -270,7 +258,3 @@ autowrap_mode = 0
 script = ExtResource("6_ka0nt")
 caption = SubResource("Resource_fl6qq")
 include_name = false
-
-[node name="Node2D" type="Node2D" parent="VBoxContainer/CaptionLabel"]
-script = ExtResource("8_5t8u6")
-helper = SubResource("Resource_nvu7y")

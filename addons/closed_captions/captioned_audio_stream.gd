@@ -23,7 +23,7 @@ signal caption_set(caption:Caption)
 signal captions_changed(changed_caption: Caption)
 
 func get_caption_warnings() -> int:
-	return caption.get_warnings()
+	return caption.get_warnings() if caption != null else Caption.ConfigurationWarnings.MISSING
 	
 func has_neutral_positioning() -> bool:
 	return caption.has_neutral_positioning()

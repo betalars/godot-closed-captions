@@ -1,6 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://g2mcm6xmmfbd"]
 
-[ext_resource type="AudioStream" uid="uid://wb2vmhn87lx3" path="res://04 Staatstrojaner.wav" id="1_ur7nu"]
+[sub_resource type="Resource" id="Resource_0aljc"]
+metadata/__load_path__ = "res://04 Staatstrojaner.wav"
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_wq33d"]
 viewport_path = NodePath("SubViewport")
@@ -21,7 +22,7 @@ disable_3d = true
 audio_listener_enable_2d = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SubViewport"]
-stream = ExtResource("1_ur7nu")
+stream = SubResource("Resource_0aljc")
 autoplay = true
 
 [node name="Sprite3D" type="Sprite3D" parent="."]

@@ -16,7 +16,7 @@ closed_captions/global_cast_save_path="res://global_cast.res"
 
 config/name="captions"
 run/main_scene="res://addons/closed_captions/caption_panel.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://addons/closed_captions/icon.svg"
 
 [autoload]

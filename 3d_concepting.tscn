@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ywlbvtj64kh7"]
 
-[ext_resource type="Script" path="res://addons/closed_captions/captioned_autio_stream_player_3d.gd" id="1_5b6cu"]
+[ext_resource type="Script" uid="uid://bjqcqbt7niy0s" path="res://addons/closed_captions/captioned_autio_stream_player_3d.gd" id="1_5b6cu"]
 
 [node name="3D_concepting" type="Node3D"]
 

@@ -30,6 +30,7 @@ enum Colors {
 }
 
 enum ConfigurationWarnings {
+	MISSING,
 	EMPTY,
 	TOO_LONG,
 	MISSING_SPEAKER,
