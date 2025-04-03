@@ -30,7 +30,7 @@ var caption_stacks: Array[Array]
 	get():
 		return time_begin + (time_scale * 60)
 @export var time_cursor: float
-@export var multi_caption_stream: MultiCaptionAudioStream:
+@export var multi_caption_stream: CaptionSequenceAudioStream:
 	set(new):
 		if multi_caption_stream!= null:
 			multi_caption_stream.captions_changed.disconnect(populate)
@@ -100,7 +100,7 @@ func generate_stack() -> void:
 	
 	var depth = 0
 	var last_end = -1
-	for caption in multi_caption_stream._captions_array:
+	for caption in multi_caption_stream._caption_array:
 		if last_end > caption.delay:
 			depth += 1
 			if depth > caption_stacks.size()-1:

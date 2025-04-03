@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b1e7y2c1fvuo8" path="res://addons/closed_captions/captioned_audio_stream_player_2d.gd" id="1_yrmh6"]
 [ext_resource type="Script" uid="uid://cf6g3k8jbu0ey" path="res://addons/closed_captions/captioned_audio_stream_player.gd" id="2_wlams"]
-[ext_resource type="Script" uid="uid://l3vcjy5wurfi" path="res://addons/closed_captions/multi_caption_audio_stream.gd" id="3_arttc"]
+[ext_resource type="Script" uid="uid://l3vcjy5wurfi" path="res://addons/closed_captions/caption_sequence_audio_stream.gd" id="3_arttc"]
 [ext_resource type="Script" uid="uid://n6u5h54jsgqu" path="res://addons/closed_captions/caption.gd" id="3_vqbco"]
 
 [sub_resource type="Resource" id="Resource_j7m8a"]
@@ -32,8 +32,7 @@ duration = 0.0
 [sub_resource type="Resource" id="Resource_jilg5"]
 script = ExtResource("3_arttc")
 select_caption = 1
-_captions_array = Array[ExtResource("3_vqbco")]([SubResource("Resource_j7m8a"), SubResource("Resource_ogdqu")])
-caption = SubResource("Resource_ogdqu")
+_caption_array = Array[ExtResource("3_vqbco")]([SubResource("Resource_j7m8a"), SubResource("Resource_ogdqu")])
 
 [node name="Node2D" type="Node2D"]
 

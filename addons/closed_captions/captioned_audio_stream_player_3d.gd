@@ -4,7 +4,7 @@ class_name CaptionedAudioStreamPlayer3D
 
 signal new_caption_started(caption: Caption)
 
-@export var captioned_stream:SimpleCaptionedAudioStream:
+@export var captioned_stream:CaptionedAudioStream:
 	set(sub_stream):
 		if not sub_stream == null:
 			stream = sub_stream.audio_stream
@@ -22,10 +22,12 @@ func _set(property: StringName, value: Variant) -> bool:
 func _ready():
 	if autoplay and not Engine.is_editor_hint():
 		_play()
+		
+	new_caption_started.connect(CaptionServer.push_caption)
 
 func _process(delta):
 	if playing:
-		if captioned_stream is MultiCaptionAudioStream:
+		if captioned_stream is CaptionSequenceAudioStream:
 			if not captioned_stream.finished:
 				if super.get_playback_position() > captioned_stream.caption.delay:
 					new_caption_started.emit(captioned_stream.caption)
@@ -37,10 +39,10 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if captioned_stream == null: return warnings
 	if captioned_stream.audio_stream != stream: warnings.append("Set Stream in \"Captioned Stream\", not in AudioPlayer.")
 	var caption_warnings:int = captioned_stream.get_caption_warnings()
-	if bool(caption_warnings & 2**Caption.ConfigurationWarnings.MISSING): warnings.append("No captions have been set up yet.")
-	if bool(caption_warnings & 2**Caption.ConfigurationWarnings.EMPTY): warnings.append("Some Captions are empty.")
-	if bool(caption_warnings & 2**Caption.ConfigurationWarnings.TOO_LONG): warnings.append("Some captions are too longer, than 15 words.")
-	if bool(caption_warnings & 2**Caption.ConfigurationWarnings.MISSING_SPEAKER): warnings.append("Some captions have spoken text formatting but no spaker name.")
+	if bool(caption_warnings & 2**CaptionedAudioStream.ConfigurationWarnings.MISSING): warnings.append("No captions have been set up yet.")
+	if bool(caption_warnings & 2**CaptionedAudioStream.ConfigurationWarnings.EMPTY): warnings.append("Some Captions are empty.")
+	if bool(caption_warnings & 2**CaptionedAudioStream.ConfigurationWarnings.TOO_LONG): warnings.append("Some captions are too longer, than 15 words.")
+	if bool(caption_warnings & 2**CaptionedAudioStream.ConfigurationWarnings.MISSING_SPEAKER): warnings.append("Some captions have spoken text formatting but no spaker name.")
 	return warnings
 
 func play(from_position: float = 0.0):
@@ -48,21 +50,17 @@ func play(from_position: float = 0.0):
 	self._play(from_position)
 
 func _play(from_position: float = 0.0):
-	if captioned_stream is MultiCaptionAudioStream:
-		captioned_stream.sort_captions()
-		captioned_stream.assign_durations()
-		captioned_stream.select_caption = captioned_stream.get_next_id_by_offset_time(from_position)
-	
-	if captioned_stream.caption == null:
+	if captioned_stream == null:
 		push_warning("CaptionedAudioStream of player %s is playing but missing Captions." % name)
 		return
 	
-	if captioned_stream.caption.delay - from_position > 0:
-		await get_tree().create_timer(captioned_stream.caption.delay - from_position).timeout
-	CaptionServer.push_caption_3D(self, captioned_stream.caption)
+	if captioned_stream.get_displaying_caption(from_position):
+		new_caption_started.emit(captioned_stream.get_displaying_caption(from_position))
+	await get_tree().create_timer(captioned_stream.get_delay(from_position))
 	
-	if captioned_stream is MultiCaptionAudioStream:
-		captioned_stream.select_caption += 1
+	while captioned_stream.get_queued_caption(get_playback_position()) != null and playing:
+		new_caption_started.emit(captioned_stream.get_displaying_caption(get_playback_position()))
+		await  get_tree().create_timer(captioned_stream.get_delay(get_playback_position()))
 
 func _on_stream_changed(new_stream: AudioStream):
 	stream = new_stream

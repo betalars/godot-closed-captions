@@ -29,14 +29,6 @@ enum Colors {
 	BLUE,
 }
 
-enum ConfigurationWarnings {
-	MISSING,
-	EMPTY,
-	TOO_LONG,
-	MISSING_SPEAKER,
-	SET_POSITION
-}
-
 enum Formatting{
 	## For Characters on screen or within the same scene
 	NEUTRAL,
@@ -111,8 +103,8 @@ enum Formatting{
 		if new_duration >= 0:
 			duration = new_duration
 		else:
+			duration = 0
 			push_warning("Cannot set duration of Caption to negative value. Use 0 for automatic duration.")
-		_duration = duration
 		
 		changed.emit()
 
@@ -125,15 +117,12 @@ func _init(initial_time_offset = 0) -> void:
 
 var previous: Caption
 
-## Hidden duration field for storing automatically generated durations (they do not effect the manually configured duration)
-var _duration:float = duration
-
 ## Checks if caption is empty or too long.
 func get_warnings() -> int:
 	var is_empty:int = int(text != "")
-	var is_long:int = int(text.split(" ").size() < 15) << ConfigurationWarnings.TOO_LONG
-	var is_missing: int = int(speaker_name == "" and (speaker_color != Colors.AUTOMATIC or speaker_format != Formatting.NEUTRAL or extra_formatting != "")) << ConfigurationWarnings.MISSING_SPEAKER
-	var is_positioned: int = int(position != Positions.CENTER) << ConfigurationWarnings.SET_POSITION
+	var is_long:int = int(text.split(" ").size() < 15) << CaptionedAudioStream.ConfigurationWarnings.TOO_LONG
+	var is_missing: int = int(speaker_name == "" and (speaker_color != Colors.AUTOMATIC or speaker_format != Formatting.NEUTRAL or extra_formatting != "")) << CaptionedAudioStream.ConfigurationWarnings.MISSING_SPEAKER
+	var is_positioned: int = int(position != Positions.CENTER) << CaptionedAudioStream.ConfigurationWarnings.SET_POSITION
 	
 	return is_empty & is_long  & is_missing & is_positioned
 

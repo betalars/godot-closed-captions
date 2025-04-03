@@ -1,9 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://bvoalto1u56ic"]
+[gd_scene load_steps=30 format=3 uid="uid://bvoalto1u56ic"]
 
 [ext_resource type="Script" uid="uid://cf6g3k8jbu0ey" path="res://addons/closed_captions/captioned_audio_stream_player.gd" id="1_582kv"]
-[ext_resource type="AudioStream" uid="uid://ch6dxwlabitpf" path="res://demo/Phasmophobia_No_Evidence.wav" id="1_f0dlp"]
 [ext_resource type="Script" uid="uid://n6u5h54jsgqu" path="res://addons/closed_captions/caption.gd" id="2_o8vlo"]
-[ext_resource type="Script" uid="uid://l3vcjy5wurfi" path="res://addons/closed_captions/multi_caption_audio_stream.gd" id="3_ojrc2"]
+[ext_resource type="Script" uid="uid://l3vcjy5wurfi" path="res://addons/closed_captions/caption_sequence_audio_stream.gd" id="3_ojrc2"]
 [ext_resource type="Script" uid="uid://bp0m1uwc5s23s" path="res://addons/closed_captions/caption_display.gd" id="5_moo6n"]
 [ext_resource type="Theme" uid="uid://dg5xg7e6qqlgq" path="res://addons/closed_captions/captions.theme" id="6_eoqud"]
 [ext_resource type="Script" uid="uid://da0ptt3pnmosg" path="res://addons/closed_captions/caption_label.gd" id="6_ka0nt"]
@@ -198,10 +197,8 @@ duration = 0.0
 
 [sub_resource type="Resource" id="Resource_hniww"]
 script = ExtResource("3_ojrc2")
-select_caption = 14
-_captions_array = Array[ExtResource("2_o8vlo")]([SubResource("Resource_wa64w"), SubResource("Resource_5fdjd"), SubResource("Resource_lndpt"), SubResource("Resource_1g0h8"), SubResource("Resource_4bnx5"), SubResource("Resource_npr8r"), SubResource("Resource_mo8ok"), SubResource("Resource_p1y83"), SubResource("Resource_pc5ud"), SubResource("Resource_e75l0"), SubResource("Resource_8cm81"), SubResource("Resource_1bclt"), SubResource("Resource_qyomo"), SubResource("Resource_mepef"), SubResource("Resource_v6ia2")])
-caption = SubResource("Resource_wa64w")
-audio_stream = ExtResource("1_f0dlp")
+_caption_array = Array[ExtResource("2_o8vlo")]([SubResource("Resource_wa64w"), SubResource("Resource_5fdjd"), SubResource("Resource_lndpt"), SubResource("Resource_1g0h8"), SubResource("Resource_4bnx5"), SubResource("Resource_npr8r"), SubResource("Resource_mo8ok"), SubResource("Resource_p1y83"), SubResource("Resource_pc5ud"), SubResource("Resource_e75l0"), SubResource("Resource_8cm81"), SubResource("Resource_1bclt"), SubResource("Resource_qyomo"), SubResource("Resource_mepef"), SubResource("Resource_v6ia2")])
+max_automatic_duration = 5.0
 
 [sub_resource type="Resource" id="Resource_fl6qq"]
 script = ExtResource("2_o8vlo")
@@ -215,11 +212,42 @@ force_name_display = false
 delay = 0.0
 duration = 0.0
 
+[sub_resource type="Animation" id="Animation_ybq6y"]
+resource_name = "new_animation"
+length = 10.0
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("guenther", "test"),
+"times": PackedFloat32Array(1.63333, 4.73333)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_11ixh"]
+_data = {
+&"new_animation": SubResource("Animation_ybq6y")
+}
+
+[sub_resource type="Animation" id="Animation_20t1u"]
+resource_name = "guenther"
+length = 2.0
+
+[sub_resource type="Animation" id="Animation_w078t"]
+resource_name = "test"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fd6ls"]
+_data = {
+&"guenther": SubResource("Animation_20t1u"),
+&"test": SubResource("Animation_w078t")
+}
+
 [node name="Node2D" type="Node2D"]
 script = SubResource("GDScript_kvl3x")
 
 [node name="CaptionedAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("1_f0dlp")
 script = ExtResource("1_582kv")
 captioned_stream = SubResource("Resource_hniww")
 
@@ -255,3 +283,13 @@ autowrap_mode = 0
 script = ExtResource("6_ka0nt")
 caption = SubResource("Resource_fl6qq")
 include_name = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_11ixh")
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationPlayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_fd6ls")
+}

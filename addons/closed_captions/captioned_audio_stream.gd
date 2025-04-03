@@ -1,34 +1,43 @@
 @tool
 extends Resource
-class_name SimpleCaptionedAudioStream
+class_name CaptionedAudioStream
 
-@export var caption:Caption:
-	set(new_caption):
-		if caption != null:
-			caption.changed.disconnect(captions_changed.emit)
-		caption = new_caption
-		# calls a special handle if this is one of its child classes. This is as close as I could get to overlaying a set function.
-		if self is MultiCaptionAudioStream:
-			handle_caption_set(caption)
-		if caption != null:
-			caption.changed.connect(captions_changed.emit)
-		caption_set.emit(caption)
-		emit_changed()
+enum ConfigurationWarnings {
+	MISSING,
+	EMPTY,
+	TOO_LONG,
+	MISSING_SPEAKER,
+	SET_POSITION,
+	ROOT_RESOURCE
+}
+
 @export var audio_stream: AudioStream:
 	set(new_stream):
 		audio_stream = new_stream
 		audio_stream_replaced.emit(new_stream)
 
-signal caption_set(caption:Caption)
+## Configure the maximum time captions with an automatic duration will be displayed.
+@export var max_automatic_duration: float = 5.0
+
 signal captions_changed(changed_caption: Caption)
 signal audio_stream_replaced(new_stream: AudioStream)
 
-func get_caption_warnings() -> int:
-	return caption.get_warnings() if caption != null else Caption.ConfigurationWarnings.MISSING
-	
-func has_neutral_positioning() -> bool:
-	return caption.has_neutral_positioning()
+## Returns the currently displaying caption at the given position. Returns null if no caption is displaying.
+func get_displaying_caption(at_time: float) -> Caption:
+	return null
 
-# See comment in set(new_caption)
-func handle_caption_set(caption: Caption):
-	assert(false)
+## Returns the next Caption to be displayed after a given position. Will return null from a position that is equal to or larger to the highest delay.
+func get_queued_caption(at_time: float) -> Caption:
+	return null
+
+## Returns the delay from a given position to the next Caption. Will return -1 if no captions are left.
+func get_delay(from_position: float, include_current: bool = false) -> float:
+	return -1
+
+## Calculates Configuration Warnings that will displayed by an AudioStreamPlayer.
+func get_caption_warnings() -> int:
+	return ConfigurationWarnings.ROOT_RESOURCE
+
+## Returns true if all Captions in the Stream have neutral positions.
+func has_neutral_positioning() -> bool:
+	return true

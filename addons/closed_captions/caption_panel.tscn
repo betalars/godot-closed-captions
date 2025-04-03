@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://da0ptt3pnmosg" path="res://addons/closed_captions/caption_label.gd" id="2_7ifoh"]
 [ext_resource type="AudioStream" uid="uid://ch6dxwlabitpf" path="res://demo/Phasmophobia_No_Evidence.wav" id="2_aot4b"]
 [ext_resource type="Script" uid="uid://n6u5h54jsgqu" path="res://addons/closed_captions/caption.gd" id="3_wdwpm"]
-[ext_resource type="Script" uid="uid://l3vcjy5wurfi" path="res://addons/closed_captions/multi_caption_audio_stream.gd" id="4_uskjc"]
+[ext_resource type="Script" uid="uid://l3vcjy5wurfi" path="res://addons/closed_captions/caption_sequence_audio_stream.gd" id="4_uskjc"]
 [ext_resource type="Script" uid="uid://n6bi5qhwfbxo" path="res://addons/closed_captions/caption_panel_timeline.gd" id="5_re1ab"]
 [ext_resource type="Texture2D" uid="uid://ccxnfnwsva2uf" path="res://addons/closed_captions/icons/PlayStartBackwards.svg" id="5_ye21x"]
 [ext_resource type="Texture2D" uid="uid://8ej20n3eckem" path="res://addons/closed_captions/icons/Play.svg" id="6_1y88t"]
@@ -200,10 +200,9 @@ duration = 2.0
 
 [sub_resource type="Resource" id="Resource_ghdwf"]
 script = ExtResource("4_uskjc")
-select_caption = 14
-_captions_array = Array[ExtResource("3_wdwpm")]([SubResource("Resource_wa64w"), SubResource("Resource_5fdjd"), SubResource("Resource_lndpt"), SubResource("Resource_1g0h8"), SubResource("Resource_4bnx5"), SubResource("Resource_npr8r"), SubResource("Resource_mo8ok"), SubResource("Resource_p1y83"), SubResource("Resource_pc5ud"), SubResource("Resource_e75l0"), SubResource("Resource_8cm81"), SubResource("Resource_1bclt"), SubResource("Resource_qyomo"), SubResource("Resource_mepef"), SubResource("Resource_v6ia2")])
-caption = SubResource("Resource_wa64w")
+_caption_array = Array[ExtResource("3_wdwpm")]([SubResource("Resource_wa64w"), SubResource("Resource_5fdjd"), SubResource("Resource_lndpt"), SubResource("Resource_1g0h8"), SubResource("Resource_4bnx5"), SubResource("Resource_npr8r"), SubResource("Resource_mo8ok"), SubResource("Resource_p1y83"), SubResource("Resource_pc5ud"), SubResource("Resource_e75l0"), SubResource("Resource_8cm81"), SubResource("Resource_1bclt"), SubResource("Resource_qyomo"), SubResource("Resource_mepef"), SubResource("Resource_v6ia2")])
 audio_stream = ExtResource("2_aot4b")
+max_automatic_duration = 5.0
 
 [sub_resource type="GDScript" id="GDScript_ajg5t"]
 script/source = "extends Control

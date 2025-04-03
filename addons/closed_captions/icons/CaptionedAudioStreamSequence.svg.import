@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf0vjcidoov1m"
-path="res://.godot/imported/MultiCaptionAudioStream.svg-d74e5845ead0d94ff074b70209fc69f2.ctex"
+uid="uid://mwhqsaaujmln"
+path="res://.godot/imported/CaptionedAudioStreamSequence.svg-da3894554ce5bb72855d6285d6772569.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/closed_captions/icons/MultiCaptionAudioStream.svg"
-dest_files=["res://.godot/imported/MultiCaptionAudioStream.svg-d74e5845ead0d94ff074b70209fc69f2.ctex"]
+source_file="res://addons/closed_captions/icons/CaptionedAudioStreamSequence.svg"
+dest_files=["res://.godot/imported/CaptionedAudioStreamSequence.svg-da3894554ce5bb72855d6285d6772569.ctex"]
 
 [params]
 

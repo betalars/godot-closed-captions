@@ -2,7 +2,7 @@
 extends MarginContainer
 class_name CaptionsPanel
 
-@export var multi_caption_stream: MultiCaptionAudioStream:
+@export var multi_caption_stream: CaptionSequenceAudioStream:
 	set(stream):
 		if stream != null:
 			if multi_caption_stream != null:
@@ -15,7 +15,7 @@ class_name CaptionsPanel
 				multi_caption_stream.caption_set.connect(current_caption_changed)
 				current_caption = multi_caption_stream.caption
 				speaker_colors = {}
-				for caption in multi_caption_stream._captions_array:
+				for caption in multi_caption_stream._caption_array:
 					confirm_speaker_name(caption)
 				if is_node_ready():
 					#TODO: remove current caption from this entirely?
@@ -76,7 +76,9 @@ var current_caption:Caption:
 		current_caption = caption
 		if current_caption != null:
 			current_caption.changed.connect(update_caption_display)
-		#if not audio_player.playing:
+		print("gothere")
+		if not audio_player.playing:
+			print("gothere")
 			current_time = caption.delay
 		update_caption_display()
 
@@ -114,9 +116,6 @@ func _ready():
 	
 	if audio_player == null:
 		audio_player = CaptionedAudioStreamPlayer.new()
-		
-	#audio_player.new_caption_started.connect(current_caption_changed)
-	audio_player.captioned_stream = multi_caption_stream
 
 func _process(delta: float) -> void:
 	return
@@ -182,7 +181,7 @@ func update_caption_list(_ignore = null):
 	for child in caption_list.get_children():
 		child.free()
 		
-	for caption in multi_caption_stream._captions_array: 
+	for caption in multi_caption_stream._caption_array: 
 		var button:= CaptionPanelButton.new(caption)
 		caption_list.add_child(button)
 		button.pressed.connect(multi_caption_stream.set.bind("caption", caption))
@@ -258,9 +257,9 @@ func add_new():
 	multi_caption_stream.append_caption(Caption.new(current_time))
 
 func last():
-	if not multi_caption_stream.caption == multi_caption_stream._captions_array[0]:
+	if not multi_caption_stream.caption == multi_caption_stream._caption_array[0]:
 		multi_caption_stream.select_caption -= 1
 
 func next():
-	if not multi_caption_stream.caption == multi_caption_stream._captions_array[-1]:
+	if not multi_caption_stream.caption == multi_caption_stream._caption_array[-1]:
 		multi_caption_stream.select_caption += 1
